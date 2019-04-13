@@ -1,8 +1,11 @@
-# Gamefic::Standard
+# Gamefic Standard
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/gamefic/standard`. To experiment with that code, run `bin/console` for an interactive prompt.
+The standard library for the Gamefic interactive fiction framework.
 
-TODO: Delete this and the text above, and describe your gem
+Gamefic Standard provides common useful components for adventure games. [Inform](http://inform7.com/)
+developers should find it similar to Inform's Standard Rules. It defines common
+components like Rooms and Characters, along with in-game commands like `GO`,
+`GET`, and `DROP` to enable basic interactivity.
 
 ## Installation
 
@@ -22,7 +25,25 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+Require the library in your game scripts:
+
+```ruby
+require 'gamefic'
+require 'gamefic-standard'
+
+Gamefic.script do
+  @office = make Room, name: 'office'
+  @desk = make Fixture, name: 'desk', parent: @office
+
+  introduction do |actor|
+    actor.parent = @office
+    actor.tell "You're in an office."
+  end
+end
+```
+
+Go to the [Gamefic website](https://gamefic.com) or the [SDK repo](https://github.com/castwide/gamefic-sdk)
+for more information about using Gamefic.
 
 ## Development
 
