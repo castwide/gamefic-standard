@@ -1,4 +1,4 @@
-script 'standard/clothing/actions/doff'
-script 'standard/clothing/actions/drop'
-script 'standard/clothing/actions/inventory'
-script 'standard/clothing/actions/wear'
+require 'gamefic-standard/clothing/actions/doff'
+require 'gamefic-standard/clothing/actions/drop'
+require 'gamefic-standard/clothing/actions/inventory'
+require 'gamefic-standard/clothing/actions/wear'

@@ -1,4 +1,4 @@
 # @gamefic.script standard/clothing
 
-script 'standard/clothing/entities'
-script 'standard/clothing/actions'
+require 'gamefic-standard/clothing/entities'
+require 'gamefic-standard/clothing/actions'

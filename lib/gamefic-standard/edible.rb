@@ -11,11 +11,13 @@ class Thing
   include Edibility
 end
 
-respond :eat, Use.available do |actor, item|
-  actor.tell "You can't eat #{the item}."
-end
+Gamefic.script do
+  respond :eat, Use.available do |actor, item|
+    actor.tell "You can't eat #{the item}."
+  end
 
-respond :eat, Use.available(:edible?) do |actor, item|
-  actor.tell "You eat #{the item}."
-  destroy item
+  respond :eat, Use.available(:edible?) do |actor, item|
+    actor.tell "You eat #{the item}."
+    destroy item
+  end
 end

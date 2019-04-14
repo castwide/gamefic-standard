@@ -16,28 +16,30 @@ module Openable
   end
 end
 
-respond :open, Use.available do |actor, thing|
-  actor.tell "You can't open #{the thing}."
-end
-
-respond :open, Use.available(Openable) do |actor, thing|
-  if thing.open?
-    actor.tell "#{The thing} is already open."
-  else
-    actor.tell "You open #{the thing}."
-    thing.open = true
+Gamefic.script do
+  respond :open, Use.available do |actor, thing|
+    actor.tell "You can't open #{the thing}."
   end
-end
 
-respond :close, Use.available do |actor, thing|
-  actor.tell "You can't close #{the thing}."
-end
+  respond :open, Use.available(Openable) do |actor, thing|
+    if thing.open?
+      actor.tell "#{The thing} is already open."
+    else
+      actor.tell "You open #{the thing}."
+      thing.open = true
+    end
+  end
 
-respond :close, Use.available(Openable) do |actor, thing|
-  if thing.open?
-    actor.tell "You close #{the thing}."
-    thing.open = false
-  else
-    actor.tell "#{The thing} is already open."
+  respond :close, Use.available do |actor, thing|
+    actor.tell "You can't close #{the thing}."
+  end
+
+  respond :close, Use.available(Openable) do |actor, thing|
+    if thing.open?
+      actor.tell "You close #{the thing}."
+      thing.open = false
+    else
+      actor.tell "#{The thing} is already open."
+    end
   end
 end
