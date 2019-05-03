@@ -1,5 +1,6 @@
 require 'gamefic'
 
+require 'gamefic-standard/version'
 require 'gamefic-standard/articles'
 require 'gamefic-standard/you'
 require 'gamefic-standard/queries'

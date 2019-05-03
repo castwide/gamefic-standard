@@ -1,5 +1,8 @@
 require "bundler/setup"
-require "gamefic/standard"
+require 'simplecov'
+SimpleCov.start
+
+require "gamefic-standard"
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure

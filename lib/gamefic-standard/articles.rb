@@ -8,14 +8,7 @@ module Articles
   def a(entity)
     entity.indefinitely
   end
-
-  # Alias for a.
-  #
-  # @param entity [Gamefic::Entity]
-  # @return [String]
-  def an(entity)
-    entity.indefinitely
-  end
+  alias an a
 
   # Get a name for the entity with a definite article (unless the entity has
   # a proper name).
@@ -34,14 +27,7 @@ module Articles
   def A(entity)
     entity.indefinitely.cap_first
   end
-
-  # Alias for A.
-  #
-  # @param entity [Gamefic::Entity]
-  # @return [String]
-  def An(entity)
-    entity.indefinitely.cap_first
-  end
+  alias An A
 
   # Get a capitalized name for the entity with a definite article (unless
   # the entity has a proper name).

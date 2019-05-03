@@ -1,0 +1,76 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+
+        {
+            "name": "Debug Local File",
+            "type": "Ruby",
+            "request": "launch",
+            "cwd": "${workspaceRoot}",
+            "program": "${workspaceRoot}/test.rb"
+        },
+        {
+            "name": "Listen for rdebug-ide",
+            "type": "Ruby",
+            "request": "attach",
+            "cwd": "${workspaceRoot}",
+            "remoteHost": "127.0.0.1",
+            "remotePort": "1234",
+            "remoteWorkspaceRoot": "${workspaceRoot}",
+        },
+        {
+            "name": "RSpec - all",
+            "type": "Ruby",
+            "request": "launch",
+            "cwd": "${workspaceRoot}",
+            "program": "C:\\Ruby\\bin\\rspec",
+            "args": [
+                "-I",
+                "${workspaceRoot}"
+            ]
+        },
+        {
+            "name": "RSpec - active spec file with bundler",
+            "type": "Ruby",
+            "request": "launch",
+            "cwd": "${workspaceRoot}",
+            "program": "C:\\Ruby\\bin\\rspec",
+            "args": [
+                "-I",
+                "${workspaceRoot}",
+                "${file}"
+            ],
+            "useBundler": true,
+            "pathToBundler": "C:\\Ruby\\bin\\bundle.bat",
+            "pathToRDebugIDE": "C:\\Ruby\\bin\\rdebug-ide"
+        },
+        {
+            "name": "RSpec - active spec file",
+            "type": "Ruby",
+            "request": "launch",
+            "cwd": "${workspaceRoot}",
+            "program": "C:\\Ruby\\bin\\rspec",
+            "args": [
+                "-I",
+                "${workspaceRoot}",
+                "${file}"
+            ]
+        },
+        {
+            "name": "Debug Active File",
+            "type": "Ruby",
+            "request": "launch",
+            "cwd": "${workspaceRoot}",
+            "program": "${file}",
+            "args": [
+            ]
+        },
+        {
+            "name": "Cucumber",
+            "type": "Ruby",
+            "request": "launch",
+            "cwd": "${workspaceRoot}",
+            "program": "${workspaceRoot}/bin/cucumber"
+        }
+    ]
+}

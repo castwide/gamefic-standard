@@ -53,7 +53,7 @@ class Thing < Gamefic::Entity
   end
 
   def parent= p
-    attached = false unless p == parent
+    self.attached = false unless p == parent
     super
   end
 
