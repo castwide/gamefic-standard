@@ -23,7 +23,7 @@ Gamefic.script do
   end
 
   respond :go, Use.text do |actor, string|
-    actor.tell "You #{you.contract(you.verb.do + ' not')} see any exit \"#{string}\" from here."
+    actor.tell "You don't see any exit \"#{string}\" from here."
   end
 
   respond :go do |actor|

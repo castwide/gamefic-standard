@@ -1,7 +1,7 @@
 Gamefic.script do
   respond :drop, Use.family() do |actor, thing|
     if thing.parent != actor
-      actor.tell "#{you.contract you.pronoun.Subj + ' ' + you.verb.be} not carrying #{the thing}."
+      actor.tell "You're not carrying #{the thing}."
     else
       actor.proceed
     end
@@ -9,7 +9,7 @@ Gamefic.script do
 
   respond :drop, Use.children do |actor, thing|
     if thing.sticky?
-      actor.tell thing.sticky_message || "You #{you.verb.need} to keep #{the thing} for now."
+      actor.tell thing.sticky_message || "You need to keep #{the thing} for now."
     else
       thing.parent = actor.parent
       actor.tell "You drop #{the thing}."

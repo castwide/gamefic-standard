@@ -1,12 +1,12 @@
 # script 'standard'
 Gamefic.script do
   respond :insert, Use.available, Use.available do |actor, thing, target|
-    actor.tell "You #{you.contract you.verb.can + ' not'} put #{the thing} inside #{the target}."
+    actor.tell "You can't put #{the thing} inside #{the target}."
   end
 
   respond :insert, Use.children, Use.available(Receptacle) do |actor, thing, receptacle|
     if thing.sticky?
-      actor.tell thing.sticky_message || "You #{you.verb.need} to keep #{the thing} for now."
+      actor.tell thing.sticky_message || "You need to keep #{the thing} for now."
     else
       actor.tell "You put #{the thing} in #{the receptacle}."
       thing.parent = receptacle
@@ -17,7 +17,7 @@ Gamefic.script do
     if thing.parent == actor
       actor.proceed
     else
-      actor.tell "You #{you.contract you.verb.do + ' not'} have #{the thing}."
+      actor.tell "You don't have #{the thing}."
     end
   end
 
