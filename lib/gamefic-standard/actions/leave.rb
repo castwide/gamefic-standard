@@ -4,14 +4,14 @@ Gamefic.script do
   end
 
   respond :leave, Use.parent(Enterable, :enterable?) do |actor, thing|
-    actor.tell "#{you.pronoun.Subj} #{you.verb[thing.leave_verb]} #{the thing}."
+    actor.tell "You #{you.verb[thing.leave_verb]} #{the thing}."
     actor.parent = thing.parent
   end
 
   respond :leave, Use.room do |actor, room|
     portals = room.children.that_are(Portal)
     if portals.length == 0
-      actor.tell "#{you.pronoun.Subj} #{you.contract you.verb.do + ' not'} see any obvious exits."
+      actor.tell "You #{you.contract you.verb.do + ' not'} see any obvious exits."
     elsif portals.length == 1
       actor.perform :go, portals[0]
     else

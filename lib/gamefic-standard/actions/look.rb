@@ -41,7 +41,7 @@ Gamefic.script do
 
   respond :look, Use.parent(Supporter, :enterable?) do |actor, supporter|
     actor.proceed
-    actor.tell "#{you.pronoun.Subj} are currently on #{the supporter}."
+    actor.tell "You are currently on #{the supporter}."
   end
 
   respond :look, Use.room do |actor, room|
@@ -76,7 +76,7 @@ Gamefic.script do
       end
     }
     if itemsum.length > 0
-      actor.tell "#{you.pronoun.Subj} #{you.verb.see} #{itemsum.join_and}."
+      actor.tell "You #{you.verb.see} #{itemsum.join_and}."
     end
     with_locales.each { |entity|
       actor.tell entity.locale_description
@@ -97,7 +97,7 @@ Gamefic.script do
       end
     end
     if actor.parent.kind_of?(Supporter)
-      actor.tell "#{you.pronoun.Subj} #{you.verb.be} on #{the actor.parent}."
+      actor.tell "You #{you.verb.be} on #{the actor.parent}."
       actor.parent.children.that_are_not(actor).each { |s|
         actor.tell "#{A s} is on #{the actor.parent}."
       }

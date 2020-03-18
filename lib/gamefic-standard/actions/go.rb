@@ -9,7 +9,7 @@ Gamefic.script do
       else
         actor.parent = portal.destination
         if !portal.direction.nil?
-          actor.tell "#{you.pronoun.Subj} go #{portal.direction}."
+          actor.tell "You go #{portal.direction}."
         end
         actor.tell "<strong>#{actor.room.name.cap_first}</strong>"
         actor.execute :_describe_destination
@@ -23,7 +23,7 @@ Gamefic.script do
   end
 
   respond :go, Use.text do |actor, string|
-    actor.tell "#{you.pronoun.Subj} #{you.contract(you.verb.do + ' not')} see any exit \"#{string}\" from here."
+    actor.tell "You #{you.contract(you.verb.do + ' not')} see any exit \"#{string}\" from here."
   end
 
   respond :go do |actor|

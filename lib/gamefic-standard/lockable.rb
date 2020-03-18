@@ -30,7 +30,7 @@ end
 
 Gamefic.script do
   respond :lock, Use.available do |actor, thing|
-    actor.tell "#{you.pronoun.Subj} #{you.contract you.verb.can + ' not'} lock #{the thing}."
+    actor.tell "You #{you.contract you.verb.can + ' not'} lock #{the thing}."
   end
 
   respond :_toggle_lock, Use.available(Lockable, :has_lock_key?) do |actor, thing|
@@ -40,9 +40,9 @@ Gamefic.script do
       key = thing.lock_key
     end
     if key.nil?
-      actor.tell "#{you.pronoun.Subj} #{you.contract you.verb.do + ' not'} have any way to #{verb} #{the thing}."
+      actor.tell "You #{you.contract you.verb.do + ' not'} have any way to #{verb} #{the thing}."
     else
-      actor.tell "#{you.pronoun.Subj} #{you.verb['verb']} #{the thing} with #{the key}."
+      actor.tell "You #{you.verb['verb']} #{the thing} with #{the key}."
       thing.locked = !thing.locked?
     end
   end
@@ -51,7 +51,7 @@ Gamefic.script do
     if thing.lock_key == key
       actor.perform :_toggle_lock, thing
     else
-      actor.tell "#{you.pronoun.Subj} #{you.contract you.verb.can + ' not'} unlock #{the thing} with #{the key}."
+      actor.tell "You #{you.contract you.verb.can + ' not'} unlock #{the thing} with #{the key}."
     end
   end
 
@@ -61,14 +61,14 @@ Gamefic.script do
   end
 
   respond :unlock, Use.available do |actor, thing|
-    actor.tell "#{you.pronoun.Subj} #{you.contract you.verb.can + ' not'} unlock #{the thing}."
+    actor.tell "You #{you.contract you.verb.can + ' not'} unlock #{the thing}."
   end
 
   respond :unlock, Use.available(Lockable, :has_lock_key?), Use.children do |actor, thing, key|
     if thing.lock_key == key
       actor.perform :_toggle_lock, thing
     else
-      actor.tell "#{you.pronoun.Subj} #{you.contract you.verb.can + ' not'} unlock #{the thing} with #{the key}."
+      actor.tell "You #{you.contract you.verb.can + ' not'} unlock #{the thing} with #{the key}."
     end
   end
 

@@ -1,6 +1,6 @@
 Gamefic.script do
   respond :talk do |actor|
-    actor.tell "#{you.pronoun.Subj} #{you.verb.talk} to #{you.pronoun.reflex}."
+    actor.tell "You #{you.verb.talk} to yourself."
   end
 
   respond :talk, Use.itself do |actor, yourself|
