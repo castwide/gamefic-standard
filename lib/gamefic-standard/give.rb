@@ -1,6 +1,6 @@
 # @gamefic.script standard/give
 
-respond :give, Use.available, Gamefic::Query::Children.new do |actor, character, gift|
+respond :give, Use.available, Gamefic::Query::Children.new do |actor, _character, gift|
   actor.tell "Nothing happens."
 end
 
@@ -12,7 +12,7 @@ respond :give, Use.available(Character), Use.available do |actor, character, gif
   end
 end
 
-respond :give, Use.available(Character), Use.available do |actor, character, gift|
+respond :give, Use.available(Character), Use.available do |actor, _character, gift|
   if gift.parent == actor
     actor.proceed
   else
@@ -20,7 +20,7 @@ respond :give, Use.available(Character), Use.available do |actor, character, gif
   end
 end
 
-respond :give, Use.text, Use.available do |actor, character, gift|
+respond :give, Use.text, Use.available do |actor, character, _gift|
   actor.tell "You don't see any \"#{character}\" here."
 end
 
