@@ -8,5 +8,3 @@ require 'gamefic-standard/entities/room'
 require 'gamefic-standard/entities/scenery'
 require 'gamefic-standard/entities/rubble'
 require 'gamefic-standard/entities/supporter'
-
-class Entity < Gamefic::Entity; end
