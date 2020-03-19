@@ -2,6 +2,9 @@ Gamefic.script do
   respond :look, Use.text do |actor, string|
     if string == 'around'
       actor.perform :look, actor.room
+    elsif string =~ /self|myself|me/
+      actor.tell actor.description
+      actor.perform :inventory
     else
       actor.tell "You don't see any \"#{string}\" here."
     end

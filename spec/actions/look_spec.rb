@@ -30,11 +30,11 @@ RSpec.describe 'Look action' do
     expect(actor.messages).to include('thing')
   end
 
-  # it 'looks at itself' do
-  #   plot = Gamefic::Plot.new
-  #   actor = plot.get_player_character
-  #   actor.description = 'my description'
-  #   actor.perform "look self"
-  #   expect(actor.messages).to include(actor.description)
-  # end
+  it 'looks at itself' do
+    plot = Gamefic::Plot.new
+    actor = plot.get_player_character
+    actor.description = 'my description'
+    actor.perform "look self"
+    expect(actor.messages).to include(actor.description)
+  end
 end
