@@ -78,4 +78,6 @@ Gamefic.script do
   end
 
   interpret "lock :container with :key", "lock :container :key"
+  interpret "unlock :container with :key", "unlock :container :key"
+  interpret "open :container with :key", "unlock :container :key"
 end
