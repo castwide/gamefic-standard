@@ -1,7 +1,8 @@
 # @gamefic.script standard/openable
 
+# A module for entities that are openable.
+#
 module Openable
-  attr_writer :openable
   def open= bool
     @open = bool
   end
