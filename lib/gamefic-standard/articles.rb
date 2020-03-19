@@ -1,5 +1,4 @@
 module Articles
-
   # Get a name for the entity with an indefinite article (unless the entity
   # has a proper name).
   #
@@ -24,19 +23,22 @@ module Articles
   #
   # @param entity [Gamefic::Entity]
   # @return [String]
-  def A(entity)
+  def a_(entity)
     entity.indefinitely.cap_first
   end
-  alias An A
+  alias an_ a_
+  alias A a_
+  alias An a_
 
   # Get a capitalized name for the entity with a definite article (unless
   # the entity has a proper name).
   #
   # @param entity [Gamefic::Entity]
   # @return [String]
-  def The(entity)
+  def the_(entity)
     entity.definitely.cap_first
   end
+  alias The the_
 end
 
 class Gamefic::Plot
