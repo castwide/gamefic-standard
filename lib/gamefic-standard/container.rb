@@ -6,7 +6,6 @@ require 'gamefic-standard/lockable'
 class Container < Receptacle
   include Openable
   include Lockable
-  #include Transparent
 end
 
 Gamefic.script do
