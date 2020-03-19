@@ -77,6 +77,14 @@ Gamefic.script do
     actor.proceed if key.parent == actor
   end
 
+  respond :open, Use.available(Lockable) do |actor, thing|
+    if thing.locked?
+      actor.tell "#{The thing} is locked."
+    else
+      actor.proceed
+    end
+  end
+
   interpret "lock :container with :key", "lock :container :key"
   interpret "unlock :container with :key", "unlock :container :key"
   interpret "open :container with :key", "unlock :container :key"
