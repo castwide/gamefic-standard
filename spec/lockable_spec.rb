@@ -73,4 +73,57 @@ RSpec.describe Lockable do
     actor.perform 'open safe'
     expect(plot.pick('safe')).not_to be_open
   end
+
+  it 'opens closed objects without keys' do
+    plot = Gamefic::Plot.new
+    plot.stage do
+      room = make Room, name: 'room'
+      safe_class = Class.new(Thing)
+      safe_class.include Lockable
+      make safe_class, name: 'safe', parent: room, open: false
+      introduction do |actor|
+        actor.parent = room
+      end
+    end
+    actor = plot.get_player_character
+    plot.introduce actor
+    actor.perform 'open safe'
+    expect(plot.pick('safe')).to be_open
+  end
+
+  it 'cannot be simultaneously open and locked' do
+    plot = Gamefic::Plot.new
+    safe_class = Class.new(Thing)
+    safe_class.include Lockable
+    safe = plot.make safe_class, name: 'safe', open: true, locked: true
+    expect(safe).to be_closed
+    expect(safe).to be_locked
+  end
+
+  it 'can be closed and unlocked' do
+    plot = Gamefic::Plot.new
+    safe_class = Class.new(Thing)
+    safe_class.include Lockable
+    safe = plot.make safe_class, name: 'safe', open: false, locked: false
+    expect(safe).to be_closed
+    expect(safe).not_to be_locked
+  end
+
+  it 'opens closed and unlocked objects' do
+    plot = Gamefic::Plot.new
+    plot.stage do
+      room = make Room, name: 'room'
+      safe_class = Class.new(Thing)
+      safe_class.include Lockable
+      key = make Thing, name: 'key'
+      make safe_class, name: 'safe', parent: room, locked: false, open: false, lock_key: key
+      introduction do |actor|
+        actor.parent = room
+      end
+    end
+    actor = plot.get_player_character
+    plot.introduce actor
+    actor.perform 'open safe'
+    expect(plot.pick('safe')).to be_open
+  end
 end
