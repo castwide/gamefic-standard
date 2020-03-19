@@ -1,4 +1,6 @@
 class Thing < Gamefic::Entity
+  include Grammar::Attributes
+
   attr_writer :itemized
 
   attr_writer :sticky

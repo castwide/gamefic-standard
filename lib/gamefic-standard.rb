@@ -1,6 +1,7 @@
 require 'gamefic'
 
 require 'gamefic-standard/version'
+require 'gamefic-standard/grammar'
 require 'gamefic-standard/articles'
 require 'gamefic-standard/queries'
 require 'gamefic-standard/modules'
