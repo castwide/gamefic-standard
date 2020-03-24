@@ -4,6 +4,6 @@ RSpec.describe 'Nil action' do
     actor = plot.get_player_character
     plot.introduce actor
     actor.perform 'unknown_command'
-    expect(actor.output).to include("I don't recognize")
+    expect(actor.messages).to include("I don't recognize")
   end
 end
