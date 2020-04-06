@@ -1,4 +1,6 @@
 class Direction
+  include Gamefic::Serialize
+
   attr_accessor :name, :adjective, :adverb, :reverse
 
   def initialize args = {}
