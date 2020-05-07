@@ -5,11 +5,7 @@ respond :give, Use.available, Gamefic::Query::Children.new do |actor, _character
 end
 
 respond :give, Use.available(Character), Use.available do |actor, character, gift|
-  if gift.sticky?
-    actor.tell gift.sticky_message || "You need to keep #{the gift} for now."
-  else
-    actor.tell "#{The character} doesn't want #{the gift}."
-  end
+  actor.tell "#{The character} doesn't want #{the gift}."
 end
 
 respond :give, Use.available(Character), Use.available do |actor, _character, gift|

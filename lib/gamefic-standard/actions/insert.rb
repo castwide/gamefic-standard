@@ -5,12 +5,8 @@ Gamefic.script do
   end
 
   respond :insert, Use.children, Use.available(Receptacle) do |actor, thing, receptacle|
-    if thing.sticky?
-      actor.tell thing.sticky_message || "You need to keep #{the thing} for now."
-    else
-      actor.tell "You put #{the thing} in #{the receptacle}."
-      thing.parent = receptacle
-    end
+    actor.tell "You put #{the thing} in #{the receptacle}."
+    thing.parent = receptacle
   end
 
   respond :insert, Use.available, Use.available(Receptacle) do |actor, thing, receptacle|

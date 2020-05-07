@@ -8,12 +8,8 @@ Gamefic.script do
   end
 
   respond :drop, Use.children do |actor, thing|
-    if thing.sticky?
-      actor.tell thing.sticky_message || "You need to keep #{the thing} for now."
-    else
-      thing.parent = actor.parent
-      actor.tell "You drop #{the thing}."
-    end
+    thing.parent = actor.parent
+    actor.tell "You drop #{the thing}."
   end
 
   interpret "put down :thing", "drop :thing"

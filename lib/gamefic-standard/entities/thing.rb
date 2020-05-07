@@ -3,8 +3,6 @@ class Thing < Gamefic::Entity
 
   attr_writer :itemized
 
-  attr_writer :sticky
-
   attr_writer :portable
 
   # An optional description to use when itemizing entities in room
@@ -13,13 +11,7 @@ class Thing < Gamefic::Entity
   #
   attr_accessor :locale_description
 
-  # A message to be displayed in response to DROP actions when the entity is
-  # sticky.
-  #
-  attr_accessor :sticky_message
-
   set_default itemized: true
-  set_default sticky: false
   set_default portable: false
 
   # Itemized entities are automatically listed in room descriptions.
@@ -27,13 +19,6 @@ class Thing < Gamefic::Entity
   # @return [Boolean]
   def itemized?
     @itemized
-  end
-
-  # Sticky entities cannot be dropped with DROP actions
-  #
-  # @return [Boolean]
-  def sticky?
-    @sticky
   end
 
   # Portable entities can be taken with TAKE actions.

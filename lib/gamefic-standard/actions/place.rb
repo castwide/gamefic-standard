@@ -14,12 +14,8 @@ Gamefic.script do
   end
 
   respond :place, Use.children, Use.reachable(Supporter) do |actor, thing, supporter|
-    if thing.sticky?
-      actor.tell thing.sticky_message || "You need to keep #{the thing} for now."
-    else
-      thing.parent = supporter
-      actor.tell "You put #{the thing} on #{the supporter}."
-    end
+    thing.parent = supporter
+    actor.tell "You put #{the thing} on #{the supporter}."
   end
 
   respond :place, Use.visible, Use.text do |actor, thing, supporter|
