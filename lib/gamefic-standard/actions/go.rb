@@ -11,15 +11,9 @@ Gamefic.script do
         if !portal.direction.nil?
           actor.tell "You go #{portal.direction}."
         end
-        actor.tell "<strong>#{actor.room.name.cap_first}</strong>"
-        actor.execute :_describe_destination
-        actor.execute :_itemize_room
+        actor.perform :look
       end
     end
-  end
-
-  meta :_describe_destination do |actor|
-    actor.tell actor.room.description if actor.room.has_description?
   end
 
   respond :go, Use.text do |actor, string|
