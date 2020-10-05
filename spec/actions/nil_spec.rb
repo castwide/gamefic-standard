@@ -6,4 +6,21 @@ RSpec.describe 'Nil action' do
     actor.perform 'unknown_command'
     expect(actor.messages).to include("I don't recognize")
   end
+
+  it 'reports ambiguous tokens' do
+    plot = Gamefic::Plot.new
+    room = plot.make Room
+    item1 = plot.make Item, name: 'item 1', parent: room
+    item2 = plot.make Item, name: 'item 2', parent: room
+    plot.respond :foobar, Item do |actor, item|
+      item.parent = actor
+    end
+    actor = plot.get_player_character
+    plot.introduce actor
+    actor.parent = room
+    actor.perform 'foobar item'
+    expect(actor.children).to be_empty
+    expect(actor.messages).to include(item1.name)
+    expect(actor.messages).to include(item2.name)
+  end
 end

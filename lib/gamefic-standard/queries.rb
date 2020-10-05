@@ -20,6 +20,12 @@ class Gamefic::Query::Room < Gamefic::Query::Base
   end
 end
 
+class Gamefic::Query::Ambiguous < Gamefic::Query::Available
+  def ambiguous?
+    true
+  end
+end
+
 Gamefic.script do
   set_default_query Gamefic::Query::Available
 end
