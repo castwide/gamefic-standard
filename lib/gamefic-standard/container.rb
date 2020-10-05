@@ -9,7 +9,7 @@ class Container < Receptacle
 end
 
 Gamefic.script do
-  respond :insert, Use.available, Use.available(Container) do |actor, thing, container|
+  respond :insert, Use.available, Use.available(Container) do |actor, _thing, container|
     if container.open?
       actor.proceed
     else

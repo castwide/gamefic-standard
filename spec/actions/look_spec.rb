@@ -10,7 +10,7 @@ RSpec.describe 'Look action' do
     end
     actor = plot.get_player_character
     plot.introduce actor
-    actor.perform "look thing"
+    actor.perform 'look thing'
     expect(actor.messages).to include(plot.pick('thing').description)
   end
 
@@ -25,7 +25,7 @@ RSpec.describe 'Look action' do
     end
     actor = plot.get_player_character
     plot.introduce actor
-    actor.perform "look"
+    actor.perform 'look'
     expect(actor.messages).to include(plot.pick('room').description)
     expect(actor.messages).to include('thing')
   end
@@ -35,7 +35,7 @@ RSpec.describe 'Look action' do
     actor = plot.get_player_character
     actor.synonyms = 'self'
     actor.description = 'my description'
-    actor.perform "look self"
+    actor.perform 'look self'
     expect(actor.messages).to include(actor.description)
   end
 
@@ -44,7 +44,7 @@ RSpec.describe 'Look action' do
     room = plot.make Room, name: 'room', description: 'the room description'
     actor = plot.get_player_character
     actor.parent = room
-    actor.perform "look"
+    actor.perform 'look'
     expect(actor.messages).to include(room.description)
   end
 
@@ -53,7 +53,7 @@ RSpec.describe 'Look action' do
     room = plot.make Room, name: 'room', description: 'the room description'
     actor = plot.get_player_character
     actor.parent = room
-    actor.perform "look around"
+    actor.perform 'look around'
     expect(actor.messages).to include(room.description)
   end
 
@@ -64,7 +64,7 @@ RSpec.describe 'Look action' do
     attachment = plot.make Thing, parent: thing, name: 'attachment', attached: true
     actor = plot.get_player_character
     actor.parent = room
-    actor.perform "look thing"
+    actor.perform 'look thing'
     expect(actor.messages).to include(attachment.name)
   end
 
@@ -75,8 +75,8 @@ RSpec.describe 'Look action' do
     thing = plot.make Thing, parent: supporter, name: 'thing'
     actor = plot.get_player_character
     actor.parent = room
-    actor.perform "look supporter"
-    expect(actor.messages).to include("thing")
+    actor.perform 'look supporter'
+    expect(actor.messages).to include('thing')
   end
 
   it 'sees supported entities' do
@@ -86,8 +86,8 @@ RSpec.describe 'Look action' do
     thing = plot.make Thing, parent: supporter, name: 'thing'
     actor = plot.get_player_character
     actor.parent = room
-    actor.perform "look supporter"
-    expect(actor.messages).to include("thing")
+    actor.perform 'look supporter'
+    expect(actor.messages).to include(thing.name)
   end
 
   it 'sees receptacled entities' do
@@ -97,17 +97,17 @@ RSpec.describe 'Look action' do
     thing = plot.make Thing, parent: receptacle, name: 'thing'
     actor = plot.get_player_character
     actor.parent = room
-    actor.perform "look receptacle"
-    expect(actor.messages).to include("thing")
+    actor.perform 'look receptacle'
+    expect(actor.messages).to include(thing.name)
   end
 
   it 'sees locale descriptions' do
     plot = Gamefic::Plot.new
     room = plot.make Room, name: 'room'
-    thing = plot.make Thing, name: 'thing', parent: room, locale_description: "The long description of the thing"
+    thing = plot.make Thing, name: 'thing', parent: room, locale_description: 'The long description of the thing'
     actor = plot.get_player_character
     actor.parent = room
-    actor.perform "look"
+    actor.perform 'look'
     expect(actor.messages).to include(thing.locale_description)
   end
 end
