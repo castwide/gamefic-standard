@@ -23,4 +23,20 @@ RSpec.describe 'Nil action' do
     expect(actor.messages).to include(item1.name)
     expect(actor.messages).to include(item2.name)
   end
+
+  it 'reports unrecognized tokens' do
+    plot = Gamefic::Plot.new
+    room = plot.make Room
+    item1 = plot.make Item, name: 'item 1', parent: room
+    item2 = plot.make Item, name: 'item 2', parent: room
+    plot.respond :foobar, Item do |actor, item|
+      item.parent = actor
+    end
+    actor = plot.get_player_character
+    plot.introduce actor
+    actor.parent = room
+    actor.perform 'foobar nothing'
+    expect(actor.children).to be_empty
+    expect(actor.messages).to include("could not understand the rest")
+  end
 end

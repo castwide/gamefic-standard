@@ -4,9 +4,11 @@ Gamefic.script do
     list = verbs
     if list.include?(words[0])
       if words.length > 1
-        found = Gamefic::Query::Ambiguous.new.context_from(actor)
-        if found.length < 2
-          actor.tell "I recognize '#{words[0]}' as a verb but could not understand the rest of your sentence."
+        found = Gamefic::Query::Ambiguous.new.resolve(actor, words[1..-1].join(' ')).objects
+        if found.empty?
+          actor.tell %(I recognize "#{words[0]}" as a verb but could not understand the rest of your sentence.)
+        elsif found.one?
+          actor.tell %(I recognize "#{words[0]}" and "#{the found.first}" but could not understand it in this context.)
         else
           actor.tell %(I'm not sure if "#{words[1..-1].join(' ')}" means #{found.map(&:definitely).join_or}.)
         end
