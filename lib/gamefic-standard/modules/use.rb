@@ -36,7 +36,7 @@ module Use
   end
 
   def self.itself *args
-    Gamefic::Query::Room.new *args
+    Gamefic::Query::Itself.new *args
   end
 
   def self.from objects, *args

@@ -7,10 +7,6 @@ class Room < Thing
     @explicit_exits
   end
 
-  def synonyms
-    @synonyms.to_s + " around here room"
-  end
-
   def tell(message)
     children.each { |c|
       c.tell message

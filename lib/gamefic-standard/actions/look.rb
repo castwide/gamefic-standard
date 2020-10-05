@@ -1,10 +1,7 @@
 Gamefic.script do
   respond :look, Use.text do |actor, string|
-    if string == 'around'
+    if string == 'here'
       actor.perform :look, actor.room
-    elsif string =~ /self|myself|me/
-      actor.tell actor.description
-      actor.perform :inventory
     else
       actor.tell "You don't see any \"#{string}\" here."
     end
@@ -23,15 +20,11 @@ Gamefic.script do
   end
 
   respond :look, Use.available(Supporter) do |actor, thing|
-    if thing.accessible?
-      itemized = thing.children.that_are_not(:attached?).that_are(:itemized?)
-      # If the supporter does not have a description but it does contain
-      # itemized things, avoid saying there's nothing special about it.
-      actor.proceed if thing.has_description? or itemized.empty?
-      actor.tell "You see #{itemized.join_and} on #{the thing}." unless itemized.empty?
-    else
-      actor.proceed
-    end
+    itemized = thing.children.that_are_not(:attached?).that_are(:itemized?)
+    # If the supporter does not have a description but it does contain
+    # itemized things, avoid saying there's nothing special about it.
+    actor.proceed if thing.has_description? || itemized.empty?
+    actor.tell "You see #{itemized.join_and} on #{the thing}." unless itemized.empty?
   end
 
   respond :look, Use.available(Receptacle) do |actor, thing|
@@ -107,8 +100,9 @@ Gamefic.script do
     end
   end
 
-  interpret "look", "look around"
-  interpret "l", "look around"
+  interpret "look around", "look here"
+  interpret "look", "look here"
+  interpret "l", "look here"
 
   interpret "look at :thing", "look :thing"
   interpret "l :thing", "look :thing"
