@@ -54,4 +54,22 @@ RSpec.describe 'insert action' do
     actor.perform 'insert thing container'
     expect(plot.entities[1].parent).not_to eq(plot.entities[2])
   end
+
+  it 'does not insert a child in a non-container' do
+    plot = Gamefic::Plot.new
+    plot.stage do
+      room = make Room
+      make Thing, name: 'thing', parent: room
+      item = make Item, name: 'item'
+      introduction do |actor|
+        actor.parent = room
+        item.parent = actor
+      end
+    end
+    actor = plot.get_player_character
+    plot.introduce actor
+    actor.perform 'put item in thing'
+    expect(actor.messages).to include("can't put")
+    expect(plot.pick('item').parent).to be(actor)
+  end
 end
