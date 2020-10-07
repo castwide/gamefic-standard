@@ -2,6 +2,16 @@ class Portal < Thing
   # @return [Gamefic::Entity]
   attr_accessor :destination
 
+  # Get the ordinal direction of this Portal
+  # Portals have distinct direction and name properties so games can display a
+  # bare compass direction for exits, e.g., "south" vs. "the southern door."
+  #
+  # A portal's destination can also be nil, in which case it can be referenced
+  # in commands by its destination, e.g., "go to the house."
+  #
+  # @return [Direction, nil]
+  attr_reader :direction
+
   # Find the portal in the destination that returns to this portal's parent
   #
   # @return [Room, nil]
@@ -12,17 +22,8 @@ class Portal < Thing
     end
   end
 
-  # Get the ordinal direction of this Portal
-  # Portals have distinct direction and name properties so games can display a
-  # bare compass direction for exits, e.g., "south" vs. "the southern door."
-  #
-  # @return [Direction]
-  def direction
-    @direction
-  end
-
-  def direction= d
-    @direction = Direction.find(d)
+  def direction= dir
+    @direction = Direction.find(dir)
   end
 
   def name

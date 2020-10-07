@@ -50,7 +50,10 @@ class Direction
       @compass
     end
 
+    # @param dir [Direction, string]
+    # @return [Direction, nil]
     def find(dir)
+      return dir if dir.is_a?(Direction)
       compass[dir.to_s.downcase.to_sym]
     end
   end
