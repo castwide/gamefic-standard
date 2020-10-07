@@ -14,10 +14,16 @@ RSpec.describe Thing do
   end
 
   it 'detaches from parents' do
-    container = Thing.new
-    entity = Thing.new parent: container
+    parent = Thing.new
+    entity = Thing.new parent: parent
     entity.attached = true
     entity.parent = nil
     expect(entity).not_to be_attached
+  end
+
+  it 'does not attach to nil parents' do
+    thing = Thing.new
+    thing.attached = true
+    expect(thing).not_to be_attached
   end
 end
