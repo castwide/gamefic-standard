@@ -1,20 +1,15 @@
 class Portal < Thing
+  # @return [Gamefic::Entity]
   attr_accessor :destination
 
   # Find the portal in the destination that returns to this portal's parent
   #
-  # @return [Room]
+  # @return [Room, nil]
   def find_reverse
     return nil if destination.nil?
-    rev = direction.reverse
-    if rev != nil
-      destination.children.that_are(Portal).each { |c|
-        if c.direction == rev
-          return c
-        end
-      }
+    destination.children.that_are(Portal).find do |portal|
+      portal.destination == parent
     end
-    nil
   end
 
   # Get the ordinal direction of this Portal
