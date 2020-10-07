@@ -1,5 +1,3 @@
-require 'gamefic-standard/container'
-
 RSpec.describe 'insert action' do
   it 'inserts a child in a receptacle' do
     plot = Gamefic::Plot.new

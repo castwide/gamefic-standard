@@ -1,5 +1,3 @@
-# @gamefic.script standard/container
-
 require 'gamefic-standard/openable'
 require 'gamefic-standard/lockable'
 
