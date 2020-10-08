@@ -13,10 +13,10 @@ Gamefic.script do
           actor.tell %(I'm not sure if "#{words[1..-1].join(' ')}" means #{found.map(&:definitely).join_or}.)
         end
       else
-        actor.tell "I recognize '#{words[0]}' as a verb but could not understand it in this context."
+        actor.tell %(I recognize "#{words[0]}" as a verb but could not understand it in this context.)
       end
     else
-      actor.tell "I don't recognize '#{words[0]}' as a verb."
+      actor.tell %(I don't recognize "#{words[0]}" as a verb.)
     end
   end
 
