@@ -1,10 +1,10 @@
 Gamefic.script do
   respond :look, Use.text do |actor, string|
-    if string == 'here'
-      actor.perform :look, actor.room
-    else
-      actor.tell "You don't see any \"#{string}\" here."
-    end
+    actor.tell "You don't see any \"#{string}\" here."
+  end
+
+  respond :look, Use.text(/^here$/i) do |actor, _|
+    actor.perform :look, actor.room
   end
 
   respond :look, Use.itself do |actor, thing|

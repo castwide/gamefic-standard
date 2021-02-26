@@ -110,4 +110,16 @@ RSpec.describe 'Look action' do
     actor.perform 'look'
     expect(actor.messages).to include(thing.locale_description)
   end
+
+  it 'catches unrecognized objects' do
+    plot = Gamefic::Plot.new
+    room = plot.make Room, name: 'room'
+    thing = plot.make Thing, name: 'thing', parent: room, description: 'The thing'
+    actor = plot.get_player_character
+    actor.parent = room
+    actor.perform 'look doodad'
+    expect(actor.messages).not_to include(thing.description)
+    expect(actor.messages).to include("don't see")
+    expect(actor.messages).to include('doodad')
+  end
 end
