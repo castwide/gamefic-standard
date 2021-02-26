@@ -7,7 +7,7 @@ Gamefic.script do
     actor.perform :look, actor.room
   end
 
-  respond :look, Use.itself do |actor, thing|
+  respond :look, Use.itself do |actor, _|
     actor.tell actor.description
     actor.perform :inventory
   end
@@ -64,13 +64,13 @@ Gamefic.script do
     end
     items = room.children.that_are(:itemized?) - [actor] - room.children.that_are(Character) - room.children.that_are(Portal)
     itemsum = []
-    items.each { |item|
+    items.each do |item|
       if item.locale_description.nil?
         itemsum.push item
       else
         with_locales.push item
       end
-    }
+    end
     if itemsum.length > 0
       actor.tell "You see #{itemsum.join_and}."
     end
@@ -92,7 +92,7 @@ Gamefic.script do
         end
       end
     end
-    if actor.parent.kind_of?(Supporter)
+    if actor.parent.is_a?(Supporter)
       actor.tell "You are on #{the actor.parent}."
       actor.parent.children.that_are_not(actor).each { |s|
         actor.tell "#{A s} is on #{the actor.parent}."
@@ -100,12 +100,12 @@ Gamefic.script do
     end
   end
 
-  interpret "look around", "look here"
-  interpret "look", "look here"
-  interpret "l", "look here"
+  interpret 'look around', 'look here'
+  interpret 'look', 'look here'
+  interpret 'l', 'look here'
 
-  interpret "look at :thing", "look :thing"
-  interpret "l :thing", "look :thing"
-  interpret "examine :thing", "look :thing"
-  interpret "x :thing", "look :thing"
+  interpret 'look at :thing', 'look :thing'
+  interpret 'l :thing', 'look :thing'
+  interpret 'examine :thing', 'look :thing'
+  interpret 'x :thing', 'look :thing'
 end
