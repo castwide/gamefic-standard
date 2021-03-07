@@ -33,7 +33,7 @@ class Thing < Gamefic::Entity
     @attached ||= false
   end
 
-  # @param [Boolean]
+  # @param bool [Boolean]
   def attached= bool
     @attached = if parent.nil?
       # @todo Log attachment failure
@@ -43,8 +43,8 @@ class Thing < Gamefic::Entity
     end
   end
 
-  def parent= p
-    self.attached = false unless p == parent
+  def parent= new_parent
+    self.attached = false unless new_parent == parent
     super
   end
 
