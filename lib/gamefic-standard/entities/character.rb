@@ -7,5 +7,5 @@ class Character < Thing
 end
 
 Gamefic.script do
-  player_class Character
+  set_player_class Character
 end
