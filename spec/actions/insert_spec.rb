@@ -70,4 +70,20 @@ RSpec.describe 'insert action' do
     expect(actor.messages).to include("can't put")
     expect(plot.pick('item').parent).to be(actor)
   end
+
+  it 'inserts an available item in a container' do
+    plot = Gamefic::Plot.new
+    plot.stage do
+      room = make Room, name: 'room'
+      make Container, name: 'container', parent: room, open: true
+      make Item, name: 'item', parent: room
+      introduction do |actor|
+        actor.parent = room
+      end
+    end
+    actor = plot.get_player_character
+    plot.introduce actor
+    actor.perform 'put item in container'
+    expect(plot.pick('item').parent).to be(plot.pick('container'))
+  end
 end
