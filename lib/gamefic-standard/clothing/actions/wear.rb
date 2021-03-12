@@ -1,8 +1,7 @@
 Gamefic.script do
   respond :wear, Use.available(Clothing) do |actor, clothing|
-    if clothing.parent != actor
-      actor.tell "You don't have #{the clothing}."
-    end
+    actor.perform :take, clothing unless clothing.parent == actor
+    next unless clothing.parent == actor
     if clothing.attached?
       actor.tell "You're already wearing #{the clothing}."
     else
