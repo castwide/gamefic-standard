@@ -15,7 +15,7 @@ Gamefic.script do
     end
   end
 
-  xlate "put on :clothing", "wear :clothing"
-  xlate "put :clothing on", "wear :clothing"
-  xlate "don :clothing", "wear :clothing"
+  interpret "put on :clothing", "wear :clothing"
+  interpret "put :clothing on", "wear :clothing"
+  interpret "don :clothing", "wear :clothing"
 end

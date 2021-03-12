@@ -8,7 +8,7 @@ Gamefic.script do
     end
   end
 
-  xlate "remove :clothing", "doff :clothing"
-  xlate "take off :clothing", "doff :clothing"
-  xlate "take :clothing off", "doff :clothing"
+  interpret "remove :clothing", "doff :clothing"
+  interpret "take off :clothing", "doff :clothing"
+  interpret "take :clothing off", "doff :clothing"
 end

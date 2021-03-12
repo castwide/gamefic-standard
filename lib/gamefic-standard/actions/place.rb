@@ -27,10 +27,10 @@ Gamefic.script do
     actor.tell "I don't know what you mean by \"#{thing}\" or \"#{supporter}.\""
   end
 
-  xlate "put :thing on :supporter", "place :thing :supporter"
-  xlate "put :thing down on :supporter", "place :thing :supporter"
-  xlate "set :thing on :supporter", "place :thing :supporter"
-  xlate "set :thing down on :supporter", "place :thing :supporter"
-  xlate "drop :thing on :supporter", "place :thing :supporter"
-  xlate "place :thing on :supporter", "place :thing :supporter"
+  interpret "put :thing on :supporter", "place :thing :supporter"
+  interpret "put :thing down on :supporter", "place :thing :supporter"
+  interpret "set :thing on :supporter", "place :thing :supporter"
+  interpret "set :thing down on :supporter", "place :thing :supporter"
+  interpret "drop :thing on :supporter", "place :thing :supporter"
+  interpret "place :thing on :supporter", "place :thing :supporter"
 end
