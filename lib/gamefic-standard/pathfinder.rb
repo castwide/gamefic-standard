@@ -7,9 +7,10 @@
 class Pathfinder
   # @return [Room]
   attr_reader :origin
+
   # @return [Room]
   attr_reader :destination
-  
+
   def initialize origin, destination
     @origin = origin
     @destination = destination
@@ -19,9 +20,7 @@ class Pathfinder
     if @origin == @destination
       @path = []
     else
-      while @path.nil? and @paths.length > 0
-        embark
-      end
+      embark while @path.nil? && @paths.length > 0
     end
   end
 
@@ -34,7 +33,7 @@ class Pathfinder
 
   # @return [Boolean]
   def valid?
-    path.length > 0 or origin == destination
+    path.length > 0 || origin == destination
   end
 
   private
