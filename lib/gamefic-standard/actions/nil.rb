@@ -1,7 +1,8 @@
 Gamefic.script do
   meta nil, Gamefic::Query::Text.new do |actor, string|
     words = string.split_words
-    list = verbs
+    # @todo There should probably be an Active#verbs or Active#command_words method
+    list = actor.playbooks.flat_map(&:syntaxes).flat_map(&:first_word)
     if list.include?(words[0])
       if words.length > 1
         found = Gamefic::Query::Available.new.resolve(actor, words[1..-1].join(' ')).objects

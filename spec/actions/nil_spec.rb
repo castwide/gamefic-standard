@@ -73,4 +73,27 @@ RSpec.describe 'Nil action' do
     expect(actor.messages).to include('foobar')
     expect(actor.messages).to include('fixture')
   end
+
+  it 'reports recognized verbs with mismatched tokens' do
+    plot = Gamefic::Plot.new
+    plot.stage do
+      room = make Room, name: 'room'
+      make Thing, name: 'thing', parent: room
+      make Thing, name: 'other', parent: room
+
+      respond :affix, Use.available(Thing), Use.available(Item) do |actor, _, _|
+        actor.tell "Should not happen"
+      end
+      # Test with synonym instead of action verb
+      interpret "glue :thing to :other", "affix :thing :other"
+
+      introduction do |actor|
+        actor.parent = room
+      end
+    end
+    actor = plot.get_player_character
+    plot.introduce actor
+    actor.perform 'glue thing to other'
+    expect(actor.messages).to include('I recognize "glue" as a verb')
+  end
 end
