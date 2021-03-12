@@ -1,6 +1,13 @@
-require 'gamefic-standard/clothing'
+RSpec.describe 'Clothing' do
+  before :all do
+    @blocks = Gamefic::Plot.blocks.dup
+    require 'gamefic-standard/clothing'
+  end
 
-RSpec.describe Clothing do
+  after :all do
+    Gamefic::Plot.blocks.replace @blocks
+  end
+
   it 'can be worn' do
     plot = Gamefic::Plot.new
     plot.stage do
@@ -78,5 +85,22 @@ RSpec.describe Clothing do
     blouse = plot.pick('blouse')
     expect(blouse.parent).to be(actor)
     expect(blouse).not_to be_worn
+  end
+
+  it 'inventories worn clothing' do
+    plot = Gamefic::Plot.new
+    plot.stage do
+      room = make Room, name: 'room'
+      make Shirt, name: 'shirt', parent: room
+
+      introduction do |actor|
+        actor.parent = room
+        actor.perform 'put on shirt'
+      end
+    end
+    actor = plot.get_player_character
+    plot.introduce actor
+    actor.perform 'inventory'
+    expect(actor.messages).to include('wearing a shirt')
   end
 end
