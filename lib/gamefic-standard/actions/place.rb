@@ -3,14 +3,11 @@ Gamefic.script do
     actor.tell "You can't put #{the thing} on #{the supporter}."
   end
 
-  respond :place, Use.visible, Use.reachable(Supporter) do |actor, thing, supporter|
-    if thing.parent != actor
-      actor.perform :take, thing
-    end
-    if thing.parent == actor
-      thing.parent = supporter
-      actor.tell "You put #{the thing} on #{the supporter}."
-    end
+  respond :place, Use.available, Use.available(Supporter) do |actor, thing, supporter|
+    actor.perform :take, thing unless thing.parent == actor
+    next unless thing.parent == actor
+    thing.parent = supporter
+    actor.tell "You put #{the thing} on #{the supporter}."
   end
 
   respond :place, Use.children, Use.reachable(Supporter) do |actor, thing, supporter|
@@ -18,7 +15,7 @@ Gamefic.script do
     actor.tell "You put #{the thing} on #{the supporter}."
   end
 
-  respond :place, Use.visible, Use.text do |actor, thing, supporter|
+  respond :place, Use.visible, Use.text do |actor, _thing, supporter|
     actor.tell "You don't see anything called \"#{supporter}\" here."
   end
 
