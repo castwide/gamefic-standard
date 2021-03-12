@@ -1,14 +1,17 @@
 class Thing < Gamefic::Entity
   include Grammar::Attributes
 
+  # @return [Boolean]
   attr_writer :itemized
 
+  # @return [Boolean]
   attr_writer :portable
 
   # An optional description to use when itemizing entities in room
   # descriptions. The locale_description will be used instead of adding
   # the entity's name to a list.
   #
+  # @return [String, nil]
   attr_accessor :locale_description
 
   set_default itemized: true
