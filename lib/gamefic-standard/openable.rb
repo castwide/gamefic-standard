@@ -46,4 +46,9 @@ Gamefic.script do
       actor.tell "#{The thing} is already open."
     end
   end
+
+  respond :look, Use.available(Thing, Openable) do |actor, thing|
+    actor.proceed
+    actor.tell "#{The thing} is #{thing.open? ? 'open' : 'closed'}."
+  end
 end
