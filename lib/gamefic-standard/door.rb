@@ -1,5 +1,7 @@
 require 'gamefic-standard/openable'
 
+# An openable portal.
+#
 class Door < Portal
   include Openable
 
