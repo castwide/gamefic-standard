@@ -25,6 +25,10 @@ module Lockable
     @locked ||= false
   end
 
+  def unlocked?
+    !locked?
+  end
+
   def has_lock_key?
     !@lock_key.nil?
   end
