@@ -15,12 +15,13 @@ class Portal < Thing
   # Find the portal in the destination that returns to this portal's parent
   #
   # @return [Room, nil]
-  def find_reverse
+  def reverse
     return nil if destination.nil?
     destination.children.that_are(Portal).find do |portal|
       portal.destination == parent
     end
   end
+  alias find_reverse reverse
 
   def direction= dir
     @direction = Direction.find(dir)
