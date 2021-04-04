@@ -25,9 +25,14 @@ module Lockable
     @locked ||= false
   end
 
-  def has_lock_key?
+  def unlocked?
+    !locked?
+  end
+
+  def lock_key?
     !@lock_key.nil?
   end
+  alias has_lock_key? lock_key?
 end
 
 Gamefic.script do
