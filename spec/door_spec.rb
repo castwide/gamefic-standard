@@ -9,4 +9,36 @@ RSpec.describe Door do
     door.open = false
     expect(door.reverse).to be_closed
   end
+
+  it 'synchronizes lock statuses' do
+    plot = Gamefic::Plot.new
+    room1 = plot.make Room, name: 'room1'
+    room2 = plot.make Room, name: 'room2'
+    key = plot.make Item, name: 'key'
+    door = plot.connect room1, room2, 'east', type: Door
+    door.two_way_lock_key = key
+    expect(door.reverse.lock_key).to be(key)
+    door.locked = true
+    expect(door).to be_locked
+    expect(door.reverse).to be_locked
+    door.locked = false
+    expect(door).to be_unlocked
+    expect(door.reverse).to be_unlocked
+  end
+
+  it 'synchronizes one-way lock statuses' do
+    plot = Gamefic::Plot.new
+    room1 = plot.make Room, name: 'room1'
+    room2 = plot.make Room, name: 'room2'
+    key = plot.make Item, name: 'key'
+    door = plot.connect room1, room2, 'east', type: Door
+    door.lock_key = key
+    expect(door.reverse.lock_key).to be_nil
+    door.locked = true
+    expect(door).to be_locked
+    expect(door.reverse).to be_locked
+    door.locked = false
+    expect(door).to be_unlocked
+    expect(door.reverse).to be_unlocked
+  end
 end
