@@ -1,4 +1,4 @@
-# 2.2.0
+# 2.2.0 - June 21, 2021
 - Insert, place, and wear try take first
 - Improved verb recognition
 - Openable doors
