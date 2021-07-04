@@ -3,7 +3,7 @@ RSpec.describe Room do
     plot = Gamefic::Plot.new
     room1 = plot.make Room
     room2 = plot.make Room
-    plot.stage(room1, room2) do |room1, room2|
+    plot.stage do
       connect room1, room2, 'east'
     end
     expect(room1.children.first.destination).to be(room2)
@@ -16,7 +16,7 @@ RSpec.describe Room do
     plot = Gamefic::Plot.new
     room1 = plot.make Room
     room2 = plot.make Room
-    plot.stage(room1, room2) do |room1, room2|
+    plot.stage do
       connect room1, room2, 'east', two_way: false
     end
     expect(room1.children.first.destination).to be(room2)
@@ -28,10 +28,20 @@ RSpec.describe Room do
     plot = Gamefic::Plot.new
     room1 = plot.make Room
     room2 = plot.make Room
-    plot.stage(room1, room2) do |room1, room2|
+    plot.stage do
       connect room1, room2, 'east'
     end
     portal = room1.find_portal('east')
     expect(portal.destination).to be(room2)
+  end
+
+  it 'sends messages to children' do
+    plot = Gamefic::Plot.new
+    room = plot.make Room
+    char1 = plot.make Character, parent: room
+    char2 = plot.make Character, parent: room
+    room.tell 'Hello'
+    expect(char1.messages).to include('Hello')
+    expect(char2.messages).to include('Hello')
   end
 end

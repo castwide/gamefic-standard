@@ -8,9 +8,7 @@ class Room < Thing
   end
 
   def tell(message)
-    children.each { |c|
-      c.tell message
-    }
+    children.each { |c| c.tell message }
   end
 
   def find_portal(direction)
