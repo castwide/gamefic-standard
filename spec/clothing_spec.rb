@@ -123,4 +123,13 @@ RSpec.describe 'Clothing' do
     expect(actor.messages).to include('carrying a hat')
     expect(actor.messages).to include('wearing a shirt')
   end
+
+  it 'catches wearing on clothing already worn' do
+    plot = Gamefic::Plot.new
+    char = plot.make Character
+    plot.introduce char
+    plot.make Hat, name: 'hat', parent: char, attached: true
+    char.perform 'wear hat'
+    expect(char.messages).to include('already wearing')
+  end
 end
