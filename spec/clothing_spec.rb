@@ -103,4 +103,24 @@ RSpec.describe 'Clothing' do
     actor.perform 'inventory'
     expect(actor.messages).to include('wearing a shirt')
   end
+
+  it 'differentiates between carried and worn' do
+    plot = Gamefic::Plot.new
+    plot.stage do
+      room = make Room, name: 'room'
+      make Hat, name: 'hat', parent: room
+      make Shirt, name: 'shirt', parent: room
+
+      introduction do |actor|
+        actor.parent = room
+        actor.perform 'take hat'
+        actor.perform 'put on shirt'
+      end
+    end
+    actor = plot.get_player_character
+    plot.introduce actor
+    actor.perform 'inventory'
+    expect(actor.messages).to include('carrying a hat')
+    expect(actor.messages).to include('wearing a shirt')
+  end
 end
