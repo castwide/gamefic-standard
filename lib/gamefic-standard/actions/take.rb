@@ -1,8 +1,4 @@
 Gamefic.script do
-  respond :take, Use.text do |actor, text|
-    actor.tell "You don't see any \"#{text}\" here."
-  end
-
   respond :take, Use.available do |actor, thing|
     if thing.parent == actor
       actor.tell "You're already carrying #{the thing}."

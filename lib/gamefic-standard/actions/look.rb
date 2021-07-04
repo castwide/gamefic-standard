@@ -1,8 +1,4 @@
 Gamefic.script do
-  respond :look, Use.text do |actor, string|
-    actor.tell "You don't see any \"#{string}\" here."
-  end
-
   respond :look, Use.text(/^here$/i) do |actor, _|
     actor.perform :look, actor.room
   end

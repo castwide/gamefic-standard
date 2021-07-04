@@ -15,14 +15,6 @@ Gamefic.script do
     actor.tell "You put #{the thing} on #{the supporter}."
   end
 
-  respond :place, Use.visible, Use.text do |actor, _thing, supporter|
-    actor.tell "You don't see anything called \"#{supporter}\" here."
-  end
-
-  respond :place, Use.text, Use.visible do |actor, thing, supporter|
-    actor.tell "You don't see anything called \"#{thing}\" here."
-  end
-
   respond :place, Use.text, Use.text do |actor, thing, supporter|
     actor.tell "I don't know what you mean by \"#{thing}\" or \"#{supporter}.\""
   end

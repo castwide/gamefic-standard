@@ -16,8 +16,4 @@ respond :give, Use.available(Character), Use.available do |actor, _character, gi
   end
 end
 
-respond :give, Use.text, Use.available do |actor, character, _gift|
-  actor.tell "You don't see any \"#{character}\" here."
-end
-
 interpret "give :gift to :character", "give :character :gift"

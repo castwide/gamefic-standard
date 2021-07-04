@@ -16,10 +16,6 @@ Gamefic.script do
     end
   end
 
-  respond :go, Use.text do |actor, string|
-    actor.tell "You don't see any exit \"#{string}\" from here."
-  end
-
   respond :go do |actor|
     actor.tell "Where do you want to go?"
   end

@@ -119,7 +119,7 @@ RSpec.describe 'Look action' do
     actor.parent = room
     actor.perform 'look doodad'
     expect(actor.messages).not_to include(thing.description)
-    expect(actor.messages).to include("don't see")
+    expect(actor.messages).to include("don't know")
     expect(actor.messages).to include('doodad')
   end
 end

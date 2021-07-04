@@ -120,7 +120,7 @@ RSpec.describe 'Take action' do
     actor = plot.get_player_character
     plot.introduce actor
     actor.perform 'take item2'
-    expect(actor.messages).to include("don't see", "item2")
+    expect(actor.messages).to include("don't know", "item2")
     expect(actor.children).to be_empty
   end
 end

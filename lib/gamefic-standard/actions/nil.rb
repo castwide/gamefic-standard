@@ -7,7 +7,13 @@ Gamefic.script do
       if words.length > 1
         found = Gamefic::Query::Available.new.resolve(actor, words[1..-1].join(' ')).objects
         if found.empty?
-          actor.tell %(I recognize "#{words[0]}" as a verb but could not understand the rest of your sentence.)
+          actions = []
+          actor.playbooks.reverse.each { |p| actions.concat p.actions_for(words[0].to_sym) }
+          if actions.any? { |a| a.queries.one? && !a.queries.first.is_a?(Gamefic::Query::Text) }
+            actor.tell %(I recognize "#{words[0]}" as a verb but don't know what you mean by "#{words[1..-1].join(' ')}.")
+          else
+            actor.tell %(I recognize "#{words[0]}" as a verb but could not understand the rest of your sentence.)
+          end
         elsif found.one?
           actor.tell %(I recognize "#{words[0]}" and "#{found.first.name}" but could not understand them together.)
         else

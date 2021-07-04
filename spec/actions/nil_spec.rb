@@ -37,7 +37,8 @@ RSpec.describe 'Nil action' do
     actor.parent = room
     actor.perform 'foobar nothing'
     expect(actor.children).to be_empty
-    expect(actor.messages).to include('could not understand the rest')
+    expect(actor.messages).to include('recognize "foobar"')
+    expect(actor.messages).to include("don't know")
   end
 
   it 'reports missing tokens' do
