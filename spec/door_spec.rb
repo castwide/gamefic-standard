@@ -41,4 +41,19 @@ RSpec.describe Door do
     expect(door).to be_unlocked
     expect(door.reverse).to be_unlocked
   end
+
+  it 'tries to open doors before going' do
+    plot = Gamefic::Plot.new
+    room1 = plot.make Room, name: 'room1'
+    room2 = plot.make Room, name: 'room2'
+    door = plot.connect room1, room2, 'east', type: Door
+    door.open = false
+    actor = plot.make_player_character
+    plot.introduce actor
+    actor.parent = room1
+    expect(door).to be_closed
+    actor.perform 'go east'
+    expect(actor.parent).to be(room2)
+    expect(door).to be_open
+  end
 end
