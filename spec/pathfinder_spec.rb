@@ -1,6 +1,13 @@
 require 'gamefic-standard/pathfinder'
 
 RSpec.describe Pathfinder do
+  it 'returns an empty path for same origin and destination' do
+    plot = Gamefic::Plot.new
+    room = plot.make Room, name: 'room'
+    pathfinder = Pathfinder.new(room, room)
+    expect(pathfinder.path).to be_empty
+  end
+
   it 'finds the shortest valid path' do
     plot = Gamefic::Plot.new
     pathfinder = plot.stage do
