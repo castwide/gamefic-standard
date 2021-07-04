@@ -43,7 +43,7 @@ Gamefic.script do
       actor.tell "You close #{the thing}."
       thing.open = false
     else
-      actor.tell "#{The thing} is already open."
+      actor.tell "#{The thing} is already closed."
     end
   end
 
