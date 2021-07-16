@@ -14,4 +14,12 @@ RSpec.describe 'Inventory action' do
     expect(actor.messages).to include('held thing')
     expect(actor.messages).not_to include('other thing')
   end
+
+  it 'reports empty inventory' do
+    plot = Gamefic::Plot.new
+    player = plot.make_player_character
+    plot.introduce player
+    player.perform 'inventory'
+    expect(player.messages).to include("aren't carrying")
+  end
 end

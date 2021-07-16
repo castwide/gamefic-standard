@@ -132,4 +132,21 @@ RSpec.describe 'Clothing' do
     char.perform 'wear hat'
     expect(char.messages).to include('already wearing')
   end
+
+  it 'reports clothing not worn' do
+    plot = Gamefic::Plot.new
+    player = plot.make_player_character
+    plot.make Hat, name: 'hat', parent: player
+    plot.introduce player
+    player.perform 'remove hat'
+    expect(player.messages).to include('not wearing')
+  end
+
+  it 'reports empty inventory' do
+    plot = Gamefic::Plot.new
+    player = plot.make_player_character
+    plot.introduce player
+    player.perform 'inventory'
+    expect(player.messages).to include("aren't carrying")
+  end
 end
