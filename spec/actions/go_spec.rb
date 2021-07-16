@@ -26,4 +26,32 @@ RSpec.describe 'Go action' do
     expect(actor.messages).to include('nowhere')
     expect(actor.parent).to eq(room)
   end
+
+  it 'leaves supporters before using portals' do
+    plot = Gamefic::Plot.new
+    room = plot.make Room, name: 'room'
+    chair = plot.make Supporter, name: 'chair', enterable: true, parent: room
+    out = plot.make Room, name: 'out'
+    plot.connect room, out, 'east'
+    actor = plot.make_player_character
+    plot.introduce actor
+    actor.parent = chair
+    actor.perform 'go east'
+    expect(actor.parent).to be(out)
+    expect(actor.messages).to include('get off the chair')
+  end
+
+  it 'leaves supporters and reports unknown portals' do
+    plot = Gamefic::Plot.new
+    room = plot.make Room, name: 'room'
+    chair = plot.make Supporter, name: 'chair', enterable: true, parent: room
+    out = plot.make Room, name: 'out'
+    plot.connect room, out, 'east'
+    actor = plot.make_player_character
+    plot.introduce actor
+    actor.parent = chair
+    actor.perform 'go west'
+    expect(actor.parent).to be(room)
+    expect(actor.messages).to include('get off the chair')
+  end
 end

@@ -8,6 +8,11 @@ Gamefic.script do
     actor.parent = thing.parent
   end
 
+  respond :leave, Use.parent(Supporter, :enterable?) do |actor, thing|
+    actor.tell "You get off #{the thing}."
+    actor.parent = thing.parent
+  end
+
   respond :leave, Use.room do |actor, room|
     portals = room.children.that_are(Portal)
     if portals.length == 0

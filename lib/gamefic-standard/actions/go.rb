@@ -1,23 +1,27 @@
 Gamefic.script do
   respond :go, Use.siblings(Portal) do |actor, portal|
-    if actor.parent != actor.room
-      actor.perform :leave
-    end
-    if actor.parent == actor.room
-      if portal.destination.nil?
-        actor.tell "That portal leads nowhere."
-      else
-        actor.parent = portal.destination
-        if !portal.direction.nil?
-          actor.tell "You go #{portal.direction}."
-        end
-        actor.perform :look
+    if portal.destination.nil?
+      actor.tell "That portal leads nowhere."
+    else
+      actor.parent = portal.destination
+      if !portal.direction.nil?
+        actor.tell "You go #{portal.direction}."
       end
+      actor.perform :look
     end
   end
 
-  respond :go do |actor|
-    actor.tell "Where do you want to go?"
+  respond :go, Use.text do |actor, text|
+    if actor.parent == actor.room
+      actor.tell "I don't see any way to go \"#{text} from here."
+    else
+      actor.perform :leave
+      if actor.parent == actor.room
+        actor.perform "go #{text}"
+      else
+        actor.proceed
+      end
+    end
   end
 
   interpret "north", "go north"
