@@ -33,4 +33,22 @@ RSpec.describe 'place action' do
     actor.perform 'place item supporter'
     expect(plot.entities[1].parent).to eq(plot.entities[2])
   end
+
+  it 'rejects placement on non-supporters' do
+    plot = Gamefic::Plot.new
+    room = plot.make Room, name: 'room'
+    item = plot.make Item, name: 'item'
+    _thing = plot.make Thing, name: 'thing', parent: room
+
+    plot.introduction do |actor|
+      actor.parent = room
+      item.parent = actor
+    end
+
+    actor = plot.make_player_character
+    plot.introduce actor
+    actor.perform 'put item on thing'
+    expect(item.parent).to be(actor)
+    expect(actor.messages).to include("can't put")
+  end
 end
