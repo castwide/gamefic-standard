@@ -122,4 +122,29 @@ RSpec.describe 'Look action' do
     expect(actor.messages).to include("don't know")
     expect(actor.messages).to include('doodad')
   end
+
+  it 'reports being on a supporter' do
+    plot = Gamefic::Plot.new
+    room = plot.make Room
+    supporter = plot.make Supporter, name: 'supporter', enterable: true, parent: room
+    actor = plot.make_player_character
+    plot.introduce actor
+    actor.parent = supporter
+    actor.perform 'look supporter'
+    expect(actor.messages).to include('currently on the supporter')
+  end
+
+  it 'sees characters' do
+    plot = Gamefic::Plot.new
+    room = plot.make Room, name: 'room'
+    _character = plot.make Character, name: 'character', parent: room
+    actor = plot.make_player_character
+    plot.introduce actor
+    actor.parent = room
+    actor.perform 'look'
+    expect(actor.messages).to include('character is here')
+    plot.make Character, name: 'extra', parent: room
+    actor.perform 'look'
+    expect(actor.messages).to include('are here')
+  end
 end
