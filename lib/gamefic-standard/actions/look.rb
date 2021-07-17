@@ -10,9 +10,9 @@ Gamefic.script do
 
   respond :look, Use.available(Thing) do |actor, thing|
     actor.tell thing.description
-    thing.children.that_are(:attached?).that_are(:itemized?).each { |item|
+    thing.children.that_are(:attached?).that_are(:itemized?).each do |item|
       actor.tell "#{An item} is attached to #{the thing}."
-    }
+    end
   end
 
   respond :look, Use.available(Supporter) do |actor, thing|
@@ -48,13 +48,13 @@ Gamefic.script do
     with_locales = []
     chars = room.children.that_are(Character).that_are(:itemized?) - [actor]
     charsum = []
-    chars.each { |char|
+    chars.each do |char|
       if char.locale_description.nil?
         charsum.push char
       else
         with_locales.push char
       end
-    }
+    end
     if charsum.length > 0
       actor.tell "#{charsum.join_and.cap_first} #{charsum.length == 1 ? 'is' : 'are'} here."
     end
@@ -81,9 +81,9 @@ Gamefic.script do
           actor.tell "There is an exit #{p.instruction}."
         else
           dirs = []
-          portals.each { |p|
+          portals.each do |p|
             dirs.push p.instruction
-          }
+          end
           actor.tell "There are exits #{dirs.join_and(', ')}."
         end
       end

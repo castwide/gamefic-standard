@@ -125,13 +125,16 @@ RSpec.describe 'Look action' do
 
   it 'reports being on a supporter' do
     plot = Gamefic::Plot.new
-    room = plot.make Room
+    room = plot.make Room, name: 'room'
     supporter = plot.make Supporter, name: 'supporter', enterable: true, parent: room
     actor = plot.make_player_character
     plot.introduce actor
     actor.parent = supporter
     actor.perform 'look supporter'
     expect(actor.messages).to include('currently on the supporter')
+    actor.messages.clear
+    actor.perform 'look'
+    expect(actor.messages).to include('on the supporter')
   end
 
   it 'sees characters' do
@@ -146,5 +149,28 @@ RSpec.describe 'Look action' do
     plot.make Character, name: 'extra', parent: room
     actor.perform 'look'
     expect(actor.messages).to include('are here')
+  end
+
+  it 'sees character locale descriptions' do
+    plot = Gamefic::Plot.new
+    room = plot.make Room, name: 'room'
+    character = plot.make Character, name: 'thing', locale_description: 'A character is present.', parent: room
+    actor = plot.make_player_character
+    plot.introduce actor
+    actor.parent = room
+    actor.perform 'look'
+    expect(actor.messages).to include(character.locale_description)
+  end
+
+  it 'sees multiple exits' do
+    plot = Gamefic::Plot.new
+    room = plot.make Room, name: 'room'
+    plot.connect room, nil, 'north', two_way: false
+    plot.connect room, nil, 'south', two_way: false
+    actor = plot.make_player_character
+    plot.introduce actor
+    actor.parent = room
+    actor.perform 'look'
+    expect(actor.messages).to include('exits north and south')
   end
 end
