@@ -6,10 +6,10 @@ class Gamefic::Query::Available < Gamefic::Query::Base
       result.concat subquery_accessible(top)
     end
     result.delete subject
-    subject.children.each { |c|
+    subject.children.each do |c|
       result.push c
       result.concat subquery_accessible(c)
-    }
+    end
     result
   end
 end
