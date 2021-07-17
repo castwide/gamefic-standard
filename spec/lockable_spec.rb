@@ -126,4 +126,15 @@ RSpec.describe Lockable do
     actor.perform 'open safe'
     expect(plot.pick('safe')).to be_open
   end
+
+  it 'reports unlockable entities' do
+    plot = Gamefic::Plot.new
+    room = plot.make Room
+    plot.make Thing, name: 'thing', parent: room
+    player = plot.make_player_character
+    plot.introduce player
+    player.parent = room
+    player.perform 'lock thing'
+    expect(player.messages).to include("can't lock")
+  end
 end
