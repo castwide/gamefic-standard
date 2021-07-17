@@ -12,11 +12,7 @@ Gamefic.script do
   end
 
   respond :talk, Use.available(Character) do |actor, character|
-    if actor == character
-      actor.perform :talk
-    else
-      actor.tell "#{The character} has nothing to say."
-    end
+    actor.tell "#{The character} has nothing to say."
   end
 
   interpret "talk to :character", "talk :character"
