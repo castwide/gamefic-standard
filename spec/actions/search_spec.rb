@@ -1,5 +1,5 @@
-RSpec.describe 'Look in container action' do
-  it 'opens before looking inside' do
+RSpec.describe 'Search action' do
+  it 'opens containers before searching' do
     plot = Gamefic::Plot.new
     room = plot.make Room
     container = plot.make Container, name: 'container', open: false, parent: room
@@ -12,7 +12,7 @@ RSpec.describe 'Look in container action' do
     expect(player.messages).to include('item')
   end
 
-  it 'does not look inside unopenable containers' do
+  it 'does not search unopenable containers' do
     plot = Gamefic::Plot.new
     room = plot.make Room
     container = plot.make Container, name: 'container', open: false, locked: true, parent: room
