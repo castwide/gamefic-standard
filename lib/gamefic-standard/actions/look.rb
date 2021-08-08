@@ -36,6 +36,11 @@ Gamefic.script do
     actor.tell "You are currently on #{the supporter}."
   end
 
+  respond :look, Use.available(Thing, Openable) do |actor, thing|
+    actor.proceed
+    actor.tell "#{The thing} is #{thing.open? ? 'open' : 'closed'}."
+  end
+
   respond :look, Use.room do |actor, room|
     actor.tell "<strong>#{room.name.cap_first}</strong>"
     actor.tell room.description if room.has_description?

@@ -16,6 +16,11 @@ Gamefic.script do
     end
   end
 
+  respond :search, Use.available(Container, :closed?) do |actor, container|
+    actor.perform :open, container
+    actor.proceed if container.open?
+  end
+
   interpret 'look inside :thing', 'search :thing'
   interpret 'look in :thing', 'search :thing'
 end

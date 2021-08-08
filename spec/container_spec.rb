@@ -10,7 +10,6 @@ RSpec.describe 'Look in container action' do
     player.perform 'look inside container'
     expect(container).to be_open
     expect(player.messages).to include('item')
-    puts player.messages
   end
 
   it 'does not look inside unopenable containers' do
@@ -24,6 +23,5 @@ RSpec.describe 'Look in container action' do
     player.perform 'look inside container'
     expect(container).to be_closed
     expect(player.messages).not_to include('item')
-    puts player.messages
   end
 end

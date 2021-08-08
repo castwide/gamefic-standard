@@ -16,6 +16,10 @@ Gamefic.script do
     actor.tell "You're inside #{the supporter} already."
   end
 
+  respond :enter, Use.siblings(Container, :enterable?, :closed?) do |actor, container|
+    actor.tell "#{The container} is closed."
+  end
+
   interpret "get on :thing", "enter :thing"
   interpret "get in :thing", "enter :thing"
 end

@@ -10,6 +10,14 @@ Gamefic.script do
     actor.tell "You put #{the thing} in #{the receptacle}."
   end
 
+  respond :insert, Use.available, Use.available(Container) do |actor, _thing, container|
+    if container.open?
+      actor.proceed
+    else
+      actor.tell "#{The container} is closed."
+    end
+  end
+
   interpret "drop :item in :container", "insert :item :container"
   interpret "put :item in :container", "insert :item :container"
   interpret "place :item in :container", "insert :item :container"

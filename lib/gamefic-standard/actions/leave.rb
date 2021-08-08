@@ -28,6 +28,10 @@ Gamefic.script do
     actor.perform :leave, actor.parent
   end
 
+  respond :leave, Use.parent(Container, :enterable?, :closed?) do |actor, container|
+    actor.tell "#{The container} is closed."
+  end
+
   interpret "exit", "leave"
   interpret "exit :supporter", "leave :supporter"
   interpret "get on :supporter", "enter :supporter"
