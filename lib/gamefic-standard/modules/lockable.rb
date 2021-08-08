@@ -1,7 +1,3 @@
-# @gamefic.script standard/lockable
-
-require 'gamefic-standard/openable'
-
 # A module for entities that are both openable and lockable.
 #
 module Lockable
