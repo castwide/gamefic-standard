@@ -3,6 +3,8 @@
 - Fix response to closing closed entities
 - Working give action
 - Miscellaneous fixes for new specs
+- Search action
+- Separate actions from entities/modules
 
 ## 2.2.0 - June 21, 2021
 - Insert, place, and wear try take first
