@@ -24,4 +24,9 @@ Gamefic.script do
   respond :enter, Use.siblings(Container, :enterable?, :closed?) do |actor, container|
     actor.tell "#{The container} is closed."
   end
+
+  respond :search, Use.available(Container, :closed?) do |actor, container|
+    actor.perform :open, container
+    actor.proceed if container.open?
+  end
 end
