@@ -9,6 +9,7 @@
 - Improve lockable behavior
 - Remove edible
 - Remove broken connect method
+- Leave action opens entered containers
 
 ## 2.2.0 - June 21, 2021
 - Insert, place, and wear try take first

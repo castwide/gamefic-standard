@@ -81,4 +81,16 @@ RSpec.describe 'Leave action' do
     expect(actor.messages).to include('room 2')
     expect(actor.messages).to include('room 3')
   end
+
+  it 'opens entered containers' do
+    plot = Gamefic::Plot.new
+    room = plot.make Room
+    container = plot.make Container, name: 'container', enterable: true, open: false, parent: room
+    actor = plot.make_player_character
+    plot.introduce actor
+    actor.parent = container
+    actor.perform 'leave container'
+    expect(container).to be_open
+    expect(actor.parent).to be(room)
+  end
 end

@@ -29,7 +29,8 @@ Gamefic.script do
   end
 
   respond :leave, Use.parent(Container, :enterable?, :closed?) do |actor, container|
-    actor.tell "#{The container} is closed."
+    actor.perform :open, container
+    actor.proceed if container.open?
   end
 
   interpret "exit", "leave"
