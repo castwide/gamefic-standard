@@ -8,6 +8,7 @@
 - Remove clothing
 - Improve lockable behavior
 - Remove edible
+- Remove broken connect method
 
 ## 2.2.0 - June 21, 2021
 - Insert, place, and wear try take first

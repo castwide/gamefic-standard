@@ -59,15 +59,3 @@ module Gamefic::World
     portal
   end
 end
-
-Room.module_exec self do |plot|
-  # Define the connect method dynamically so the plot is available
-  define_method :connect do |destination, direction = nil, type: Portal, two_way: true|
-    plot.connect self, destination, direction, type: Portal, two_way: true
-  end
-end
-class Room
-  # @!method connect destination, direction = nil, type: Portal, two_way: true
-  #   Create a portal to connect this room to a destination.
-  #   @return [Portal]
-end
