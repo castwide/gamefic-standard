@@ -5,6 +5,9 @@
 - Miscellaneous fixes for new specs
 - Search action
 - Separate actions from entities/modules
+- Remove clothing
+- Improve lockable behavior
+- Remove edible
 
 ## 2.2.0 - June 21, 2021
 - Insert, place, and wear try take first
