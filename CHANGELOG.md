@@ -10,6 +10,7 @@
 - Remove edible
 - Remove broken connect method
 - Leave action opens entered containers
+- Reduce entity inheritance
 
 ## 2.2.0 - June 21, 2021
 - Insert, place, and wear try take first
