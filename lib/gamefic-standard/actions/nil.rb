@@ -26,13 +26,4 @@ Gamefic.script do
       actor.tell %(I don't recognize "#{words[0]}" as a verb.)
     end
   end
-
-  meta nil, Gamefic::Query::Text.new(/^it$/) do |actor, string|
-    words = string.split_words
-    if verbs(to_s: true).include?(words[0])
-      actor.tell "I'm not sure what you mean by \"it.\""
-    else
-      actor.proceed
-    end
-  end
 end
