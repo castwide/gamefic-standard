@@ -38,10 +38,3 @@ class Door < Portal
     rev.locked = locked?
   end
 end
-
-Gamefic.script do
-  respond :go, Use.available(Door) do |actor, door|
-    actor.perform :open, door unless door.open?
-    actor.proceed if door.open?
-  end
-end

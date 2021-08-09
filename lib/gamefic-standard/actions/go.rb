@@ -24,6 +24,11 @@ Gamefic.script do
     end
   end
 
+  respond :go, Use.available(Door) do |actor, door|
+    actor.perform :open, door unless door.open?
+    actor.proceed if door.open?
+  end
+
   interpret "north", "go north"
   interpret "south", "go south"
   interpret "west", "go west"
