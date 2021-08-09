@@ -1,10 +1,6 @@
 Gamefic.script do
   respond :drop, Use.family() do |actor, thing|
-    if thing.parent != actor
-      actor.tell "You're not carrying #{the thing}."
-    else
-      actor.proceed
-    end
+    actor.tell "You're not carrying #{the thing}."
   end
 
   respond :drop, Use.children do |actor, thing|
