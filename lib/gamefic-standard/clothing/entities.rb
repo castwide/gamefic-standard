@@ -1,7 +1,0 @@
-require 'gamefic-standard/clothing/entities/clothing'
-require 'gamefic-standard/clothing/entities/coat'
-require 'gamefic-standard/clothing/entities/gloves'
-require 'gamefic-standard/clothing/entities/hat'
-require 'gamefic-standard/clothing/entities/pants'
-require 'gamefic-standard/clothing/entities/shirt'
-require 'gamefic-standard/clothing/entities/shoes'
