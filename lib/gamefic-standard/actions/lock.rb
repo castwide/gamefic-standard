@@ -8,7 +8,7 @@ Gamefic.script do
       thing.locked = true
       actor.tell "You lock ##{the thing} with #{the key}."
     else
-      actor.tell "You can't unlock #{the thing} with #{the key}."
+      actor.tell "You can't lock #{the thing} with #{the key}."
     end
   end
 
