@@ -54,4 +54,21 @@ RSpec.describe 'Go action' do
     expect(actor.parent).to be(room)
     expect(actor.messages).to include('get off the chair')
   end
+
+  it 'fails if supporter cannot be left' do
+    plot = Gamefic::Plot.new
+    room = plot.make Room, name: 'room'
+    chair = plot.make Supporter, name: 'chair', enterable: true, parent: room
+    plot.respond :leave, Use.parent(chair) do |actor, _chair|
+      actor.tell "You can't leave the chair."
+    end
+    out = plot.make Room, name: 'out'
+    plot.connect room, out, 'east'
+    actor = plot.make_player_character
+    plot.introduce actor
+    actor.parent = chair
+    actor.perform 'go east'
+    expect(actor.parent).to be(chair)
+    expect(actor.messages).to include("You can't leave the chair.")
+  end
 end
