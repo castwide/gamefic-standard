@@ -27,4 +27,17 @@ RSpec.describe 'Drop action' do
     actor.perform 'drop thing'
     expect(actor.messages).to include('not carrying the thing')
   end
+
+  it 'drops things in carried receptacles' do
+    plot = Gamefic::Plot.new
+    room = plot.make Room
+    wallet = plot.make Receptacle, name: 'wallet', portable: true
+    item = plot.make Item, name: 'item', parent: wallet
+    actor = plot.get_player_character
+    plot.introduce actor
+    actor.parent = room
+    wallet.parent = actor
+    actor.perform 'drop item'
+    expect(item.parent).to be(room)
+  end
 end
