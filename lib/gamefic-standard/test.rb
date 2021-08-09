@@ -1,5 +1,3 @@
-# @gamefic.script standard/test
-
 module Tester
   def test_procs
     @test_procs ||= Hash.new

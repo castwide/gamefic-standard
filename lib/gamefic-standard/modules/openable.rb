@@ -1,5 +1,3 @@
-# @gamefic.script standard/openable
-
 # A module for entities that are openable.
 #
 module Openable
