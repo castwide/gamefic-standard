@@ -1,4 +1,4 @@
-## 2.3.0
+## 2.3.0 - September 4, 2021
 - Use nil actions for untokenized arguments
 - Fix response to closing closed entities
 - Working give action
