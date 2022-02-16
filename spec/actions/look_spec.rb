@@ -173,4 +173,19 @@ RSpec.describe 'Look action' do
     actor.perform 'look'
     expect(actor.messages).to include('exits north and south')
   end
+
+  it 'sees other objects on supporters' do
+    plot = Gamefic::Plot.new
+    room = plot.make Room, name: 'room'
+    supporter = plot.make Supporter, name: 'supporter', parent: room
+    plot.make Thing, name: 'thing', parent: supporter
+    actor = plot.make_player_character
+    plot.introduce actor
+    actor.parent = supporter
+    actor.perform 'look'
+    expect(actor.messages).to include('thing')
+    actor.flush
+    actor.perform 'look supporter'
+    expect(actor.messages).to include('thing')
+  end
 end
