@@ -93,4 +93,12 @@ RSpec.describe 'Leave action' do
     expect(container).to be_open
     expect(actor.parent).to be(room)
   end
+
+  it 'handles nil parents' do
+    plot = Gamefic::Plot.new
+    actor = plot.make_player_character
+    plot.introduce actor
+    actor.perform 'leave'
+    expect(actor.parent).to be_nil
+  end
 end
