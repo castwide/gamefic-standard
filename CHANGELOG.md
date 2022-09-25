@@ -1,3 +1,6 @@
+## 2.3.1 - September 25, 2022
+- Handle leave actions without parents
+
 ## 2.3.0 - September 4, 2021
 - Use nil actions for untokenized arguments
 - Fix response to closing closed entities
