@@ -25,7 +25,11 @@ Gamefic.script do
   end
 
   respond :leave do |actor|
-    actor.perform :leave, actor.parent
+    if actor.parent
+      actor.perform :leave, actor.parent
+    else
+      actor.tell "You don't see any obvious exits."
+    end
   end
 
   respond :leave, Use.parent(Container, :enterable?, :closed?) do |actor, container|
