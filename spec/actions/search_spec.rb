@@ -46,4 +46,18 @@ RSpec.describe 'Search action' do
     player.perform 'search thing'
     expect(player.messages).to include(thing.description)
   end
+
+  it 'reports inaccessible receptacles' do
+    plot = Gamefic::Plot.new
+    room = plot.make Room
+    receptacle = plot.make Receptacle, name: 'receptacle', parent: room
+    receptacle.define_singleton_method :accessible? do
+      false
+    end
+    player = plot.make_player_character
+    plot.introduce player
+    player.parent = room
+    player.perform 'search receptacle'
+    expect(player.messages).to include("can't see inside")
+  end
 end
