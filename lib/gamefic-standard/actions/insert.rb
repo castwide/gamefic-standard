@@ -4,7 +4,7 @@ Gamefic.script do
   end
 
   respond :insert, Use.available, Use.available(Receptacle) do |actor, thing, receptacle|
-    actor.perform :take, thing unless thing.parent == actor
+    actor.execute :take, thing unless thing.parent == actor
     next unless thing.parent == actor
     thing.parent = receptacle
     actor.tell "You put #{the thing} in #{the receptacle}."

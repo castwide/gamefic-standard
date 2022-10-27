@@ -7,7 +7,7 @@ Gamefic.script do
       if !portal.direction.nil?
         actor.tell "You go #{portal.direction}."
       end
-      actor.perform :look
+      actor.execute :look
     end
   end
 
@@ -15,7 +15,7 @@ Gamefic.script do
     if actor.parent == actor.room
       actor.tell "I don't see any way to go \"#{text} from here."
     else
-      actor.perform :leave
+      actor.execute :leave
       if actor.parent == actor.room
         actor.perform "go #{text}"
       else
@@ -25,7 +25,7 @@ Gamefic.script do
   end
 
   respond :go, Use.available(Door) do |actor, door|
-    actor.perform :open, door unless door.open?
+    actor.execute :open, door unless door.open?
     actor.proceed if door.open?
   end
 

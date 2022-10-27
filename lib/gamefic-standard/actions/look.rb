@@ -1,11 +1,11 @@
 Gamefic.script do
   respond :look, Use.text(/^here$/i) do |actor, _|
-    actor.perform :look, actor.room
+    actor.execute :look, actor.room
   end
 
   respond :look, Use.itself do |actor, _|
     actor.tell actor.description
-    actor.perform :inventory
+    actor.execute :inventory
   end
 
   respond :look, Use.available(Thing) do |actor, thing|

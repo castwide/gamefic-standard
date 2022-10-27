@@ -9,7 +9,7 @@ Gamefic.script do
 
   respond :give, Use.available(Character), Use.available do |actor, _character, gift|
     if gift.parent != actor
-      actor.perform :take, gift
+      actor.execute :take, gift
     end
     if gift.parent == actor
       actor.proceed

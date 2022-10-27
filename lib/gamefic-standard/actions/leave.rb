@@ -18,7 +18,7 @@ Gamefic.script do
     if portals.length == 0
       actor.tell "You don't see any obvious exits."
     elsif portals.length == 1
-      actor.perform :go, portals[0]
+      actor.execute :go, portals[0]
     else
       actor.tell "I don't know which way you want to go: #{portals.join_or}."
     end
@@ -26,14 +26,14 @@ Gamefic.script do
 
   respond :leave do |actor|
     if actor.parent
-      actor.perform :leave, actor.parent
+      actor.execute :leave, actor.parent
     else
       actor.tell "You don't see any obvious exits."
     end
   end
 
   respond :leave, Use.parent(Container, :enterable?, :closed?) do |actor, container|
-    actor.perform :open, container
+    actor.execute :open, container
     actor.proceed if container.open?
   end
 

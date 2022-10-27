@@ -1,6 +1,6 @@
 Gamefic.script do
   respond :search, Use.available(Thing) do |actor, thing|
-    actor.perform :look, thing
+    actor.execute :look, thing
   end
 
   respond :search, Use.available(Receptacle) do |actor, thing|
@@ -17,7 +17,7 @@ Gamefic.script do
   end
 
   respond :search, Use.available(Container, :closed?) do |actor, container|
-    actor.perform :open, container
+    actor.execute :open, container
     actor.proceed if container.open?
   end
 

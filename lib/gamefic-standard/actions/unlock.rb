@@ -13,7 +13,7 @@ Gamefic.script do
   end
 
   respond :unlock, Use.available(Lockable, :has_lock_key?), Use.available do |actor, _thing, key|
-    actor.perform :take, key if key.parent != actor
+    actor.execute :take, key if key.parent != actor
     actor.proceed if key.parent == actor
   end
 

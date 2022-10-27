@@ -4,7 +4,7 @@ Gamefic.script do
   end
 
   respond :talk, Use.itself do |actor, yourself|
-    actor.perform :talk
+    actor.execute :talk
   end
 
   respond :talk, Use.available do |actor, thing|

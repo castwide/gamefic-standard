@@ -1,3 +1,6 @@
+## 2.3.2
+- Change Actor#perform to Actor#execute
+
 ## 2.3.1 - September 25, 2022
 - Handle leave actions without parents
 

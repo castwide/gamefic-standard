@@ -4,7 +4,7 @@ Gamefic.script do
   end
 
   respond :place, Use.available, Use.available(Supporter) do |actor, thing, supporter|
-    actor.perform :take, thing unless thing.parent == actor
+    actor.execute :take, thing unless thing.parent == actor
     next unless thing.parent == actor
     thing.parent = supporter
     actor.tell "You put #{the thing} on #{the supporter}."

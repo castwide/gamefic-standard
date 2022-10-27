@@ -4,7 +4,7 @@ Gamefic.script do
   end
 
   respond :drop, Gamefic::Query::Descendants.new do |actor, thing|
-    actor.perform :take, thing
+    actor.execute :take, thing
     next unless thing.parent == actor
     thing.parent = actor.parent
     actor.tell "You drop #{the thing}."

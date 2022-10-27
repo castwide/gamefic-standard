@@ -21,8 +21,8 @@ Gamefic.script do
   end
 
   respond :open, Use.available(Lockable, :has_lock_key?), Use.available do |actor, thing, key|
-    actor.perform :unlock, thing, key
-    actor.perform :open, thing if thing.unlocked?
+    actor.execute :unlock, thing, key
+    actor.execute :open, thing if thing.unlocked?
   end
 
   interpret 'open :thing with :key', 'open :thing :key'
