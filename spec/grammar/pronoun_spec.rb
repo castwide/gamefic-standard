@@ -25,4 +25,24 @@ RSpec.describe Grammar::Pronoun do
     entity.gender = :female
     expect(Grammar::Pronoun.objective(entity)).to eq('her')
   end
+
+  it 'selects male possessive' do
+    entity.gender = :male
+    expect(Grammar::Pronoun.possessive(entity)).to eq('his')
+  end
+
+  it 'selects female possessive' do
+    entity.gender = :female
+    expect(Grammar::Pronoun.possessive(entity)).to eq('her')
+  end
+
+  it 'selects male reflexive' do
+    entity.gender = :male
+    expect(Grammar::Pronoun.reflexive(entity)).to eq('himself')
+  end
+
+  it 'selects female reflexive' do
+    entity.gender = :female
+    expect(Grammar::Pronoun.reflexive(entity)).to eq('herself')
+  end
 end
