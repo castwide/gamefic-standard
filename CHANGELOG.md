@@ -1,5 +1,6 @@
-## 2.3.2 - February 11, 2023
+## 2.4.0 - February 11, 2023
 - Change Actor#perform to Actor#execute
+- Update gamefic dependency
 
 ## 2.3.1 - September 25, 2022
 - Handle leave actions without parents
