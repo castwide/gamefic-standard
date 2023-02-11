@@ -51,4 +51,16 @@ RSpec.describe 'Enter action' do
     actor.perform 'enter thing'
     expect(actor.parent).to be(thing)
   end
+
+  it 'does not enter a closed container' do
+    plot = Gamefic::Plot.new
+    room = plot.make Room
+    container = plot.make Container, parent: room, name: 'container', enterable: true, open: false
+    actor = plot.get_player_character
+    plot.introduce actor
+    actor.parent = room
+    actor.perform 'enter container'
+    expect(actor.messages).to include('closed')
+    expect(actor.parent).not_to be(container)
+  end
 end
