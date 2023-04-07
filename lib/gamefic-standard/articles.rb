@@ -41,10 +41,14 @@ module Articles
   alias The the_
 end
 
-class Gamefic::Plot
+module Gamefic::Scriptable::Entities
   include Articles
 end
 
+# @todo For some reason, these includes are necessary in Opal
+class Gamefic::Plot
+  include Articles
+end
 class Gamefic::Subplot
   include Articles
 end

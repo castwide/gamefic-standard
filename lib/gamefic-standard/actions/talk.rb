@@ -3,15 +3,15 @@ Gamefic.script do
     actor.tell "You talk to yourself."
   end
 
-  respond :talk, Use.itself do |actor, yourself|
+  respond :talk, myself do |actor, yourself|
     actor.execute :talk
   end
 
-  respond :talk, Use.available do |actor, thing|
+  respond :talk, available do |actor, thing|
     actor.tell "Nothing happens."
   end
 
-  respond :talk, Use.available(Character) do |actor, character|
+  respond :talk, available(Character) do |actor, character|
     actor.tell "#{The character} has nothing to say."
   end
 

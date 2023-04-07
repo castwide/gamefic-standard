@@ -9,7 +9,7 @@ RSpec.describe Openable do
     plot = Gamefic::Plot.new
     room = plot.make Room, name: 'room'
     plot.make box_class, name: 'box', parent: room, open: false
-    actor = plot.get_player_character
+    actor = plot.make_player_character
     plot.introduce actor
     actor.parent = room
     actor.perform 'open box'
@@ -20,7 +20,7 @@ RSpec.describe Openable do
     plot = Gamefic::Plot.new
     room = plot.make Room, name: 'room'
     plot.make box_class, name: 'box', parent: room, open: true
-    actor = plot.get_player_character
+    actor = plot.make_player_character
     plot.introduce actor
     actor.parent = room
     actor.perform 'close box'
@@ -31,7 +31,7 @@ RSpec.describe Openable do
     plot = Gamefic::Plot.new
     room = plot.make Room, name: 'room'
     plot.make box_class, name: 'box', parent: room, open: true
-    actor = plot.get_player_character
+    actor = plot.make_player_character
     plot.introduce actor
     actor.parent = room
     message = actor.quietly 'look box'
@@ -83,6 +83,7 @@ RSpec.describe Openable do
     box.open = false
     actor = plot.make_player_character
     plot.introduce actor
+    plot.ready
     actor.parent = room
     actor.perform 'close box'
     expect(box).to be_closed

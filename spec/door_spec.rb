@@ -53,7 +53,7 @@ RSpec.describe Door do
     actor.parent = room1
     expect(door).to be_closed
     actor.perform 'go east'
-    expect(actor.parent).to be(room2)
+    expect(actor.parent).to eq(room2)
     expect(door).to be_open
   end
 end

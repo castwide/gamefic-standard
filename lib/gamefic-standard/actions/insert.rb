@@ -1,16 +1,16 @@
 Gamefic.script do
-  respond :insert, Use.available, Use.available do |actor, thing, target|
+  respond :insert, available, available do |actor, thing, target|
     actor.tell "You can't put #{the thing} inside #{the target}."
   end
 
-  respond :insert, Use.available, Use.available(Receptacle) do |actor, thing, receptacle|
+  respond :insert, available, available(Receptacle) do |actor, thing, receptacle|
     actor.execute :take, thing unless thing.parent == actor
     next unless thing.parent == actor
     thing.parent = receptacle
     actor.tell "You put #{the thing} in #{the receptacle}."
   end
 
-  respond :insert, Use.available, Use.available(Container) do |actor, _thing, container|
+  respond :insert, available, available(Container) do |actor, _thing, container|
     if container.open?
       actor.proceed
     else

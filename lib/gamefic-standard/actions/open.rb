@@ -1,9 +1,9 @@
 Gamefic.script do
-  respond :open, Use.available do |actor, thing|
+  respond :open, available do |actor, thing|
     actor.tell "You can't open #{the thing}."
   end
 
-  respond :open, Use.available(Openable) do |actor, thing|
+  respond :open, available(Openable) do |actor, thing|
     if thing.open?
       actor.tell "#{The thing} is already open."
     else
@@ -12,7 +12,7 @@ Gamefic.script do
     end
   end
 
-  respond :open, Use.available(Lockable) do |actor, thing|
+  respond :open, available(Lockable) do |actor, thing|
     if thing.locked?
       actor.tell "#{The thing} is locked."
     else
@@ -20,7 +20,7 @@ Gamefic.script do
     end
   end
 
-  respond :open, Use.available(Lockable, :has_lock_key?), Use.available do |actor, thing, key|
+  respond :open, available(Lockable, :has_lock_key?), available do |actor, thing, key|
     actor.execute :unlock, thing, key
     actor.execute :open, thing if thing.unlocked?
   end

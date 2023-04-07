@@ -1,22 +1,22 @@
 Gamefic.script do
-  respond :enter, Use.siblings do |actor, thing|
+  respond :enter, siblings do |actor, thing|
     actor.tell "#{The thing} can't accommodate you."
   end
 
-  respond :enter, Use.siblings(Enterable, :enterable?) do |actor, supporter|
+  respond :enter, siblings(Enterable, :enterable?) do |actor, supporter|
     actor.parent = supporter
     actor.tell "You get in #{the supporter}."
   end
 
-  respond :enter, Use.parent do |actor, container|
+  respond :enter, parent do |actor, container|
     actor.tell "You're already in #{the container}."
   end
 
-  respond :enter, Use.parent(Supporter) do |actor, supporter|
+  respond :enter, parent(Supporter) do |actor, supporter|
     actor.tell "You're inside #{the supporter} already."
   end
 
-  respond :enter, Use.siblings(Container, :enterable?, :closed?) do |actor, container|
+  respond :enter, siblings(Container, :enterable?, :closed?) do |actor, container|
     actor.tell "#{The container} is closed."
   end
 

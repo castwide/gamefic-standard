@@ -1,13 +1,13 @@
 Gamefic.script do
-  respond :give, Use.available, Gamefic::Query::Children.new do |actor, _character, _gift|
+  respond :give, available, children do |actor, _character, _gift|
     actor.tell 'Nothing happens.'
   end
 
-  respond :give, Use.available(Character), Use.available do |actor, character, gift|
+  respond :give, available(Character), available do |actor, character, gift|
     actor.tell "#{The character} doesn't want #{the gift}."
   end
 
-  respond :give, Use.available(Character), Use.available do |actor, _character, gift|
+  respond :give, available(Character), available do |actor, _character, gift|
     if gift.parent != actor
       actor.execute :take, gift
     end

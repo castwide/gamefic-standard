@@ -1,5 +1,5 @@
 Gamefic.script do
-  respond :go, Use.siblings(Portal) do |actor, portal|
+  respond :go, siblings(Portal) do |actor, portal|
     if portal.destination.nil?
       actor.tell "That portal leads nowhere."
     else
@@ -11,7 +11,7 @@ Gamefic.script do
     end
   end
 
-  respond :go, Use.text do |actor, text|
+  respond :go, plaintext do |actor, text|
     if actor.parent == actor.room
       actor.tell "I don't see any way to go \"#{text} from here."
     else
@@ -24,7 +24,7 @@ Gamefic.script do
     end
   end
 
-  respond :go, Use.available(Door) do |actor, door|
+  respond :go, available(Door) do |actor, door|
     actor.execute :open, door unless door.open?
     actor.proceed if door.open?
   end

@@ -1,25 +1,15 @@
-class Gamefic::Query::Available < Gamefic::Query::Base
-  def context_from(subject)
-    result = []
-    top = subject.room || subject.parent
-    unless top.nil?
-      result.concat subquery_accessible(top)
-    end
-    result.delete subject
-    subject.children.each do |c|
-      result.push c
-      result.concat subquery_accessible(c)
-    end
-    result
+class Gamefic::Scope::Room < Gamefic::Scope::Base
+  def matches
+    [context.room].compact
+  end
+
+  def self.precision
+    1000
   end
 end
 
-class Gamefic::Query::Room < Gamefic::Query::Base
-  def context_from(subject)
-    subject.room ? [subject.room] : []
+module Gamefic::Scriptable::Queries
+  def room *args
+    Gamefic::Query::Scoped.new Gamefic::Scope::Room, *args
   end
-end
-
-Gamefic.script do
-  set_default_query Gamefic::Query::Available
 end

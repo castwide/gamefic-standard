@@ -1,9 +1,9 @@
 Gamefic.script do
-  respond :search, Use.available(Thing) do |actor, thing|
+  respond :search, available(Thing) do |actor, thing|
     actor.execute :look, thing
   end
 
-  respond :search, Use.available(Receptacle) do |actor, thing|
+  respond :search, available(Receptacle) do |actor, thing|
     if thing.accessible?
       itemized = thing.children.that_are_not(:attached?).that_are(:itemized?)
       if itemized.empty?
@@ -16,7 +16,7 @@ Gamefic.script do
     end
   end
 
-  respond :search, Use.available(Container, :closed?) do |actor, container|
+  respond :search, available(Container, :closed?) do |actor, container|
     actor.execute :open, container
     actor.proceed if container.open?
   end

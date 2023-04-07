@@ -6,9 +6,9 @@ RSpec.describe Room do
     plot.stage do
       connect room1, room2, 'east'
     end
-    expect(room1.children.first.destination).to be(room2)
+    expect(room1.children.first.destination).to eq(room2)
     expect(room1.children.first.direction.name).to eq('east')
-    expect(room2.children.first.destination).to be(room1)
+    expect(room2.children.first.destination).to eq(room1)
     expect(room2.children.first.direction.name).to eq('west')
   end
 
@@ -19,7 +19,7 @@ RSpec.describe Room do
     plot.stage do
       connect room1, room2, 'east', two_way: false
     end
-    expect(room1.children.first.destination).to be(room2)
+    expect(room1.children.first.destination).to eq(room2)
     expect(room1.children.first.direction.name).to eq('east')
     expect(room2.children).to be_empty
   end
@@ -32,7 +32,7 @@ RSpec.describe Room do
       connect room1, room2, 'east'
     end
     portal = room1.find_portal('east')
-    expect(portal.destination).to be(room2)
+    expect(portal.destination).to eq(room2)
   end
 
   it 'sends messages to children' do

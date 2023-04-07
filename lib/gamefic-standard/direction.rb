@@ -1,6 +1,4 @@
 class Direction
-  include Gamefic::Serialize
-
   attr_writer :adjective, :adverb, :reverse
 
   # @return [String]

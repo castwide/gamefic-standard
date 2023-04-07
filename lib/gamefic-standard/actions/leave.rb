@@ -1,19 +1,19 @@
 Gamefic.script do
-  respond :leave, Use.parent do |actor, thing|
+  respond :leave, parent do |actor, thing|
     actor.tell "There's no way out of #{the thing}."
   end
 
-  respond :leave, Use.parent(Enterable, :enterable?) do |actor, thing|
+  respond :leave, parent(Enterable, :enterable?) do |actor, thing|
     actor.tell "You leave #{the thing}."
     actor.parent = thing.parent
   end
 
-  respond :leave, Use.parent(Supporter, :enterable?) do |actor, thing|
+  respond :leave, parent(Supporter, :enterable?) do |actor, thing|
     actor.tell "You get off #{the thing}."
     actor.parent = thing.parent
   end
 
-  respond :leave, Use.room do |actor, room|
+  respond :leave, room do |actor, room|
     portals = room.children.that_are(Portal)
     if portals.length == 0
       actor.tell "You don't see any obvious exits."
@@ -32,7 +32,7 @@ Gamefic.script do
     end
   end
 
-  respond :leave, Use.parent(Container, :enterable?, :closed?) do |actor, container|
+  respond :leave, parent(Container, :enterable?, :closed?) do |actor, container|
     actor.execute :open, container
     actor.proceed if container.open?
   end

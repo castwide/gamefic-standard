@@ -1,5 +1,5 @@
 Gamefic.script do
-  respond :take, Use.available do |actor, thing|
+  respond :take, available do |actor, thing|
     if thing.parent == actor
       actor.tell "You're already carrying #{the thing}."
     elsif thing.portable?
@@ -14,11 +14,11 @@ Gamefic.script do
     end
   end
 
-  respond :take, Use.available(:attached?) do |actor, thing|
+  respond :take, available(:attached?) do |actor, thing|
     actor.tell "#{The thing} is attached to #{the thing.parent}."
   end
 
-  respond :take, Use.available(Rubble) do |actor, rubble|
+  respond :take, available(Rubble) do |actor, rubble|
     actor.tell "You don't have any use for #{the rubble}."
   end
 

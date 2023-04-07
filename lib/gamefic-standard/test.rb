@@ -14,10 +14,12 @@ module Tester
   end
 end
 
+Gamefic::Scriptable::Actions.include Tester
+
+# @todo For some reason, these includes are necessary in Opal
 class Gamefic::Plot
   include Tester
 end
-
 class Gamefic::Subplot
   include Tester
 end

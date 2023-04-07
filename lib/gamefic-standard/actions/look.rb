@@ -1,21 +1,21 @@
 Gamefic.script do
-  respond :look, Use.text(/^here$/i) do |actor, _|
+  respond :look do |actor, _|
     actor.execute :look, actor.room
   end
 
-  respond :look, Use.itself do |actor, _|
+  respond :look, myself do |actor, _|
     actor.tell actor.description
     actor.execute :inventory
   end
 
-  respond :look, Use.available(Thing) do |actor, thing|
+  respond :look, available(Thing) do |actor, thing|
     actor.tell thing.description
     thing.children.that_are(:attached?).that_are(:itemized?).each do |item|
       actor.tell "#{An item} is attached to #{the thing}."
     end
   end
 
-  respond :look, Use.available(Supporter) do |actor, thing|
+  respond :look, available(Supporter) do |actor, thing|
     itemized = thing.children.that_are_not(:attached?).that_are(:itemized?)
     # If the supporter does not have a description but it does contain
     # itemized things, avoid saying there's nothing special about it.
@@ -23,7 +23,7 @@ Gamefic.script do
     actor.tell "You see #{itemized.join_and} on #{the thing}." unless itemized.empty?
   end
 
-  respond :look, Use.available(Receptacle) do |actor, thing|
+  respond :look, available(Receptacle) do |actor, thing|
     actor.proceed
     if thing.accessible?
       itemized = thing.children.that_are_not(:attached?).that_are(:itemized?)
@@ -31,17 +31,17 @@ Gamefic.script do
     end
   end
 
-  respond :look, Use.parent(Supporter, :enterable?) do |actor, supporter|
+  respond :look, parent(Supporter, :enterable?) do |actor, supporter|
     actor.proceed
     actor.tell "You are currently on #{the supporter}."
   end
 
-  respond :look, Use.available(Thing, Openable) do |actor, thing|
+  respond :look, available(Thing, Openable) do |actor, thing|
     actor.proceed
     actor.tell "#{The thing} is #{thing.open? ? 'open' : 'closed'}."
   end
 
-  respond :look, Use.room do |actor, room|
+  respond :look, room do |actor, room|
     actor.tell "<strong>#{room.name.cap_first}</strong>"
     actor.tell room.description if room.has_description?
     actor.execute :_itemize_room
@@ -101,9 +101,9 @@ Gamefic.script do
     end
   end
 
-  interpret 'look around', 'look here'
-  interpret 'look', 'look here'
-  interpret 'l', 'look here'
+  interpret 'look around', 'look'
+  interpret 'look here', 'look'
+  interpret 'l', 'look'
 
   interpret 'look at :thing', 'look :thing'
   interpret 'l :thing', 'look :thing'

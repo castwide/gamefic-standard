@@ -6,6 +6,7 @@ RSpec.describe 'Search action' do
     item = plot.make Item, name: 'item', parent: container
     player = plot.make_player_character
     plot.introduce player
+    plot.ready
     player.parent = room
     player.perform 'look inside container'
     expect(container).to be_open
@@ -19,6 +20,7 @@ RSpec.describe 'Search action' do
     item = plot.make Item, name: 'item', parent: container
     player = plot.make_player_character
     plot.introduce player
+    plot.ready
     player.parent = room
     player.perform 'look inside container'
     expect(container).to be_closed
@@ -31,6 +33,7 @@ RSpec.describe 'Search action' do
     _receptacle = plot.make Receptacle, name: 'receptacle', parent: room
     player = plot.make_player_character
     plot.introduce player
+    plot.ready
     player.parent = room
     player.perform 'look inside receptacle'
     expect(player.messages).to include('nothing inside')
@@ -42,6 +45,7 @@ RSpec.describe 'Search action' do
     thing = plot.make Thing, name: 'thing', description: 'Just a thing.', parent: room
     player = plot.make_player_character
     plot.introduce player
+    plot.ready
     player.parent = room
     player.perform 'search thing'
     expect(player.messages).to include(thing.description)
@@ -50,12 +54,13 @@ RSpec.describe 'Search action' do
   it 'reports inaccessible receptacles' do
     plot = Gamefic::Plot.new
     room = plot.make Room
-    receptacle = plot.make Receptacle, name: 'receptacle', parent: room
+    receptacle = plot.make(Receptacle, name: 'receptacle', parent: room).entity
     receptacle.define_singleton_method :accessible? do
       false
     end
     player = plot.make_player_character
     plot.introduce player
+    plot.ready
     player.parent = room
     player.perform 'search receptacle'
     expect(player.messages).to include("can't see inside")

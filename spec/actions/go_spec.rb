@@ -1,7 +1,6 @@
 RSpec.describe 'Go action' do
   it 'goes through a portal' do
-    plot = Gamefic::Plot.new
-    plot.stage do
+    Gamefic.script do
       room1 = make Room, name: 'room1'
       room2 = make Room, name: 'room2'
       connect room1, room2, 'east'
@@ -9,8 +8,10 @@ RSpec.describe 'Go action' do
         actor.parent = room1
       end
     end
-    actor = plot.get_player_character
+    plot = Gamefic::Plot.new
+    actor = plot.make_player_character
     plot.introduce actor
+    plot.ready
     actor.perform 'go east'
     expect(actor.parent.name).to eq('room2')
   end
@@ -19,7 +20,7 @@ RSpec.describe 'Go action' do
     plot = Gamefic::Plot.new
     room = plot.make Room, name: 'room'
     plot.make Portal, name: 'portal', parent: room
-    actor = plot.get_player_character
+    actor = plot.make_player_character
     plot.introduce actor
     actor.parent = room
     actor.perform 'go portal'
@@ -37,7 +38,7 @@ RSpec.describe 'Go action' do
     plot.introduce actor
     actor.parent = chair
     actor.perform 'go east'
-    expect(actor.parent).to be(out)
+    expect(actor.parent).to eq(out)
     expect(actor.messages).to include('get off the chair')
   end
 
@@ -51,24 +52,32 @@ RSpec.describe 'Go action' do
     plot.introduce actor
     actor.parent = chair
     actor.perform 'go west'
-    expect(actor.parent).to be(room)
+    expect(actor.parent).to eq(room)
     expect(actor.messages).to include('get off the chair')
   end
 
   it 'fails if supporter cannot be left' do
-    plot = Gamefic::Plot.new
-    room = plot.make Room, name: 'room'
-    chair = plot.make Supporter, name: 'chair', enterable: true, parent: room
-    plot.respond :leave, Use.parent(chair) do |actor, _chair|
-      actor.tell "You can't leave the chair."
+    Gamefic::Plot.script do
+      room = make Room, name: 'room'
+      @chair = make Supporter, name: 'chair', enterable: true, parent: room
+      out = make Room, name: 'out'
+      connect room, out, 'east'
+
+      respond :leave, parent(@chair) do |actor, _chair|
+        actor.tell "You can't leave the chair."
+      end
+
+      introduction do |actor|
+        actor.parent = @chair
+      end
     end
-    out = plot.make Room, name: 'out'
-    plot.connect room, out, 'east'
+    plot = Gamefic::Plot.new
     actor = plot.make_player_character
     plot.introduce actor
-    actor.parent = chair
+    plot.ready
+    chair = plot.stage { @chair }.entity
     actor.perform 'go east'
-    expect(actor.parent).to be(chair)
+    expect(actor.parent).to eq(chair)
     expect(actor.messages).to include("You can't leave the chair.")
   end
 end

@@ -1,7 +1,6 @@
 RSpec.describe 'Open action' do
   it 'opens with keys' do
-    plot = Gamefic::Plot.new
-    plot.stage do
+    Gamefic.script do
       room = make Room, name: 'room'
       key = make Thing, name: 'key'
       safe_class = Class.new(Thing)
@@ -12,8 +11,10 @@ RSpec.describe 'Open action' do
         key.parent = actor
       end
     end
-    actor = plot.get_player_character
+    plot = Gamefic::Plot.new
+    actor = plot.make_player_character
     plot.introduce actor
+    plot.ready
     actor.perform 'open safe with key'
     expect(plot.pick('safe')).not_to be_locked
     expect(plot.pick('safe')).to be_open

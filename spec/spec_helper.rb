@@ -14,4 +14,12 @@ RSpec.configure do |config|
   config.expect_with :rspec do |c|
     c.syntax = :expect
   end
+
+  config.before :each do
+    @original = Gamefic::Plot.blocks.clone
+  end
+
+  config.after :each do
+    Gamefic::Plot.blocks.replace @original
+  end
 end
