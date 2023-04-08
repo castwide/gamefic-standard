@@ -3,7 +3,7 @@ Gamefic.script do
     actor.tell "You can't lock #{the thing}."
   end
 
-  respond :lock, available(Lockable, :has_lock_key?), children do |actor, thing, key|
+  respond :lock, available(Lockable, proc(&:has_lock_key?)), children do |actor, thing, key|
     if thing.lock_key == key
       thing.locked = true
       actor.tell "You lock ##{the thing} with #{the key}."
@@ -12,7 +12,7 @@ Gamefic.script do
     end
   end
 
-  respond :lock, available(Lockable, :has_lock_key?), available do |actor, thing, key|
+  respond :lock, available(Lockable, proc(&:has_lock_key?)), available do |actor, thing, key|
     actor.execute :take, key if key.parent != actor
     actor.proceed if key.parent == actor
   end

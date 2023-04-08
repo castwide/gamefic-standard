@@ -14,7 +14,7 @@ Gamefic.script do
     end
   end
 
-  respond :take, available(:attached?) do |actor, thing|
+  respond :take, available(proc(&:attached?)) do |actor, thing|
     actor.tell "#{The thing} is attached to #{the thing.parent}."
   end
 

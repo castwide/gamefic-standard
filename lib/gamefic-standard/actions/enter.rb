@@ -3,7 +3,7 @@ Gamefic.script do
     actor.tell "#{The thing} can't accommodate you."
   end
 
-  respond :enter, siblings(Enterable, :enterable?) do |actor, supporter|
+  respond :enter, siblings(Enterable, proc(&:enterable?)) do |actor, supporter|
     actor.parent = supporter
     actor.tell "You get in #{the supporter}."
   end
@@ -16,7 +16,7 @@ Gamefic.script do
     actor.tell "You're inside #{the supporter} already."
   end
 
-  respond :enter, siblings(Container, :enterable?, :closed?) do |actor, container|
+  respond :enter, siblings(Container, proc(&:enterable?), proc(&:closed?)) do |actor, container|
     actor.tell "#{The container} is closed."
   end
 

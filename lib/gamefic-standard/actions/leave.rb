@@ -3,12 +3,12 @@ Gamefic.script do
     actor.tell "There's no way out of #{the thing}."
   end
 
-  respond :leave, parent(Enterable, :enterable?) do |actor, thing|
+  respond :leave, parent(Enterable, proc(&:enterable?)) do |actor, thing|
     actor.tell "You leave #{the thing}."
     actor.parent = thing.parent
   end
 
-  respond :leave, parent(Supporter, :enterable?) do |actor, thing|
+  respond :leave, parent(Supporter, proc(&:enterable?)) do |actor, thing|
     actor.tell "You get off #{the thing}."
     actor.parent = thing.parent
   end
@@ -32,7 +32,7 @@ Gamefic.script do
     end
   end
 
-  respond :leave, parent(Container, :enterable?, :closed?) do |actor, container|
+  respond :leave, parent(Container, proc(&:enterable?), proc(&:closed?)) do |actor, container|
     actor.execute :open, container
     actor.proceed if container.open?
   end

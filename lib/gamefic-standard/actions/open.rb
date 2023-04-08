@@ -20,7 +20,7 @@ Gamefic.script do
     end
   end
 
-  respond :open, available(Lockable, :has_lock_key?), available do |actor, thing, key|
+  respond :open, available(Lockable, proc(&:has_lock_key?)), available do |actor, thing, key|
     actor.execute :unlock, thing, key
     actor.execute :open, thing if thing.unlocked?
   end

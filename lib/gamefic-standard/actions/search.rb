@@ -5,7 +5,7 @@ Gamefic.script do
 
   respond :search, available(Receptacle) do |actor, thing|
     if thing.accessible?
-      itemized = thing.children.that_are_not(:attached?).that_are(:itemized?)
+      itemized = thing.children.that_are_not(proc(&:attached?)).that_are(proc(&:itemized?))
       if itemized.empty?
         actor.tell "There's nothing inside #{the thing}."
       else
@@ -16,7 +16,7 @@ Gamefic.script do
     end
   end
 
-  respond :search, available(Container, :closed?) do |actor, container|
+  respond :search, available(Container, proc(&:closed?)) do |actor, container|
     actor.execute :open, container
     actor.proceed if container.open?
   end

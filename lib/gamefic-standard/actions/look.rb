@@ -10,13 +10,13 @@ Gamefic.script do
 
   respond :look, available(Thing) do |actor, thing|
     actor.tell thing.description
-    thing.children.that_are(:attached?).that_are(:itemized?).each do |item|
+    thing.children.that_are(proc(&:attached?)).that_are(proc(&:itemized?)).each do |item|
       actor.tell "#{An item} is attached to #{the thing}."
     end
   end
 
   respond :look, available(Supporter) do |actor, thing|
-    itemized = thing.children.that_are_not(:attached?).that_are(:itemized?)
+    itemized = thing.children.that_are_not(proc(&:attached?)).that_are(proc(&:itemized?))
     # If the supporter does not have a description but it does contain
     # itemized things, avoid saying there's nothing special about it.
     actor.proceed if thing.has_description? || itemized.empty?
@@ -26,12 +26,12 @@ Gamefic.script do
   respond :look, available(Receptacle) do |actor, thing|
     actor.proceed
     if thing.accessible?
-      itemized = thing.children.that_are_not(:attached?).that_are(:itemized?)
+      itemized = thing.children.that_are_not(proc(&:attached?)).that_are(proc(&:itemized?))
       actor.tell "You see #{itemized.join_and} in #{the thing}." unless itemized.empty?
     end
   end
 
-  respond :look, parent(Supporter, :enterable?) do |actor, supporter|
+  respond :look, parent(Supporter, proc(&:enterable?)) do |actor, supporter|
     actor.proceed
     actor.tell "You are currently on #{the supporter}."
   end
@@ -51,7 +51,7 @@ Gamefic.script do
     room = actor.room
     next if room.nil?
     with_locales = []
-    chars = room.children.that_are(Character).that_are(:itemized?) - [actor]
+    chars = room.children.that_are(Character).that_are(proc(&:itemized?)) - [actor]
     charsum = []
     chars.each do |char|
       if char.locale_description.nil?
@@ -63,7 +63,7 @@ Gamefic.script do
     if charsum.length > 0
       actor.tell "#{charsum.join_and.cap_first} #{charsum.length == 1 ? 'is' : 'are'} here."
     end
-    items = room.children.that_are(:itemized?) - [actor] - room.children.that_are(Character) - room.children.that_are(Portal)
+    items = room.children.that_are(proc(&:itemized?)) - [actor] - room.children.that_are(Character) - room.children.that_are(Portal)
     itemsum = []
     items.each do |item|
       if item.locale_description.nil?
@@ -79,7 +79,7 @@ Gamefic.script do
       actor.tell entity.locale_description
     }
     if room.explicit_exits?
-      portals = room.children.that_are(Portal).that_are(:itemized?)
+      portals = room.children.that_are(Portal).that_are(proc(&:itemized?))
       if portals.length > 0
         if portals.length == 1
           p = portals[0]
