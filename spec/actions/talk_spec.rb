@@ -5,7 +5,7 @@ RSpec.describe 'Talk action' do
     plot.introduce player
     player.perform 'talk'
     expect(player.messages).to include('You talk to yourself')
-    player.messages.clear
+    player.flush
     player.perform 'talk self'
     expect(player.messages).to include('You talk to yourself')
   end

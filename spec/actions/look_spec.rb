@@ -143,7 +143,7 @@ RSpec.describe 'Look action' do
     actor.parent = supporter
     actor.perform 'look supporter'
     expect(actor.messages).to include('currently on the supporter')
-    actor.messages.clear
+    actor.flush
     actor.perform 'look'
     expect(actor.messages).to include('on the supporter')
   end
