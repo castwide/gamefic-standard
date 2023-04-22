@@ -36,8 +36,8 @@ module Gamefic::Scriptable::Entities
   #
   # @return [Portal]
   def connect origin, destination, direction = nil, type: Portal, two_way: true
-    origin = origin&.entity
-    destination = destination&.entity
+    origin = origin
+    destination = destination
     if direction.nil?
       portal = make type, :parent => origin, :destination => destination
       if two_way == true

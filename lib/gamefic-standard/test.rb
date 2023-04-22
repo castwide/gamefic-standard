@@ -25,7 +25,7 @@ class Gamefic::Subplot
 end
 
 Gamefic.script do
-  meta :test, Gamefic::Query::Text.new do |actor, name|
+  meta :test, plaintext do |actor, name|
     sym = name.to_sym
     if test_procs[sym].nil?
       actor.tell "There's no test named '#{name}' in this game."

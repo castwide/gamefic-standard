@@ -75,7 +75,7 @@ RSpec.describe 'Go action' do
     actor = plot.make_player_character
     plot.introduce actor
     plot.ready
-    chair = plot.stage { @chair }.entity
+    chair = plot.stage { @chair }
     actor.perform 'go east'
     expect(actor.parent).to eq(chair)
     expect(actor.messages).to include("You can't leave the chair.")

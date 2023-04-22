@@ -1,5 +1,5 @@
 Gamefic.script do
-  meta nil, Gamefic::Query::Text.new do |actor, string|
+  meta nil, plaintext do |actor, string|
     words = string.keywords
     # @todo There should probably be an Active#verbs or Active#command_words method
     list = actor.playbooks.flat_map(&:synonyms)

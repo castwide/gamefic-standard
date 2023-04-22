@@ -54,7 +54,7 @@ RSpec.describe 'Search action' do
   it 'reports inaccessible receptacles' do
     plot = Gamefic::Plot.new
     room = plot.make Room
-    receptacle = plot.make(Receptacle, name: 'receptacle', parent: room).entity
+    receptacle = plot.make(Receptacle, name: 'receptacle', parent: room)
     receptacle.define_singleton_method :accessible? do
       false
     end
