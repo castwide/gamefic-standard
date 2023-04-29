@@ -13,7 +13,7 @@ Gamefic.script do
 
   respond :go, plaintext do |actor, text|
     if actor.parent == actor.room
-      actor.tell "I don't see any way to go \"#{text} from here."
+      actor.tell "I don't see any way to go \"#{text}\" from here."
     else
       actor.execute :leave
       if actor.parent == actor.room
