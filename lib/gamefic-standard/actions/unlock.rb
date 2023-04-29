@@ -1,12 +1,16 @@
 Gamefic.script do
-  respond :unlock, available do |actor, thing|
-    actor.tell "You can't unlock #{the thing}."
+  respond :unlock, available(Lockable) do |actor, thing|
+    if thing.has_lock_key? && actor.children.include?(thing.lock_key)
+      actor.execute :unlock, thing, thing.lock_key
+    else
+      actor.tell "You can't unlock #{the thing}."
+    end
   end
 
   respond :unlock, available(Lockable, proc(&:has_lock_key?)), children do |actor, thing, key|
     if thing.lock_key == key
       thing.locked = false
-      actor.tell "You unlock ##{the thing} with #{the key}."
+      actor.tell "You unlock #{the thing} with #{the key}."
     else
       actor.tell "You can't unlock #{the thing} with #{the key}."
     end

@@ -37,8 +37,11 @@ Gamefic.script do
   end
 
   respond :look, available(Thing, Openable) do |actor, thing|
-    actor.proceed
+    actor.tell thing.description if thing.has_description?
     actor.tell "#{The thing} is #{thing.open? ? 'open' : 'closed'}."
+    next if thing.closed? || thing.children.empty?
+
+    actor.tell "You see #{thing.children.join_and}."
   end
 
   respond :look, room do |actor, room|
