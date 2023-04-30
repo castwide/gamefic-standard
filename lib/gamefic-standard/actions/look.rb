@@ -92,6 +92,8 @@ Gamefic.script do
           portals.each do |p|
             dirs.push p.instruction
           end
+          order = ['north', 'northeast', 'east', 'southeast', 'south', 'southwest', 'west', 'northwest', 'up', 'down']
+          dirs.sort! { |a, b| (order.index(a.to_s) || order.length) <=> (order.index(b.to_s) || order.length) }
           actor.tell "There are exits #{dirs.join_and(', ')}."
         end
       end
