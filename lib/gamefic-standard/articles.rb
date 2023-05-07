@@ -41,14 +41,8 @@ module Articles
   alias The the_
 end
 
-module Gamefic::Scriptable::Entities
-  include Articles
-end
+Gamefic::Plot::ScriptMethods.include Articles
+Gamefic::Subplot::ScriptMethods.include Articles
 
-# @todo For some reason, these includes are necessary in Opal
-class Gamefic::Plot
-  include Articles
-end
-class Gamefic::Subplot
-  include Articles
-end
+# @todo For some reason, this include is necessary in Opal
+Gamefic::Narrative.include Articles if RUBY_ENGINE == 'opal'
