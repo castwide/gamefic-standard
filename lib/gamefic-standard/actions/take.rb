@@ -22,6 +22,22 @@ Gamefic.script do
     actor.tell "You don't have any use for #{the rubble}."
   end
 
+  respond :take, plaintext(/^(all|everything)$/) do |actor, _all|
+    taken = []
+    items = Gamefic::Scope::Family.matches(actor)
+                                  .that_are(proc(&:portable?))
+                                  .reject { |item| actor.flatten.include?(item) }
+    if items.empty?
+      actor.tell "You don't see anything you can carry."
+    else
+      actor.cue nil
+      items.each do |item|
+        actor.execute :take, item
+        next unless actor.next_cue.nil?
+      end
+    end
+  end
+
   interpret "get :thing", "take :thing"
   interpret "pick up :thing", "take :thing"
   interpret "pick :thing up", "take :thing"

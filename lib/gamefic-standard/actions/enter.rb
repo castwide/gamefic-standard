@@ -22,4 +22,10 @@ Gamefic.script do
 
   interpret "get on :thing", "enter :thing"
   interpret "get in :thing", "enter :thing"
+  interpret "sit on :thing", "enter :thing"
+  interpret "sit in :thing", "enter :thing"
+  interpret "lie on :thing", "enter :thing"
+  interpret "lie in :thing", "enter :thing"
+  interpret "stand on :thing", "enter :thing"
+  interpret "stand in :thing", "enter :thing"
 end

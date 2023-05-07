@@ -111,7 +111,12 @@ Gamefic.script do
   interpret 'l', 'look'
 
   interpret 'look at :thing', 'look :thing'
+  interpret 'look on :thing', 'look :thing'
+  interpret 'look under :thing', 'look :thing'
+  interpret 'look beneath :thing', 'look :thing'
+  interpret 'look around :thing', 'look :thing'
   interpret 'l :thing', 'look :thing'
   interpret 'examine :thing', 'look :thing'
   interpret 'x :thing', 'look :thing'
+  interpret 'inspect :thing', 'look :thing'
 end
