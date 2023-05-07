@@ -2,9 +2,7 @@ RSpec.describe 'Leave action' do
   it 'leaves an enterable' do
     Gamefic.script do
       room = make Room, name: 'room'
-      klass = Class.new(Gamefic::Entity)
-      klass.include Enterable
-      enterable = make klass, name: 'enterable', parent: room, enterable: true
+      enterable = make Container, name: 'enterable', parent: room, enterable: true
       introduction do |actor|
         actor.parent = enterable
       end

@@ -3,9 +3,7 @@ RSpec.describe 'Open action' do
     Gamefic.script do
       room = make Room, name: 'room'
       key = make Thing, name: 'key'
-      safe_class = Class.new(Thing)
-      safe_class.include Lockable
-      make safe_class, name: 'safe', parent: room, locked: true, lock_key: key
+      make Container, name: 'safe', parent: room, locked: true, lock_key: key
       introduction do |actor|
         actor.parent = room
         key.parent = actor
