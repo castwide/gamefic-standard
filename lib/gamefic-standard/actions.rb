@@ -1,4 +1,5 @@
 require 'gamefic-standard/actions/nil'
+require 'gamefic-standard/actions/attack'
 require 'gamefic-standard/actions/drop'
 require 'gamefic-standard/actions/enter'
 require 'gamefic-standard/actions/open'
