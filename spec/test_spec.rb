@@ -24,4 +24,21 @@ RSpec.describe 'test' do
     expect(player.queue).to be_empty
     expect(player.messages).to include('no test named "them"')
   end
+
+  it 'serializes' do
+    Gamefic.script do
+      on_test :me do |_actor, queue|
+        queue.concat ['first', 'second']
+      end
+    end
+    plot = Gamefic::Plot.new
+    player = plot.make_player_character
+    plot.introduce player
+    plot.ready
+    player.perform 'test me'
+    expect {
+      snapshot = plot.save
+      Gamefic::Snapshot.restore snapshot
+    }.not_to raise_error
+  end
 end
