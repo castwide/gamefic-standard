@@ -1,6 +1,6 @@
 Gamefic.script do
   respond :look do |actor, _|
-    actor.execute :look, actor.room
+    actor.execute :_describe_room
   end
 
   respond :look, myself do |actor, _|
@@ -45,14 +45,21 @@ Gamefic.script do
   end
 
   respond :look, room do |actor, room|
-    actor.tell "<strong>#{room.name.cap_first}</strong>"
-    actor.tell room.description if room.has_description?
+    actor.execute :_describe_room
+  end
+
+  meta :_describe_room do |actor|
+    next unless actor.room
+
+    actor.tell "<strong>#{actor.room.name.cap_first}</strong>"
+    actor.tell actor.room.description if actor.room.has_description?
     actor.execute :_itemize_room
   end
 
   meta :_itemize_room do |actor|
     room = actor.room
-    next if room.nil?
+    next unless room
+
     with_locales = []
     chars = room.children.that_are(Character).that_are(proc(&:itemized?)) - [actor]
     charsum = []
