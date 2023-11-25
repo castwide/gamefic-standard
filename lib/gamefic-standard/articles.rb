@@ -41,8 +41,8 @@ module Articles
   alias The the_
 end
 
+Gamefic::Narrative::ScriptMethods.include Articles
+# @todo For some reason, this delegator needs to be reset in Opal
+Gamefic::Narrative.delegate Gamefic::Narrative::ScriptMethods if RUBY_ENGINE == 'opal'
 Gamefic::Plot::ScriptMethods.include Articles
 Gamefic::Subplot::ScriptMethods.include Articles
-
-# @todo For some reason, this include is necessary in Opal
-Gamefic::Narrative.include Articles if RUBY_ENGINE == 'opal'
