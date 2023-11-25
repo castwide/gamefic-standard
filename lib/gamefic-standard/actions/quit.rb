@@ -1,8 +1,6 @@
 Gamefic.script do
-  yes_or_no :confirm_quit do |scene|
-    scene.on_finish do |actor, data|
-      actor.cue :default_conclusion if data.yes?
-    end
+  yes_or_no :confirm_quit do |actor, props|
+    actor.cue :default_conclusion if props.yes?
   end
 
   meta :quit do |actor|
