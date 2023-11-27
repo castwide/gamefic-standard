@@ -42,7 +42,9 @@ module Articles
 end
 
 Gamefic::Narrative::ScriptMethods.include Articles
-# @todo For some reason, this delegator needs to be reset in Opal
-Gamefic::Narrative.delegate Gamefic::Narrative::ScriptMethods if RUBY_ENGINE == 'opal'
-Gamefic::Plot::ScriptMethods.include Articles
-Gamefic::Subplot::ScriptMethods.include Articles
+# @todo For some reason, the following delegate and includes are necessary in Opal
+if RUBY_ENGINE == 'opal'
+  Gamefic::Narrative.delegate Gamefic::Narrative::ScriptMethods
+  Gamefic::Plot::ScriptMethods.include Articles
+  Gamefic::Subplot::ScriptMethods.include Articles
+end
