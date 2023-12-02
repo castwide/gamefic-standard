@@ -31,7 +31,7 @@ end
 # @todo Monkey patching might not be the best way to handle this. It's only
 #   necessary because of specs that make Plot#connect calls. Consider
 #   changing the specs instead.
-module Gamefic::Scriptable::Entities
+module Gamefic::Delegatable::Entities
   # Create portals between rooms.
   #
   # @return [Portal]

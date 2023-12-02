@@ -8,7 +8,7 @@ class Gamefic::Scope::Room < Gamefic::Scope::Base
   end
 end
 
-module Gamefic::Scriptable::Queries
+module Gamefic::Delegatable::Queries
   def room *args
     Gamefic::Query::Scoped.new Gamefic::Scope::Room, *args
   end
