@@ -57,12 +57,14 @@ RSpec.describe 'Go action' do
   end
 
   it 'fails if supporter cannot be left' do
-    Gamefic::Plot.script do
+    Gamefic::Plot.seed do
       room = make Room, name: 'room'
       @chair = make Supporter, name: 'chair', enterable: true, parent: room
       out = make Room, name: 'out'
       connect room, out, 'east'
+    end
 
+    Gamefic::Plot.script do
       respond :leave, parent(@chair) do |actor, _chair|
         actor.tell "You can't leave the chair."
       end
