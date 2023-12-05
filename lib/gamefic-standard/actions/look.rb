@@ -1,6 +1,6 @@
 Gamefic.script do
   respond :look do |actor, _|
-    actor.execute :_describe_room
+    actor.execute :look, actor.room
   end
 
   respond :look, myself do |actor, _|
