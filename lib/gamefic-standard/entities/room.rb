@@ -36,17 +36,13 @@ module Gamefic::Delegatable::Entities
   #
   # @return [Portal]
   def connect origin, destination, direction = nil, type: Portal, two_way: true
-    origin = origin
-    destination = destination
     if direction.nil?
       portal = make type, :parent => origin, :destination => destination
       if two_way == true
         portal2 = make type, :parent => destination, :destination => origin
       end
     else
-      if direction.kind_of?(String)
-        direction = Direction.find(direction)
-      end
+      direction = Direction.find(direction)
       portal = make type, :direction => direction, :parent => origin, :destination => destination
       portal.proper_named = true if type == Portal
       if two_way == true

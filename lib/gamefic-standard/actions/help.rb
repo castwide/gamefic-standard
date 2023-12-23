@@ -19,7 +19,8 @@ Gamefic.script do
                           .uniq(&:signature)
       examples = available.map(&:template)
                           .map do |tmpl|
-                            tmpl.gsub(/:character/i, '[someone]')
+                            tmpl.text
+                                .gsub(/:character/i, '[someone]')
                                 .gsub(/:var[0-9]?/i, '[something]')
                                 .gsub(/:([a-z0-9]+)/i, "[\\1]")
                           end
