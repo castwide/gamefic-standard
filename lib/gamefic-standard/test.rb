@@ -24,7 +24,9 @@ module Tests
   end
 end
 
-Gamefic::Plot::ScriptMethods.include Tests
+# @todo Better
+# Gamefic::Plot::ScriptMethods.include Tests
+Gamefic::Narrative.include Tests
 
 # @todo For some reason, this include is necessary in Opal
 Gamefic::Plot.include Tests if RUBY_ENGINE == 'opal'
