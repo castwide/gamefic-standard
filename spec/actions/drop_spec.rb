@@ -7,8 +7,7 @@ RSpec.describe 'Drop action' do
       end
     end
     plot = Gamefic::Plot.new
-    actor = plot.make_player_character
-    plot.introduce actor
+    actor = plot.introduce
     plot.ready
     actor.perform 'drop thing'
     expect(actor.children).to be_empty
@@ -23,8 +22,7 @@ RSpec.describe 'Drop action' do
       end
     end
     plot = Gamefic::Plot.new
-    actor = plot.make_player_character
-    plot.introduce actor
+    actor = plot.introduce
     plot.ready
     actor.perform 'drop thing'
     expect(actor.messages).to include('not carrying the thing')
@@ -35,8 +33,7 @@ RSpec.describe 'Drop action' do
     room = plot.make Room
     wallet = plot.make Receptacle, name: 'wallet', portable: true
     item = plot.make Item, name: 'item', parent: wallet
-    actor = plot.make_player_character
-    plot.introduce actor
+    actor = plot.introduce
     plot.ready
     actor.parent = room
     wallet.parent = actor

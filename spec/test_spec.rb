@@ -10,16 +10,14 @@ RSpec.describe 'test' do
       end
     end
     plot = Gamefic::Plot.new
-    player = plot.make_player_character
-    plot.introduce player
+    player = plot.introduce
     player.perform 'test me'
     expect(player.queue).to eq(['first', 'second'])
   end
 
   it 'reports unknown tests' do
     plot = Gamefic::Plot.new
-    player = plot.make_player_character
-    plot.introduce player
+    player = plot.introduce
     player.perform 'test them'
     expect(player.queue).to be_empty
     expect(player.messages).to include('no test named "them"')
@@ -32,8 +30,7 @@ RSpec.describe 'test' do
       end
     end
     plot = Gamefic::Plot.new
-    player = plot.make_player_character
-    plot.introduce player
+    player = plot.introduce
     plot.ready
     player.perform 'test me'
     expect {

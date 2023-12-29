@@ -1,8 +1,7 @@
 RSpec.describe 'Nil action' do
   it 'reports unrecognized commands' do
     plot = Gamefic::Plot.new
-    actor = plot.make_player_character
-    plot.introduce actor
+    actor = plot.introduce
     actor.perform 'unknown_command'
     expect(actor.messages).to include("I don't recognize")
   end
@@ -17,8 +16,7 @@ RSpec.describe 'Nil action' do
     room = plot.make Room
     item1 = plot.make Item, name: 'item 1', parent: room
     item2 = plot.make Item, name: 'item 2', parent: room
-    actor = plot.make_player_character
-    plot.introduce actor
+    actor = plot.introduce
     actor.parent = room
     actor.perform 'foobar item'
     expect(actor.children).to be_empty
@@ -36,8 +34,7 @@ RSpec.describe 'Nil action' do
     room = plot.make Room
     plot.make Item, name: 'item 1', parent: room
     plot.make Item, name: 'item 2', parent: room
-    actor = plot.make_player_character
-    plot.introduce actor
+    actor = plot.introduce
     plot.ready
     actor.parent = room
     actor.perform 'foobar nothing'
@@ -56,8 +53,7 @@ RSpec.describe 'Nil action' do
     room = plot.make Room
     plot.make Item, name: 'item 1', parent: room
     plot.make Fixture, name: 'fixture', parent: room
-    actor = plot.make_player_character
-    plot.introduce actor
+    actor = plot.introduce
     plot.ready
     actor.parent = room
     actor.perform 'foobar'
@@ -76,8 +72,7 @@ RSpec.describe 'Nil action' do
     room = plot.make Room
     plot.make Item, name: 'item 1', parent: room
     plot.make Fixture, name: 'fixture', parent: room
-    actor = plot.make_player_character
-    plot.introduce actor
+    actor = plot.introduce
     plot.ready
     actor.parent = room
     actor.perform 'foobar fixture'
@@ -103,8 +98,7 @@ RSpec.describe 'Nil action' do
       end
     end
     plot = Gamefic::Plot.new
-    actor = plot.make_player_character
-    plot.introduce actor
+    actor = plot.introduce
     plot.ready
     actor.perform 'glue thing to other'
     expect(actor.messages).to include('I recognize "glue" as a verb')

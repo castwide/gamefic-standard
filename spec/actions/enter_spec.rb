@@ -3,8 +3,7 @@ RSpec.describe 'Enter action' do
     plot = Gamefic::Plot.new
     room = plot.make Room
     thing = plot.make Receptacle, parent: room, name: 'thing', enterable: false
-    actor = plot.make_player_character
-    plot.introduce actor
+    actor = plot.introduce
     actor.parent = room
     actor.perform 'enter thing'
     expect(actor.parent).not_to eq(thing)
@@ -17,8 +16,7 @@ RSpec.describe 'Enter action' do
     room = plot.make Room
     thing = plot.make Receptacle, parent: room, name: 'thing', enterable: true
     thing.enterable = true
-    actor = plot.make_player_character
-    plot.introduce actor
+    actor = plot.introduce
     actor.parent = room
     actor.perform 'enter thing'
     expect(actor.parent).to eq(thing)
@@ -28,8 +26,7 @@ RSpec.describe 'Enter action' do
     plot = Gamefic::Plot.new
     room = plot.make Room
     thing = plot.make Receptacle, parent: room, name: 'thing', enterable: true
-    actor = plot.make_player_character
-    plot.introduce actor
+    actor = plot.introduce
     actor.parent = thing
     actor.perform 'enter thing'
     expect(actor.parent).to eq(thing)
@@ -40,8 +37,7 @@ RSpec.describe 'Enter action' do
     room = plot.make Room
     thing = plot.make Supporter, parent: room, name: 'thing'
     thing.enterable = true
-    actor = plot.make_player_character
-    plot.introduce actor
+    actor = plot.introduce
     actor.parent = thing
     actor.perform 'enter thing'
     expect(actor.parent).to eq(thing)
@@ -51,8 +47,7 @@ RSpec.describe 'Enter action' do
     plot = Gamefic::Plot.new
     room = plot.make Room
     container = plot.make Container, parent: room, name: 'container', enterable: true, open: false
-    actor = plot.make_player_character
-    plot.introduce actor
+    actor = plot.introduce
     actor.parent = room
     actor.perform 'enter container'
     expect(actor.messages).to include('closed')

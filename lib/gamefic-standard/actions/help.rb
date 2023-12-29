@@ -2,7 +2,7 @@
 
 Gamefic.script do
   respond :verbs do |actor|
-    list = synonyms.reject { |syn| syn.to_s.start_with?('_') }
+    list = rulebook.synonyms.reject { |syn| syn.to_s.start_with?('_') }
                    .map { |syn| "<kbd>#{syn}</kbd>"}
                    .join_and
     actor.tell "I understand the following commands: #{list}."
@@ -14,8 +14,8 @@ Gamefic.script do
   interpret 'help', 'verbs'
 
   respond :help, plaintext do |actor, command|
-    if synonyms.include?(command.to_sym) && !command.start_with?('_')
-      available = syntaxes.select { |syntax| syntax.synonym == command.to_sym }
+    if rulebook.synonyms.include?(command.to_sym) && !command.start_with?('_')
+      available = rulebook.syntaxes.select { |syntax| syntax.synonym == command.to_sym }
                           .uniq(&:signature)
       examples = available.map(&:template)
                           .map do |tmpl|

@@ -9,8 +9,7 @@ RSpec.describe 'Go action' do
       end
     end
     plot = Gamefic::Plot.new
-    actor = plot.make_player_character
-    plot.introduce actor
+    actor = plot.introduce
     plot.ready
     actor.perform 'go east'
     expect(actor.parent.name).to eq('room2')
@@ -20,8 +19,7 @@ RSpec.describe 'Go action' do
     plot = Gamefic::Plot.new
     room = plot.make Room, name: 'room'
     plot.make Portal, name: 'portal', parent: room
-    actor = plot.make_player_character
-    plot.introduce actor
+    actor = plot.introduce
     actor.parent = room
     actor.perform 'go portal'
     expect(actor.messages).to include('nowhere')
@@ -34,8 +32,7 @@ RSpec.describe 'Go action' do
     chair = plot.make Supporter, name: 'chair', enterable: true, parent: room
     out = plot.make Room, name: 'out'
     plot.connect room, out, 'east'
-    actor = plot.make_player_character
-    plot.introduce actor
+    actor = plot.introduce
     actor.parent = chair
     actor.perform 'go east'
     expect(actor.parent).to eq(out)
@@ -48,8 +45,7 @@ RSpec.describe 'Go action' do
     chair = plot.make Supporter, name: 'chair', enterable: true, parent: room
     out = plot.make Room, name: 'out'
     plot.connect room, out, 'east'
-    actor = plot.make_player_character
-    plot.introduce actor
+    actor = plot.introduce
     actor.parent = chair
     actor.perform 'go west'
     expect(actor.parent).to eq(room)
@@ -74,8 +70,7 @@ RSpec.describe 'Go action' do
       end
     end
     plot = Gamefic::Plot.new
-    actor = plot.make_player_character
-    plot.introduce actor
+    actor = plot.introduce
     plot.ready
     chair = plot.stage { @chair }
     actor.perform 'go east'

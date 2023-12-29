@@ -8,8 +8,7 @@ RSpec.describe 'Leave action' do
       end
     end
     plot = Gamefic::Plot.new
-    actor = plot.make_player_character
-    plot.introduce actor
+    actor = plot.introduce
     plot.ready
     actor.perform 'leave'
     expect(actor.parent.name).to eq('room')
@@ -25,8 +24,7 @@ RSpec.describe 'Leave action' do
       end
     end
     plot = Gamefic::Plot.new
-    actor = plot.make_player_character
-    plot.introduce actor
+    actor = plot.introduce
     plot.ready
     actor.perform 'leave'
     expect(actor.parent.name).to eq('room 2')
@@ -41,8 +39,7 @@ RSpec.describe 'Leave action' do
       end
     end
     plot = Gamefic::Plot.new
-    actor = plot.make_player_character
-    plot.introduce actor
+    actor = plot.introduce
     plot.ready
     actor.perform 'leave'
     expect(actor.parent.name).to eq('thing')
@@ -57,8 +54,7 @@ RSpec.describe 'Leave action' do
       end
     end
     plot = Gamefic::Plot.new
-    actor = plot.make_player_character
-    plot.introduce actor
+    actor = plot.introduce
     plot.ready
     actor.perform 'leave'
     expect(actor.parent.name).to eq('room 1')
@@ -76,8 +72,7 @@ RSpec.describe 'Leave action' do
       end
     end
     plot = Gamefic::Plot.new
-    actor = plot.make_player_character
-    plot.introduce actor
+    actor = plot.introduce
     plot.ready
     actor.perform 'leave'
     expect(actor.parent.name).to eq('room 1')
@@ -89,8 +84,7 @@ RSpec.describe 'Leave action' do
     plot = Gamefic::Plot.new
     room = plot.make Room
     container = plot.make Container, name: 'container', enterable: true, open: false, parent: room
-    actor = plot.make_player_character
-    plot.introduce actor
+    actor = plot.introduce
     actor.parent = container
     actor.perform 'leave container'
     expect(container).to be_open
@@ -99,8 +93,7 @@ RSpec.describe 'Leave action' do
 
   it 'handles nil parents' do
     plot = Gamefic::Plot.new
-    actor = plot.make_player_character
-    plot.introduce actor
+    actor = plot.introduce
     actor.perform 'leave'
     expect(actor.parent).to be_nil
   end

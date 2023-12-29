@@ -10,8 +10,7 @@ RSpec.describe Lockable do
       end
     end
     plot = Gamefic::Plot.new
-    actor = plot.make_player_character
-    plot.introduce actor
+    actor = plot.introduce
     plot.ready
     actor.perform 'unlock safe with key'
     expect(plot.pick('safe')).not_to be_locked
@@ -29,8 +28,7 @@ RSpec.describe Lockable do
       end
     end
     plot = Gamefic::Plot.new
-    actor = plot.make_player_character
-    plot.introduce actor
+    actor = plot.introduce
     plot.ready
     actor.perform 'unlock safe with wrong key'
     expect(plot.pick('safe')).to be_locked
@@ -47,8 +45,7 @@ RSpec.describe Lockable do
       end
     end
     plot = Gamefic::Plot.new
-    actor = plot.make_player_character
-    plot.introduce actor
+    actor = plot.introduce
     plot.ready
     actor.perform 'lock safe with key'
     expect(plot.pick('safe')).to be_locked
@@ -63,24 +60,24 @@ RSpec.describe Lockable do
       end
     end
     plot = Gamefic::Plot.new
-    actor = plot.make_player_character
-    plot.introduce actor
+    actor = plot.introduce
     plot.ready
     actor.perform 'open safe'
     expect(plot.pick('safe')).not_to be_open
   end
 
   it 'opens closed objects without keys' do
+    Gamefic::Plot.seed do
+      @room = make Room, name: 'room'
+      make Container, name: 'safe', parent: @room, open: false
+    end
     Gamefic::Plot.script do
-      room = make Room, name: 'room'
-      make Container, name: 'safe', parent: room, open: false
       introduction do |actor|
-        actor.parent = room
+        actor.parent = @room
       end
     end
     plot = Gamefic::Plot.new
-    actor = plot.make_player_character
-    plot.introduce actor
+    actor = plot.introduce
     plot.ready
     actor.perform 'open safe'
     expect(plot.pick('safe')).to be_open
@@ -108,8 +105,7 @@ RSpec.describe Lockable do
       end
     end
     plot = Gamefic::Plot.new
-    actor = plot.make_player_character
-    plot.introduce actor
+    actor = plot.introduce
     plot.ready
     actor.perform 'open safe'
     expect(plot.pick('safe')).to be_open
@@ -119,8 +115,7 @@ RSpec.describe Lockable do
     plot = Gamefic::Plot.new
     room = plot.make Room
     plot.make Thing, name: 'thing', parent: room
-    player = plot.make_player_character
-    plot.introduce player
+    player = plot.introduce
     player.parent = room
     player.perform 'lock thing'
     expect(player.messages).to include("can't lock")

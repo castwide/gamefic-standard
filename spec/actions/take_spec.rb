@@ -8,8 +8,7 @@ RSpec.describe 'Take action' do
       end
     end
     plot = Gamefic::Plot.new
-    actor = plot.make_player_character
-    plot.introduce actor
+    actor = plot.introduce
     plot.ready
     actor.perform 'take item'
     expect(actor.children.first.name).to eq('item')
@@ -25,8 +24,7 @@ RSpec.describe 'Take action' do
       end
     end
     plot = Gamefic::Plot.new
-    actor = plot.make_player_character
-    plot.introduce actor
+    actor = plot.introduce
     plot.ready
     actor.perform 'take item'
     expect(actor.children.first.name).to eq('item')
@@ -42,8 +40,7 @@ RSpec.describe 'Take action' do
       end
     end
     plot = Gamefic::Plot.new
-    actor = plot.make_player_character
-    plot.introduce actor
+    actor = plot.introduce
     plot.ready
     actor.perform 'take item from receptacle'
     expect(actor.children.first.name).to eq('item')
@@ -57,8 +54,7 @@ RSpec.describe 'Take action' do
       end
     end
     plot = Gamefic::Plot.new
-    actor = plot.make_player_character
-    plot.introduce actor
+    actor = plot.introduce
     plot.ready
     actor.perform 'take thing'
     expect(actor.messages).to include('already carrying')
@@ -73,8 +69,7 @@ RSpec.describe 'Take action' do
       end
     end
     plot = Gamefic::Plot.new
-    actor = plot.make_player_character
-    plot.introduce actor
+    actor = plot.introduce
     plot.ready
     actor.perform 'take thing'
     expect(actor.messages).to include("can't take")
@@ -91,8 +86,7 @@ RSpec.describe 'Take action' do
       end
     end
     plot = Gamefic::Plot.new
-    actor = plot.make_player_character
-    plot.introduce actor
+    actor = plot.introduce
     plot.ready
     actor.perform 'take attachment'
     expect(actor.messages).to include('attached')
@@ -108,8 +102,7 @@ RSpec.describe 'Take action' do
       end
     end
     plot = Gamefic::Plot.new
-    actor = plot.make_player_character
-    plot.introduce actor
+    actor = plot.introduce
     plot.ready
     actor.perform 'take rubble'
     expect(plot.pick('rubble').parent).not_to be(actor)
@@ -124,8 +117,7 @@ RSpec.describe 'Take action' do
       end
     end
     plot = Gamefic::Plot.new
-    actor = plot.make_player_character
-    plot.introduce actor
+    actor = plot.introduce
     plot.ready
     actor.perform 'take item2'
     expect(actor.messages).to include("don't know", "item2")

@@ -2,8 +2,7 @@ RSpec.describe 'Move action' do
   let(:plot) { Gamefic::Plot.new }
 
   let(:player) {
-    player = plot.make_player_character
-    plot.introduce player
+    player = plot.introduce
     player
   }
 

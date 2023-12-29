@@ -1,8 +1,7 @@
 RSpec.describe 'Quit action' do
   it 'quits after confirmation' do
     plot = Gamefic::Plot.new
-    actor = plot.make_player_character
-    plot.introduce actor
+    actor = plot.introduce
     plot.ready
     actor.queue.push 'quit', 'yes'
     plot.ready
@@ -15,8 +14,7 @@ RSpec.describe 'Quit action' do
 
   it 'does not quit after cancellation' do
     plot = Gamefic::Plot.new
-    actor = plot.make_player_character
-    plot.introduce actor
+    actor = plot.introduce
     plot.ready
     actor.queue.push 'quit', 'no'
     plot.ready

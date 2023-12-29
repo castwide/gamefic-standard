@@ -11,8 +11,7 @@ RSpec.describe 'place action' do
       end
     end
     plot = Gamefic::Plot.new
-    actor = plot.make_player_character
-    plot.introduce actor
+    actor = plot.introduce
     plot.ready
     actor.perform 'place thing supporter'
     expect(plot.entities[1].parent).to eq(plot.entities[2])
@@ -29,8 +28,7 @@ RSpec.describe 'place action' do
       end
     end
     plot = Gamefic::Plot.new
-    actor = plot.make_player_character
-    plot.introduce actor
+    actor = plot.introduce
     plot.ready
     actor.perform 'place item supporter'
     expect(plot.entities[1].parent).to eq(plot.entities[2])
@@ -48,8 +46,7 @@ RSpec.describe 'place action' do
       end
     end
     plot = Gamefic::Plot.new
-    actor = plot.make_player_character
-    plot.introduce actor
+    actor = plot.introduce
     plot.ready
     actor.perform 'put item on thing'
     expect(plot.pick('item').parent).to be(actor)

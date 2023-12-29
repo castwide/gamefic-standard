@@ -9,8 +9,7 @@ RSpec.describe Openable do
     plot = Gamefic::Plot.new
     room = plot.make Room, name: 'room'
     plot.make box_class, name: 'box', parent: room, open: false
-    actor = plot.make_player_character
-    plot.introduce actor
+    actor = plot.introduce
     actor.parent = room
     actor.perform 'open box'
     expect(plot.pick('box')).to be_open
@@ -20,8 +19,7 @@ RSpec.describe Openable do
     plot = Gamefic::Plot.new
     room = plot.make Room, name: 'room'
     plot.make box_class, name: 'box', parent: room, open: true
-    actor = plot.make_player_character
-    plot.introduce actor
+    actor = plot.introduce
     actor.parent = room
     actor.perform 'close box'
     expect(plot.pick('box')).to be_closed
@@ -31,8 +29,7 @@ RSpec.describe Openable do
     plot = Gamefic::Plot.new
     room = plot.make Room, name: 'room'
     plot.make box_class, name: 'box', parent: room, open: true
-    actor = plot.make_player_character
-    plot.introduce actor
+    actor = plot.introduce
     actor.parent = room
     message = actor.quietly 'look box'
     expect(message).to include('open')
@@ -45,8 +42,7 @@ RSpec.describe Openable do
     plot = Gamefic::Plot.new
     room = plot.make Room, name: 'room'
     plot.make Item, name: 'item', parent: room
-    actor = plot.make_player_character
-    plot.introduce actor
+    actor = plot.introduce
     actor.parent = room
     actor.perform 'open item'
     expect(actor.messages).to include("can't open")
@@ -56,8 +52,7 @@ RSpec.describe Openable do
     plot = Gamefic::Plot.new
     room = plot.make Room, name: 'room'
     plot.make Item, name: 'item', parent: room
-    actor = plot.make_player_character
-    plot.introduce actor
+    actor = plot.introduce
     actor.parent = room
     actor.perform 'close item'
     expect(actor.messages).to include("can't close")
@@ -68,8 +63,7 @@ RSpec.describe Openable do
     room = plot.make Room, name: 'room'
     box = plot.make box_class, name: 'box', parent: room
     box.open = true
-    actor = plot.make_player_character
-    plot.introduce actor
+    actor = plot.introduce
     actor.parent = room
     actor.perform 'open box'
     expect(box).to be_open
@@ -81,8 +75,7 @@ RSpec.describe Openable do
     room = plot.make Room, name: 'room'
     box = plot.make box_class, name: 'box', parent: room
     box.open = false
-    actor = plot.make_player_character
-    plot.introduce actor
+    actor = plot.introduce
     plot.ready
     actor.parent = room
     actor.perform 'close box'

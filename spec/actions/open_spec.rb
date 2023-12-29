@@ -10,8 +10,7 @@ RSpec.describe 'Open action' do
       end
     end
     plot = Gamefic::Plot.new
-    actor = plot.make_player_character
-    plot.introduce actor
+    actor = plot.introduce
     plot.ready
     actor.perform 'open safe with key'
     expect(plot.pick('safe')).not_to be_locked

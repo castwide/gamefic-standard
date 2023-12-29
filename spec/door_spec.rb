@@ -48,8 +48,7 @@ RSpec.describe Door do
     room2 = plot.make Room, name: 'room2'
     door = plot.connect room1, room2, 'east', type: Door
     door.open = false
-    actor = plot.make_player_character
-    plot.introduce actor
+    actor = plot.introduce
     actor.parent = room1
     expect(door).to be_closed
     actor.perform 'go east'

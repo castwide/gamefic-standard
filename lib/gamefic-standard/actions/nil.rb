@@ -1,8 +1,7 @@
 Gamefic.script do
   meta nil, plaintext do |actor, string|
     words = string.keywords
-    # @todo There should probably be an Active#verbs or Active#command_words method
-    list = actor.narratives.map(&:rulebook).flat_map(&:synonyms)
+    list = actor.epic.synonyms
     if list.include?(words[0].to_sym)
       if words.length > 1
         found = []

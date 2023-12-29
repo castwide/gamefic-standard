@@ -8,8 +8,7 @@ RSpec.describe 'Inventory action' do
       end
     end
     plot = Gamefic::Plot.new
-    actor = plot.make_player_character
-    plot.introduce actor
+    actor = plot.introduce
     plot.ready
     actor.perform 'inventory'
     expect(actor.messages).to include('held thing')
@@ -18,8 +17,7 @@ RSpec.describe 'Inventory action' do
 
   it 'reports empty inventory' do
     plot = Gamefic::Plot.new
-    player = plot.make_player_character
-    plot.introduce player
+    player = plot.introduce
     player.perform 'inventory'
     expect(player.messages).to include("aren't carrying")
   end

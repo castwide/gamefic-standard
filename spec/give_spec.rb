@@ -12,8 +12,7 @@ RSpec.describe 'Give' do
     plot = Gamefic::Plot.new
     room = plot.make Room
     person = plot.make Character, name: 'person', parent: room
-    player = plot.make_player_character
-    plot.introduce player
+    player = plot.introduce
     player.parent = room
     item = plot.make Item, name: 'item', parent: player
     player.perform 'give item to person'
@@ -24,8 +23,7 @@ RSpec.describe 'Give' do
     plot = Gamefic::Plot.new
     room = plot.make Room
     person = plot.make Character, name: 'person', parent: room
-    player = plot.make_player_character
-    plot.introduce player
+    player = plot.introduce
     player.parent = room
     item = plot.make Item, name: 'item', parent: room
     player.perform 'give item to person'
@@ -37,8 +35,7 @@ RSpec.describe 'Give' do
     plot = Gamefic::Plot.new
     room = plot.make Room
     person = plot.make Thing, name: 'thing', parent: room
-    player = plot.make_player_character
-    plot.introduce player
+    player = plot.introduce
     player.parent = room
     item = plot.make Item, name: 'item', parent: player
     player.perform 'give item to thing'

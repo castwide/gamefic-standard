@@ -8,8 +8,7 @@ RSpec.describe 'Look action' do
       end
     end
     plot = Gamefic::Plot.new
-    actor = plot.make_player_character
-    plot.introduce actor
+    actor = plot.introduce
     plot.ready
     actor.perform 'look thing'
     expect(actor.messages).to include(plot.pick('thing').description)
@@ -24,8 +23,7 @@ RSpec.describe 'Look action' do
       end
     end
     plot = Gamefic::Plot.new
-    actor = plot.make_player_character
-    plot.introduce actor
+    actor = plot.introduce
     plot.ready
     actor.perform 'look'
     expect(actor.messages).to include(plot.pick('room').description)
@@ -34,8 +32,7 @@ RSpec.describe 'Look action' do
 
   it 'looks at itself' do
     plot = Gamefic::Plot.new
-    actor = plot.make_player_character
-    plot.cast actor
+    actor = plot.introduce
     actor.synonyms = 'self'
     actor.description = 'my description'
     actor.perform 'look self'
@@ -45,8 +42,7 @@ RSpec.describe 'Look action' do
   it 'looks at room without arguments' do
     plot = Gamefic::Plot.new
     room = plot.make Room, name: 'room', description: 'the room description'
-    actor = plot.make_player_character
-    plot.cast actor
+    actor = plot.introduce
     actor.parent = room
     actor.perform 'look'
     expect(actor.messages).to include(room.description)
@@ -55,8 +51,7 @@ RSpec.describe 'Look action' do
   it 'looks around' do
     plot = Gamefic::Plot.new
     room = plot.make Room, name: 'room', description: 'the room description'
-    actor = plot.make_player_character
-    plot.cast actor
+    actor = plot.introduce
     actor.parent = room
     actor.perform 'look around'
     expect(actor.messages).to include(room.description)
@@ -67,8 +62,7 @@ RSpec.describe 'Look action' do
     room = plot.make Room, name: 'room', description: 'the room description'
     thing = plot.make Thing, name: 'thing', parent: room
     attachment = plot.make Thing, parent: thing, name: 'attachment', attached: true
-    actor = plot.make_player_character
-    plot.cast actor
+    actor = plot.introduce
     actor.parent = room
     actor.perform 'look thing'
     expect(actor.messages).to include(attachment.name)
@@ -79,8 +73,7 @@ RSpec.describe 'Look action' do
     room = plot.make Room, name: 'room', description: 'the room description'
     supporter = plot.make Supporter, name: 'supporter', parent: room
     thing = plot.make Thing, parent: supporter, name: 'thing'
-    actor = plot.make_player_character
-    plot.cast actor
+    actor = plot.introduce
     actor.parent = room
     actor.perform 'look supporter'
     expect(actor.messages).to include('thing')
@@ -91,8 +84,7 @@ RSpec.describe 'Look action' do
     room = plot.make Room, name: 'room'
     supporter = plot.make Supporter, name: 'supporter', parent: room
     thing = plot.make Thing, parent: supporter, name: 'thing'
-    actor = plot.make_player_character
-    plot.cast actor
+    actor = plot.introduce
     actor.parent = room
     actor.perform 'look supporter'
     expect(actor.messages).to include(thing.name)
@@ -103,8 +95,7 @@ RSpec.describe 'Look action' do
     room = plot.make Room, name: 'room'
     receptacle = plot.make Receptacle, name: 'receptacle', parent: room
     thing = plot.make Thing, parent: receptacle, name: 'thing'
-    actor = plot.make_player_character
-    plot.cast actor
+    actor = plot.introduce
     actor.parent = room
     actor.perform 'look receptacle'
     expect(actor.messages).to include(thing.name)
@@ -114,8 +105,7 @@ RSpec.describe 'Look action' do
     plot = Gamefic::Plot.new
     room = plot.make Room, name: 'room'
     thing = plot.make Thing, name: 'thing', parent: room, locale_description: 'The long description of the thing'
-    actor = plot.make_player_character
-    plot.cast actor
+    actor = plot.introduce
     actor.parent = room
     actor.perform 'look'
     expect(actor.messages).to include(thing.locale_description)
@@ -125,8 +115,7 @@ RSpec.describe 'Look action' do
     plot = Gamefic::Plot.new
     room = plot.make Room, name: 'room'
     thing = plot.make Thing, name: 'thing', parent: room, description: 'The thing'
-    actor = plot.make_player_character
-    plot.cast actor
+    actor = plot.introduce
     actor.parent = room
     actor.perform 'look doodad'
     expect(actor.messages).not_to include(thing.description)
@@ -138,8 +127,7 @@ RSpec.describe 'Look action' do
     plot = Gamefic::Plot.new
     room = plot.make Room, name: 'room'
     supporter = plot.make Supporter, name: 'supporter', enterable: true, parent: room
-    actor = plot.make_player_character
-    plot.cast actor
+    actor = plot.introduce
     actor.parent = supporter
     actor.perform 'look supporter'
     expect(actor.messages).to include('currently on the supporter')
@@ -152,8 +140,7 @@ RSpec.describe 'Look action' do
     plot = Gamefic::Plot.new
     room = plot.make Room, name: 'room'
     _character = plot.make Character, name: 'character', parent: room
-    actor = plot.make_player_character
-    plot.cast actor
+    actor = plot.introduce
     actor.parent = room
     actor.perform 'look'
     expect(actor.messages).to include('character is here')
@@ -166,8 +153,7 @@ RSpec.describe 'Look action' do
     plot = Gamefic::Plot.new
     room = plot.make Room, name: 'room'
     character = plot.make Character, name: 'thing', locale_description: 'A character is present.', parent: room
-    actor = plot.make_player_character
-    plot.introduce actor
+    actor = plot.introduce
     actor.parent = room
     actor.perform 'look'
     expect(actor.messages).to include(character.locale_description)
@@ -178,8 +164,7 @@ RSpec.describe 'Look action' do
     room = plot.make Room, name: 'room'
     plot.connect room, nil, 'north', two_way: false
     plot.connect room, nil, 'south', two_way: false
-    actor = plot.make_player_character
-    plot.introduce actor
+    actor = plot.introduce
     actor.parent = room
     actor.perform 'look'
     expect(actor.messages).to include('exits north and south')
@@ -190,8 +175,7 @@ RSpec.describe 'Look action' do
     room = plot.make Room, name: 'room'
     supporter = plot.make Supporter, name: 'supporter', parent: room
     plot.make Thing, name: 'thing', parent: supporter
-    actor = plot.make_player_character
-    plot.introduce actor
+    actor = plot.introduce
     plot.ready
     actor.parent = supporter
     actor.perform 'look'

@@ -11,8 +11,7 @@ RSpec.describe 'insert action' do
       end
     end
     plot = Gamefic::Plot.new
-    actor = plot.make_player_character
-    plot.introduce actor
+    actor = plot.introduce
     plot.ready
     actor.perform 'insert thing receptacle'
     expect(plot.entities[1].parent).to eq(plot.entities[2])
@@ -30,8 +29,7 @@ RSpec.describe 'insert action' do
       end
     end
     plot = Gamefic::Plot.new
-    actor = plot.make_player_character
-    plot.introduce actor
+    actor = plot.introduce
     plot.ready
     actor.perform 'insert thing container'
     expect(plot.entities[1].parent).to eq(plot.entities[2])
@@ -49,8 +47,7 @@ RSpec.describe 'insert action' do
       end
     end
     plot = Gamefic::Plot.new
-    actor = plot.make_player_character
-    plot.introduce actor
+    actor = plot.introduce
     plot.ready
     actor.perform 'insert thing container'
     expect(plot.entities[1].parent).not_to eq(plot.entities[2])
@@ -67,8 +64,7 @@ RSpec.describe 'insert action' do
       end
     end
     plot = Gamefic::Plot.new
-    actor = plot.make_player_character
-    plot.introduce actor
+    actor = plot.introduce
     plot.ready
     actor.perform 'put item in thing'
     expect(actor.messages).to include("can't put")
@@ -85,8 +81,7 @@ RSpec.describe 'insert action' do
       end
     end
     plot = Gamefic::Plot.new
-    actor = plot.make_player_character
-    plot.introduce actor
+    actor = plot.introduce
     plot.ready
     actor.perform 'put item in container'
     expect(plot.pick('item').parent).to be(plot.pick('container'))
