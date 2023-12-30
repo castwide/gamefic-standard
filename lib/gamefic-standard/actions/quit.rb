@@ -1,4 +1,4 @@
-Gamefic.script do
+Gamefic::Standard.script do
   yes_or_no :confirm_quit do |actor, props|
     actor.cue :default_conclusion if props.yes?
   end

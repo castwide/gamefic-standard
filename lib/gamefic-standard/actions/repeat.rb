@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-Gamefic.script do
+Gamefic::Standard.script do
   respond :repeat do |actor|
     if actor.last_input && !actor.last_input.empty?
       actor.tell "Repeating <kbd>\"#{actor.last_input}\"</kbd>..."

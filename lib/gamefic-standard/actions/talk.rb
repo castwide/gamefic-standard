@@ -1,4 +1,4 @@
-Gamefic.script do
+Gamefic::Standard.script do
   respond :talk do |actor|
     actor.tell "You talk to yourself."
   end

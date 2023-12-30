@@ -1,4 +1,4 @@
-Gamefic.script do
+Gamefic::Standard.script do
   respond :open, available do |actor, thing|
     actor.tell "You can't open #{the thing}."
   end

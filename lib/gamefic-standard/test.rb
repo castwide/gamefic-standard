@@ -31,7 +31,7 @@ Gamefic::Narrative.include Tests
 # @todo For some reason, this include is necessary in Opal
 Gamefic::Plot.include Tests if RUBY_ENGINE == 'opal'
 
-Gamefic.script do
+Gamefic::Standard.script do
   meta :test, plaintext do |actor, name|
     sym = name.to_sym
     if test?(sym)

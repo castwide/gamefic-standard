@@ -10,7 +10,7 @@ RSpec.describe Pathfinder do
 
   it 'finds the shortest valid path' do
     plot = Gamefic::Plot.new
-    pathfinder = plot.stage do
+    pathfinder = plot.instance_exec do
       start = make Room, name: 'start'
       middle = make Room, name: 'middle'
       connect start, middle
@@ -30,7 +30,7 @@ RSpec.describe Pathfinder do
 
   it 'reports invalid paths' do
     plot = Gamefic::Plot.new
-    pathfinder = plot.stage do
+    pathfinder = plot.instance_exec do
       start = make Room, name: 'start'
       ending = make Room, name: 'end'
 

@@ -1,4 +1,4 @@
-Gamefic.script do
+Gamefic::Standard.script do
   respond :search, available(Thing) do |actor, thing|
     actor.execute :look, thing
   end

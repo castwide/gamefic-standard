@@ -3,7 +3,7 @@ RSpec.describe Room do
     plot = Gamefic::Plot.new
     room1 = plot.make Room
     room2 = plot.make Room
-    plot.stage do
+    plot.instance_exec do
       connect room1, room2, 'east'
     end
     expect(room1.children.first.destination).to eq(room2)
@@ -16,7 +16,7 @@ RSpec.describe Room do
     plot = Gamefic::Plot.new
     room1 = plot.make Room
     room2 = plot.make Room
-    plot.stage do
+    plot.instance_exec do
       connect room1, room2, 'east', two_way: false
     end
     expect(room1.children.first.destination).to eq(room2)
@@ -28,7 +28,7 @@ RSpec.describe Room do
     plot = Gamefic::Plot.new
     room1 = plot.make Room
     room2 = plot.make Room
-    plot.stage do
+    plot.instance_exec do
       connect room1, room2, 'east'
     end
     portal = room1.find_portal('east')

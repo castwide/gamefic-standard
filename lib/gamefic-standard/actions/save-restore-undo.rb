@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-Gamefic.script do
+Gamefic::Standard.script do
   # Save, Restore, and Undo need to be handled by the game client. They have
   # default implementations here to make them available in help.
 

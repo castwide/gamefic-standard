@@ -1,4 +1,4 @@
-Gamefic.script do
+Gamefic::Standard.script do
   respond :take, available do |actor, thing|
     if thing.parent == actor
       actor.tell "You're already carrying #{the thing}."

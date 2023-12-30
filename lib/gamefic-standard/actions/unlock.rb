@@ -1,4 +1,4 @@
-Gamefic.script do
+Gamefic::Standard.script do
   respond :unlock, available(Lockable) do |actor, thing|
     if thing.has_lock_key? && actor.children.include?(thing.lock_key)
       actor.execute :unlock, thing, thing.lock_key

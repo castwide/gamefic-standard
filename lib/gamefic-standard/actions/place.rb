@@ -1,4 +1,4 @@
-Gamefic.script do
+Gamefic::Standard.script do
   respond :place, children, available do |actor, thing, supporter|
     actor.tell "You can't put #{the thing} on #{the supporter}."
   end

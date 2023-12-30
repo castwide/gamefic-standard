@@ -1,4 +1,4 @@
-Gamefic.script do
+Gamefic::Standard.script do
   meta nil, plaintext do |actor, string|
     words = string.keywords
     list = actor.epic.synonyms
