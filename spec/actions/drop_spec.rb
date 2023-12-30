@@ -1,6 +1,6 @@
 RSpec.describe 'Drop action' do
   it 'drops held objects' do
-    Gamefic.script do
+    Gamefic::Plot.script do
       thing = make Thing, name: 'thing'
       introduction do |actor|
         thing.parent = actor
@@ -14,7 +14,7 @@ RSpec.describe 'Drop action' do
   end
 
   it 'responds to objects not in inventory' do
-    Gamefic.script do
+    Gamefic::Plot.script do
       room = make Room
       make Thing, name: 'thing', parent: room
       introduction do |actor|

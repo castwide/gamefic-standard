@@ -7,7 +7,7 @@ RSpec.describe 'Nil action' do
   end
 
   it 'reports ambiguous tokens' do
-    Gamefic.script do
+    Gamefic::Plot.script do
       respond :foobar, Item do |actor, item|
         item.parent = actor
       end
@@ -25,7 +25,7 @@ RSpec.describe 'Nil action' do
   end
 
   it 'reports unrecognized tokens' do
-    Gamefic.script do
+    Gamefic::Plot.script do
       respond :foobar, Item do |actor, item|
         item.parent = actor
       end
@@ -44,7 +44,7 @@ RSpec.describe 'Nil action' do
   end
 
   it 'reports missing tokens' do
-    Gamefic.script do
+    Gamefic::Plot.script do
       respond :foobar, Item do |actor, item|
         item.parent = actor
       end
@@ -63,7 +63,7 @@ RSpec.describe 'Nil action' do
   end
 
   it 'reports unhandled tokens' do
-    Gamefic.script do
+    Gamefic::Plot.script do
       respond :foobar, Item do |actor, item|
         item.parent = actor
       end
@@ -82,7 +82,7 @@ RSpec.describe 'Nil action' do
   end
 
   it 'reports recognized verbs with mismatched tokens' do
-    Gamefic.script do
+    Gamefic::Plot.script do
       room = make Room, name: 'room'
       make Thing, name: 'thing', parent: room
       make Thing, name: 'other', parent: room

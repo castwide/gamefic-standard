@@ -1,6 +1,6 @@
 RSpec.describe 'Open action' do
   it 'opens with keys' do
-    Gamefic.script do
+    Gamefic::Plot.script do
       room = make Room, name: 'room'
       key = make Thing, name: 'key'
       make Container, name: 'safe', parent: room, locked: true, lock_key: key

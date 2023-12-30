@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # An openable portal.
 #
 class Door < Portal

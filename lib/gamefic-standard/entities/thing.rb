@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Gamefic::Entity
   include Grammar::Attributes
   include Standardized

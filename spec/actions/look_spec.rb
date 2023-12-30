@@ -1,6 +1,6 @@
 RSpec.describe 'Look action' do
   it 'returns a sibling description' do
-    Gamefic.script do
+    Gamefic::Plot.script do
       room = make Room, name: 'room'
       thing = make Thing, name: 'thing', description: 'This is a thing', parent: room
       introduction do |actor|
@@ -15,7 +15,7 @@ RSpec.describe 'Look action' do
   end
 
   it 'returns a room description' do
-    Gamefic.script do
+    Gamefic::Plot.script do
       room = make Room, name: 'room', description: 'your area'
       thing = make Thing, name: 'thing', description: 'a thing', parent: room
       introduction do |actor|

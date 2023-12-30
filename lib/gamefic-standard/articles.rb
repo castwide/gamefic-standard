@@ -41,5 +41,4 @@ module Articles
   alias The the_
 end
 
-# @todo Better
-Gamefic::Narrative.include Articles
+Gamefic::Standard.include Articles

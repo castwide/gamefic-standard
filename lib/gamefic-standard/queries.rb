@@ -4,8 +4,10 @@ class Gamefic::Scope::Room < Gamefic::Scope::Base
   end
 end
 
-module Gamefic::Delegatable::Queries
+module Gamefic::Standard::Queries
   def room *args
     Gamefic::Query::Scoped.new Gamefic::Scope::Room, *([Room] + args)
   end
 end
+
+Gamefic::Standard.include Gamefic::Standard::Queries

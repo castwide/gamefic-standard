@@ -12,13 +12,6 @@ module Gamefic
     require 'gamefic-standard/direction'
     require 'gamefic-standard/entities'
     require 'gamefic-standard/actions'
-  end
-end
-
-# @todo Find a better place for this, or a better way to do it
-Gamefic::Standard.script do
-  introduction do |actor|
-    actor.name = 'myself'
-    actor.synonyms = 'self me yourself you'
+    require 'gamefic-standard/introduction'
   end
 end

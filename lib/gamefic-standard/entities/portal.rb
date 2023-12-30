@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Portal < Thing
   # @return [Gamefic::Entity]
   attr_accessor :destination

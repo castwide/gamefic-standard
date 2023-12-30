@@ -2,7 +2,7 @@
 
 module Gamefic
   module Standard
-    Gamefic::Standard.script do
+    script do
       respond :verbs do |actor|
         list = rulebook.synonyms.reject { |syn| syn.to_s.start_with?('_') }
                       .map { |syn| "<kbd>#{syn}</kbd>"}

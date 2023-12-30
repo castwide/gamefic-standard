@@ -1,6 +1,6 @@
 RSpec.describe 'place action' do
   it 'places a child on a supporter' do
-    Gamefic.script do
+    Gamefic::Plot.script do
       room = make Room, name: 'room'
       thing = make Thing, name: 'thing'
       supporter = make Supporter, name: 'supporter', parent: room
@@ -18,7 +18,7 @@ RSpec.describe 'place action' do
   end
 
   it 'takes and places an item on a supporter' do
-    Gamefic.script do
+    Gamefic::Plot.script do
       room = make Room, name: 'room'
       item = make Item, name: 'item', parent: room
       supporter = make Supporter, name: 'supporter', parent: room
@@ -35,7 +35,7 @@ RSpec.describe 'place action' do
   end
 
   it 'rejects placement on non-supporters' do
-    Gamefic.script do
+    Gamefic::Plot.script do
       room = make Room, name: 'room'
       item = make Item, name: 'item'
       _thing = make Thing, name: 'thing', parent: room

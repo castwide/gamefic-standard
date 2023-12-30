@@ -1,6 +1,6 @@
 RSpec.describe 'Leave action' do
   it 'leaves an enterable' do
-    Gamefic.script do
+    Gamefic::Plot.script do
       room = make Room, name: 'room'
       enterable = make Container, name: 'enterable', parent: room, enterable: true
       introduction do |actor|
@@ -15,7 +15,7 @@ RSpec.describe 'Leave action' do
   end
 
   it 'leaves a room' do
-    Gamefic.script do
+    Gamefic::Plot.script do
       room1 = make Room, name: 'room 1'
       room2 = make Room, name: 'room 2'
       connect room1, room2
@@ -31,7 +31,7 @@ RSpec.describe 'Leave action' do
   end
 
   it 'stays in parents without exits' do
-    Gamefic.script do
+    Gamefic::Plot.script do
       room = make Room, name: 'room'
       thing = make Thing, name: 'thing', parent: room
       introduction do |actor|
@@ -46,7 +46,7 @@ RSpec.describe 'Leave action' do
   end
 
   it 'stays in rooms without exits' do
-    Gamefic.script do
+    Gamefic::Plot.script do
       room1 = make Room, name: 'room 1'
       make Room, name: 'room 2'
       introduction do |actor|
@@ -61,7 +61,7 @@ RSpec.describe 'Leave action' do
   end
 
   it 'reports multiple ways to leave' do
-    Gamefic.script do
+    Gamefic::Plot.script do
       room1 = make Room, name: 'room 1'
       room2 = make Room, name: 'room 2'
       room3 = make Room, name: 'room 3'

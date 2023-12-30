@@ -1,6 +1,6 @@
 RSpec.describe 'Go action' do
   it 'goes through a portal' do
-    Gamefic.script do
+    Gamefic::Plot.script do
       room1 = make Room, name: 'room1'
       room2 = make Room, name: 'room2'
       connect room1, room2, 'east'

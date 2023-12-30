@@ -1,6 +1,6 @@
 RSpec.describe 'insert action' do
   it 'inserts a child in a receptacle' do
-    Gamefic.script do
+    Gamefic::Plot.script do
       room = make Room, name: 'room'
       thing = make Thing, name: 'thing'
       receptacle = make Receptacle, name: 'receptacle', parent: room
@@ -18,7 +18,7 @@ RSpec.describe 'insert action' do
   end
 
   it 'inserts a child in an open container' do
-    Gamefic.script do
+    Gamefic::Plot.script do
       room = make Room, name: 'room'
       thing = make Thing, name: 'thing'
       container = make Container, name: 'container', parent: room, open: true
@@ -36,7 +36,7 @@ RSpec.describe 'insert action' do
   end
 
   it 'does not insert a child in a closed container' do
-    Gamefic.script do
+    Gamefic::Plot.script do
       room = make Room, name: 'room'
       thing = make Thing, name: 'thing'
       container = make Container, name: 'container', parent: room, open: false
@@ -54,7 +54,7 @@ RSpec.describe 'insert action' do
   end
 
   it 'does not insert a child in a non-container' do
-    Gamefic.script do
+    Gamefic::Plot.script do
       room = make Room
       make Thing, name: 'thing', parent: room
       item = make Item, name: 'item'
@@ -72,7 +72,7 @@ RSpec.describe 'insert action' do
   end
 
   it 'inserts an available item in a container' do
-    Gamefic.script do
+    Gamefic::Plot.script do
       room = make Room, name: 'room'
       make Container, name: 'container', parent: room, open: true
       make Item, name: 'item', parent: room

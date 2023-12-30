@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # An entity that is portable by default.
 #
 class Item < Thing

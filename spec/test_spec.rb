@@ -4,7 +4,7 @@ require 'gamefic-standard/test'
 
 RSpec.describe 'test' do
   it 'queues commands' do
-    Gamefic.script do
+    Gamefic::Plot.script do
       on_test :me do |_actor, queue|
         queue.concat ['first', 'second']
       end
@@ -24,7 +24,7 @@ RSpec.describe 'test' do
   end
 
   it 'serializes' do
-    Gamefic.script do
+    Gamefic::Plot.script do
       on_test :me do |_actor, queue|
         queue.concat ['first', 'second']
       end

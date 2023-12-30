@@ -1,6 +1,6 @@
 RSpec.describe 'Inventory action' do
   it 'lists children' do
-    Gamefic.script do
+    Gamefic::Plot.script do
       held = make Thing, name: 'held thing'
       other = make Thing, name: 'other thing'
       introduction do |actor|
