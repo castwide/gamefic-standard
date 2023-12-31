@@ -1,11 +1,13 @@
 RSpec.describe 'Go action' do
   it 'goes through a portal' do
+    TestPlot.seed do
+      @room1 = make Room, name: 'room1'
+      @room2 = make Room, name: 'room2'
+      connect @room1, @room2, 'east'
+    end
     TestPlot.script do
-      room1 = make Room, name: 'room1'
-      room2 = make Room, name: 'room2'
-      connect room1, room2, 'east'
       introduction do |actor|
-        actor.parent = room1
+        actor.parent = @room1
       end
     end
     plot = TestPlot.new

@@ -1,10 +1,12 @@
 RSpec.describe 'Inventory action' do
   it 'lists children' do
+    TestPlot.seed do
+      @held = make Thing, name: 'held thing'
+      @other = make Thing, name: 'other thing'
+    end
     TestPlot.script do
-      held = make Thing, name: 'held thing'
-      other = make Thing, name: 'other thing'
       introduction do |actor|
-        held.parent = actor
+        @held.parent = actor
       end
     end
     plot = TestPlot.new

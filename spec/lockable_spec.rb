@@ -1,12 +1,14 @@
 RSpec.describe Lockable do
   it 'unlocks objects with keys' do
+    TestPlot.seed do
+      @room = make Room, name: 'room'
+      @key = make Thing, name: 'key'
+      make Container, name: 'safe', parent: @room, locked: true, lock_key: @key
+    end
     TestPlot.script do
-      room = make Room, name: 'room'
-      key = make Thing, name: 'key'
-      make Container, name: 'safe', parent: room, locked: true, lock_key: key
       introduction do |actor|
-        actor.parent = room
-        key.parent = actor
+        actor.parent = @room
+        @key.parent = actor
       end
     end
     plot = TestPlot.new
@@ -17,14 +19,16 @@ RSpec.describe Lockable do
   end
 
   it 'does not unlock with wrong key' do
+    TestPlot.seed do
+      @room = make Room, name: 'room'
+      @wrong_key = make Thing, name: 'wrong key'
+      make Thing, name: 'right key', parent: @room
+      make Container, name: 'safe', parent: @room, locked: true
+    end
     TestPlot.script do
-      room = make Room, name: 'room'
-      wrong_key = make Thing, name: 'wrong key'
-      make Thing, name: 'right key', parent: room
-      make Container, name: 'safe', parent: room, locked: true
       introduction do |actor|
-        actor.parent = room
-        wrong_key.parent = actor
+        actor.parent = @room
+        @wrong_key.parent = actor
       end
     end
     plot = TestPlot.new
@@ -35,13 +39,15 @@ RSpec.describe Lockable do
   end
 
   it 'locks objects with keys' do
+    TestPlot.seed do
+      @room = make Room, name: 'room'
+      @key = make Thing, name: 'key'
+      make Container, name: 'safe', parent: @room, locked: false, lock_key: @key
+    end
     TestPlot.script do
-      room = make Room, name: 'room'
-      key = make Thing, name: 'key'
-      make Container, name: 'safe', parent: room, locked: false, lock_key: key
       introduction do |actor|
-        actor.parent = room
-        key.parent = actor
+        actor.parent = @room
+        @key.parent = actor
       end
     end
     plot = TestPlot.new
@@ -52,11 +58,13 @@ RSpec.describe Lockable do
   end
 
   it 'does not open locked objects' do
+    TestPlot.seed do
+      @room = make Room, name: 'room'
+      make Container, name: 'safe', parent: @room, locked: true
+    end
     TestPlot.script do
-      room = make Room, name: 'room'
-      make Container, name: 'safe', parent: room, locked: true
       introduction do |actor|
-        actor.parent = room
+        actor.parent = @room
       end
     end
     plot = TestPlot.new
@@ -96,12 +104,14 @@ RSpec.describe Lockable do
   end
 
   it 'opens closed and unlocked objects' do
-    TestPlot.script do
-      room = make Room, name: 'room'
+    TestPlot.seed do
+      @room = make Room, name: 'room'
       key = make Thing, name: 'key'
-      make Container, name: 'safe', parent: room, locked: false, open: false, lock_key: key
+      make Container, name: 'safe', parent: @room, locked: false, open: false, lock_key: key
+    end
+    TestPlot.script do
       introduction do |actor|
-        actor.parent = room
+        actor.parent = @room
       end
     end
     plot = TestPlot.new

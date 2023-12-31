@@ -1,9 +1,11 @@
 RSpec.describe 'Drop action' do
   it 'drops held objects' do
+    TestPlot.seed do
+      @thing = make Thing, name: 'thing'
+    end
     TestPlot.script do
-      thing = make Thing, name: 'thing'
       introduction do |actor|
-        thing.parent = actor
+        @thing.parent = actor
       end
     end
     plot = TestPlot.new
@@ -14,11 +16,13 @@ RSpec.describe 'Drop action' do
   end
 
   it 'responds to objects not in inventory' do
+    TestPlot.seed do
+      @room = make Room
+      make Thing, name: 'thing', parent: @room
+    end
     TestPlot.script do
-      room = make Room
-      make Thing, name: 'thing', parent: room
       introduction do |actor|
-        actor.parent = room
+        actor.parent = @room
       end
     end
     plot = TestPlot.new

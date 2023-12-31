@@ -1,13 +1,14 @@
 RSpec.describe 'place action' do
   it 'places a child on a supporter' do
+    TestPlot.seed do
+      @room = make Room, name: 'room'
+      @thing = make Thing, name: 'thing'
+      @supporter = make Supporter, name: 'supporter', parent: @room
+    end
     TestPlot.script do
-      room = make Room, name: 'room'
-      thing = make Thing, name: 'thing'
-      supporter = make Supporter, name: 'supporter', parent: room
-
       introduction do |actor|
-        actor.parent = room
-        thing.parent = actor
+        actor.parent = @room
+        @thing.parent = actor
       end
     end
     plot = TestPlot.new
@@ -18,13 +19,14 @@ RSpec.describe 'place action' do
   end
 
   it 'takes and places an item on a supporter' do
+    TestPlot.seed do
+      @room = make Room, name: 'room'
+      @item = make Item, name: 'item', parent: @room
+      supporter = make Supporter, name: 'supporter', parent: @room
+    end
     TestPlot.script do
-      room = make Room, name: 'room'
-      item = make Item, name: 'item', parent: room
-      supporter = make Supporter, name: 'supporter', parent: room
-
       introduction do |actor|
-        actor.parent = room
+        actor.parent = @room
       end
     end
     plot = TestPlot.new
@@ -35,14 +37,15 @@ RSpec.describe 'place action' do
   end
 
   it 'rejects placement on non-supporters' do
+    TestPlot.seed do
+      @room = make Room, name: 'room'
+      @item = make Item, name: 'item'
+      @thing = make Thing, name: 'thing', parent: @room
+    end
     TestPlot.script do
-      room = make Room, name: 'room'
-      item = make Item, name: 'item'
-      _thing = make Thing, name: 'thing', parent: room
-
       introduction do |actor|
-        actor.parent = room
-        item.parent = actor
+        actor.parent = @room
+        @item.parent = actor
       end
     end
     plot = TestPlot.new

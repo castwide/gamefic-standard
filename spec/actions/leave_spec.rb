@@ -1,10 +1,12 @@
 RSpec.describe 'Leave action' do
   it 'leaves an enterable' do
+    TestPlot.seed do
+      @room = make Room, name: 'room'
+      @enterable = make Container, name: 'enterable', parent: @room, enterable: true
+    end
     TestPlot.script do
-      room = make Room, name: 'room'
-      enterable = make Container, name: 'enterable', parent: room, enterable: true
       introduction do |actor|
-        actor.parent = enterable
+        actor.parent = @enterable
       end
     end
     plot = TestPlot.new
@@ -15,12 +17,14 @@ RSpec.describe 'Leave action' do
   end
 
   it 'leaves a room' do
+    TestPlot.seed do
+      @room1 = make Room, name: 'room 1'
+      @room2 = make Room, name: 'room 2'
+      connect @room1, @room2
+    end
     TestPlot.script do
-      room1 = make Room, name: 'room 1'
-      room2 = make Room, name: 'room 2'
-      connect room1, room2
       introduction do |actor|
-        actor.parent = room1
+        actor.parent = @room1
       end
     end
     plot = TestPlot.new
@@ -31,11 +35,13 @@ RSpec.describe 'Leave action' do
   end
 
   it 'stays in parents without exits' do
+    TestPlot.seed do
+      @room = make Room, name: 'room'
+      @thing = make Thing, name: 'thing', parent: @room
+    end
     TestPlot.script do
-      room = make Room, name: 'room'
-      thing = make Thing, name: 'thing', parent: room
       introduction do |actor|
-        actor.parent = thing
+        actor.parent = @thing
       end
     end
     plot = TestPlot.new
@@ -46,11 +52,13 @@ RSpec.describe 'Leave action' do
   end
 
   it 'stays in rooms without exits' do
-    TestPlot.script do
-      room1 = make Room, name: 'room 1'
+    TestPlot.seed do
+      @room1 = make Room, name: 'room 1'
       make Room, name: 'room 2'
+    end
+    TestPlot.script do
       introduction do |actor|
-        actor.parent = room1
+        actor.parent = @room1
       end
     end
     plot = TestPlot.new
@@ -61,14 +69,16 @@ RSpec.describe 'Leave action' do
   end
 
   it 'reports multiple ways to leave' do
+    TestPlot.seed do
+      @room1 = make Room, name: 'room 1'
+      @room2 = make Room, name: 'room 2'
+      @room3 = make Room, name: 'room 3'
+      connect @room1, @room2
+      connect @room1, @room3
+    end
     TestPlot.script do
-      room1 = make Room, name: 'room 1'
-      room2 = make Room, name: 'room 2'
-      room3 = make Room, name: 'room 3'
-      connect room1, room2
-      connect room1, room3
       introduction do |actor|
-        actor.parent = room1
+        actor.parent = @room1
       end
     end
     plot = TestPlot.new

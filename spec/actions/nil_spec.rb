@@ -79,11 +79,12 @@ RSpec.describe 'Nil action' do
   end
 
   it 'reports recognized verbs with mismatched tokens' do
+    TestPlot.seed do
+      @room = make Room, name: 'room'
+      make Thing, name: 'thing', parent: @room
+      make Thing, name: 'other', parent: @room
+    end
     TestPlot.script do
-      room = make Room, name: 'room'
-      make Thing, name: 'thing', parent: room
-      make Thing, name: 'other', parent: room
-
       respond :affix, available(Thing), available(Item) do |actor, _, _|
         actor.tell "Should not happen"
       end
@@ -91,7 +92,7 @@ RSpec.describe 'Nil action' do
       interpret "glue :thing to :other", "affix :thing :other"
 
       introduction do |actor|
-        actor.parent = room
+        actor.parent = @room
       end
     end
     actor = plot.introduce

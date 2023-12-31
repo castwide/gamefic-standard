@@ -1,12 +1,14 @@
 RSpec.describe 'Open action' do
   it 'opens with keys' do
+    TestPlot.seed do
+      @room = make Room, name: 'room'
+      @key = make Thing, name: 'key'
+      make Container, name: 'safe', parent: @room, locked: true, lock_key: @key
+    end
     TestPlot.script do
-      room = make Room, name: 'room'
-      key = make Thing, name: 'key'
-      make Container, name: 'safe', parent: room, locked: true, lock_key: key
       introduction do |actor|
-        actor.parent = room
-        key.parent = actor
+        actor.parent = @room
+        @key.parent = actor
       end
     end
     plot = TestPlot.new

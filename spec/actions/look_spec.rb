@@ -1,10 +1,12 @@
 RSpec.describe 'Look action' do
   it 'returns a sibling description' do
+    TestPlot.seed do
+      @room = make Room, name: 'room'
+      @thing = make Thing, name: 'thing', description: 'This is a thing', parent: @room
+    end
     TestPlot.script do
-      room = make Room, name: 'room'
-      thing = make Thing, name: 'thing', description: 'This is a thing', parent: room
       introduction do |actor|
-        actor.parent = room
+        actor.parent = @room
       end
     end
     plot = TestPlot.new
@@ -15,11 +17,13 @@ RSpec.describe 'Look action' do
   end
 
   it 'returns a room description' do
+    TestPlot.seed do
+      @room = make Room, name: 'room', description: 'your area'
+      @thing = make Thing, name: 'thing', description: 'a thing', parent: @room
+    end
     TestPlot.script do
-      room = make Room, name: 'room', description: 'your area'
-      thing = make Thing, name: 'thing', description: 'a thing', parent: room
       introduction do |actor|
-        actor.parent = room
+        actor.parent = @room
       end
     end
     plot = TestPlot.new
