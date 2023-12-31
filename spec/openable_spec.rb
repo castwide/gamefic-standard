@@ -6,7 +6,7 @@ RSpec.describe Openable do
   }
 
   it 'opens closed objects' do
-    plot = Gamefic::Plot.new
+    plot = TestPlot.new
     room = plot.make Room, name: 'room'
     plot.make box_class, name: 'box', parent: room, open: false
     actor = plot.introduce
@@ -16,7 +16,7 @@ RSpec.describe Openable do
   end
 
   it 'closes open objects' do
-    plot = Gamefic::Plot.new
+    plot = TestPlot.new
     room = plot.make Room, name: 'room'
     plot.make box_class, name: 'box', parent: room, open: true
     actor = plot.introduce
@@ -26,7 +26,7 @@ RSpec.describe Openable do
   end
 
   it 'reports open status on look' do
-    plot = Gamefic::Plot.new
+    plot = TestPlot.new
     room = plot.make Room, name: 'room'
     plot.make box_class, name: 'box', parent: room, open: true
     actor = plot.introduce
@@ -39,7 +39,7 @@ RSpec.describe Openable do
   end
 
   it 'reports not openable' do
-    plot = Gamefic::Plot.new
+    plot = TestPlot.new
     room = plot.make Room, name: 'room'
     plot.make Item, name: 'item', parent: room
     actor = plot.introduce
@@ -49,7 +49,7 @@ RSpec.describe Openable do
   end
 
   it 'reports not closeable' do
-    plot = Gamefic::Plot.new
+    plot = TestPlot.new
     room = plot.make Room, name: 'room'
     plot.make Item, name: 'item', parent: room
     actor = plot.introduce
@@ -59,7 +59,7 @@ RSpec.describe Openable do
   end
 
   it 'reports already open' do
-    plot = Gamefic::Plot.new
+    plot = TestPlot.new
     room = plot.make Room, name: 'room'
     box = plot.make box_class, name: 'box', parent: room
     box.open = true
@@ -71,7 +71,7 @@ RSpec.describe Openable do
   end
 
   it 'reports already closed' do
-    plot = Gamefic::Plot.new
+    plot = TestPlot.new
     room = plot.make Room, name: 'room'
     box = plot.make box_class, name: 'box', parent: room
     box.open = false

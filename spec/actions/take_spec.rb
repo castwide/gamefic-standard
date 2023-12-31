@@ -1,13 +1,13 @@
 RSpec.describe 'Take action' do
   it 'takes items' do
-    Gamefic::Plot.script do
+    TestPlot.script do
       room = make Room
       thing = make Item, name: 'item', parent: room
       introduction do |actor|
         actor.parent = room
       end
     end
-    plot = Gamefic::Plot.new
+    plot = TestPlot.new
     actor = plot.introduce
     plot.ready
     actor.perform 'take item'
@@ -15,7 +15,7 @@ RSpec.describe 'Take action' do
   end
 
   it 'takes items from receptacles implicitly' do
-    Gamefic::Plot.script do
+    TestPlot.script do
       room = make Room
       receptacle = make Receptacle, name: 'receptacle', parent: room
       make Item, name: 'item', parent: receptacle
@@ -23,7 +23,7 @@ RSpec.describe 'Take action' do
         actor.parent = room
       end
     end
-    plot = Gamefic::Plot.new
+    plot = TestPlot.new
     actor = plot.introduce
     plot.ready
     actor.perform 'take item'
@@ -31,7 +31,7 @@ RSpec.describe 'Take action' do
   end
 
   it 'takes items from receptacles explicitly' do
-    Gamefic::Plot.script do
+    TestPlot.script do
       room = make Room
       receptacle = make Receptacle, name: 'receptacle', parent: room
       make Item, name: 'item', parent: receptacle
@@ -39,7 +39,7 @@ RSpec.describe 'Take action' do
         actor.parent = room
       end
     end
-    plot = Gamefic::Plot.new
+    plot = TestPlot.new
     actor = plot.introduce
     plot.ready
     actor.perform 'take item from receptacle'
@@ -47,13 +47,13 @@ RSpec.describe 'Take action' do
   end
 
   it 'reports items already in possession' do
-    Gamefic::Plot.script do
+    TestPlot.script do
       thing = make Item, name: 'thing'
       introduction do |actor|
         thing.parent = actor
       end
     end
-    plot = Gamefic::Plot.new
+    plot = TestPlot.new
     actor = plot.introduce
     plot.ready
     actor.perform 'take thing'
@@ -61,14 +61,14 @@ RSpec.describe 'Take action' do
   end
 
   it 'does not take non-portable entities' do
-    Gamefic::Plot.script do
+    TestPlot.script do
       room = make Room
       thing = make Thing, name: 'thing', portable: false, parent: room
       introduction do |actor|
         actor.parent = room
       end
     end
-    plot = Gamefic::Plot.new
+    plot = TestPlot.new
     actor = plot.introduce
     plot.ready
     actor.perform 'take thing'
@@ -77,7 +77,7 @@ RSpec.describe 'Take action' do
   end
 
   it 'does not take attached entities' do
-    Gamefic::Plot.script do
+    TestPlot.script do
       room = make Room
       thing = make Thing, name: 'thing', parent: room
       attachment = make Item, name: 'attachment', parent: thing, attached: true
@@ -85,7 +85,7 @@ RSpec.describe 'Take action' do
         actor.parent = room
       end
     end
-    plot = Gamefic::Plot.new
+    plot = TestPlot.new
     actor = plot.introduce
     plot.ready
     actor.perform 'take attachment'
@@ -94,14 +94,14 @@ RSpec.describe 'Take action' do
   end
 
   it 'does not take rubble' do
-    Gamefic::Plot.script do
+    TestPlot.script do
       room = make Room
       make Rubble, name: 'rubble', parent: room
       introduction do |actor|
         actor.parent = room
       end
     end
-    plot = Gamefic::Plot.new
+    plot = TestPlot.new
     actor = plot.introduce
     plot.ready
     actor.perform 'take rubble'
@@ -109,14 +109,14 @@ RSpec.describe 'Take action' do
   end
 
   it 'handles unmatched text' do
-    Gamefic::Plot.script do
+    TestPlot.script do
       room = make Room
       make Item, name: 'item1', parent: room
       introduction do |actor|
         actor.parent = room
       end
     end
-    plot = Gamefic::Plot.new
+    plot = TestPlot.new
     actor = plot.introduce
     plot.ready
     actor.perform 'take item2'

@@ -1,6 +1,7 @@
 RSpec.describe 'Talk action' do
+  let(:plot) { TestPlot.new }
+
   it 'talks to self' do
-    plot = Gamefic::Plot.new
     player = plot.introduce
     player.perform 'talk'
     expect(player.messages).to include('You talk to yourself')
@@ -10,7 +11,6 @@ RSpec.describe 'Talk action' do
   end
 
   it 'talks to thing' do
-    plot = Gamefic::Plot.new
     room = plot.make Room
     thing = plot.make Thing, name: 'thing', parent: room
     player = plot.introduce
@@ -20,7 +20,6 @@ RSpec.describe 'Talk action' do
   end
 
   it 'talks to character' do
-    plot = Gamefic::Plot.new
     room = plot.make Room
     thing = plot.make Character, name: 'character', parent: room
     player = plot.introduce

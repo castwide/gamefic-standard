@@ -1,13 +1,13 @@
 RSpec.describe 'Look action' do
   it 'returns a sibling description' do
-    Gamefic::Plot.script do
+    TestPlot.script do
       room = make Room, name: 'room'
       thing = make Thing, name: 'thing', description: 'This is a thing', parent: room
       introduction do |actor|
         actor.parent = room
       end
     end
-    plot = Gamefic::Plot.new
+    plot = TestPlot.new
     actor = plot.introduce
     plot.ready
     actor.perform 'look thing'
@@ -15,14 +15,14 @@ RSpec.describe 'Look action' do
   end
 
   it 'returns a room description' do
-    Gamefic::Plot.script do
+    TestPlot.script do
       room = make Room, name: 'room', description: 'your area'
       thing = make Thing, name: 'thing', description: 'a thing', parent: room
       introduction do |actor|
         actor.parent = room
       end
     end
-    plot = Gamefic::Plot.new
+    plot = TestPlot.new
     actor = plot.introduce
     plot.ready
     actor.perform 'look'
@@ -31,7 +31,7 @@ RSpec.describe 'Look action' do
   end
 
   it 'looks at itself' do
-    plot = Gamefic::Plot.new
+    plot = TestPlot.new
     actor = plot.introduce
     actor.synonyms = 'self'
     actor.description = 'my description'
@@ -40,7 +40,7 @@ RSpec.describe 'Look action' do
   end
 
   it 'looks at room without arguments' do
-    plot = Gamefic::Plot.new
+    plot = TestPlot.new
     room = plot.make Room, name: 'room', description: 'the room description'
     actor = plot.introduce
     actor.parent = room
@@ -49,7 +49,7 @@ RSpec.describe 'Look action' do
   end
 
   it 'looks around' do
-    plot = Gamefic::Plot.new
+    plot = TestPlot.new
     room = plot.make Room, name: 'room', description: 'the room description'
     actor = plot.introduce
     actor.parent = room
@@ -58,7 +58,7 @@ RSpec.describe 'Look action' do
   end
 
   it 'sees attachments' do
-    plot = Gamefic::Plot.new
+    plot = TestPlot.new
     room = plot.make Room, name: 'room', description: 'the room description'
     thing = plot.make Thing, name: 'thing', parent: room
     attachment = plot.make Thing, parent: thing, name: 'attachment', attached: true
@@ -69,7 +69,7 @@ RSpec.describe 'Look action' do
   end
 
   it 'sees accessible supported entities' do
-    plot = Gamefic::Plot.new
+    plot = TestPlot.new
     room = plot.make Room, name: 'room', description: 'the room description'
     supporter = plot.make Supporter, name: 'supporter', parent: room
     thing = plot.make Thing, parent: supporter, name: 'thing'
@@ -80,7 +80,7 @@ RSpec.describe 'Look action' do
   end
 
   it 'sees supported entities' do
-    plot = Gamefic::Plot.new
+    plot = TestPlot.new
     room = plot.make Room, name: 'room'
     supporter = plot.make Supporter, name: 'supporter', parent: room
     thing = plot.make Thing, parent: supporter, name: 'thing'
@@ -91,7 +91,7 @@ RSpec.describe 'Look action' do
   end
 
   it 'sees receptacled entities' do
-    plot = Gamefic::Plot.new
+    plot = TestPlot.new
     room = plot.make Room, name: 'room'
     receptacle = plot.make Receptacle, name: 'receptacle', parent: room
     thing = plot.make Thing, parent: receptacle, name: 'thing'
@@ -102,7 +102,7 @@ RSpec.describe 'Look action' do
   end
 
   it 'sees locale descriptions' do
-    plot = Gamefic::Plot.new
+    plot = TestPlot.new
     room = plot.make Room, name: 'room'
     thing = plot.make Thing, name: 'thing', parent: room, locale_description: 'The long description of the thing'
     actor = plot.introduce
@@ -112,7 +112,7 @@ RSpec.describe 'Look action' do
   end
 
   it 'catches unrecognized objects' do
-    plot = Gamefic::Plot.new
+    plot = TestPlot.new
     room = plot.make Room, name: 'room'
     thing = plot.make Thing, name: 'thing', parent: room, description: 'The thing'
     actor = plot.introduce
@@ -124,7 +124,7 @@ RSpec.describe 'Look action' do
   end
 
   it 'reports being on a supporter' do
-    plot = Gamefic::Plot.new
+    plot = TestPlot.new
     room = plot.make Room, name: 'room'
     supporter = plot.make Supporter, name: 'supporter', enterable: true, parent: room
     actor = plot.introduce
@@ -137,7 +137,7 @@ RSpec.describe 'Look action' do
   end
 
   it 'sees characters' do
-    plot = Gamefic::Plot.new
+    plot = TestPlot.new
     room = plot.make Room, name: 'room'
     _character = plot.make Character, name: 'character', parent: room
     actor = plot.introduce
@@ -150,7 +150,7 @@ RSpec.describe 'Look action' do
   end
 
   it 'sees character locale descriptions' do
-    plot = Gamefic::Plot.new
+    plot = TestPlot.new
     room = plot.make Room, name: 'room'
     character = plot.make Character, name: 'thing', locale_description: 'A character is present.', parent: room
     actor = plot.introduce
@@ -160,7 +160,7 @@ RSpec.describe 'Look action' do
   end
 
   it 'sees multiple exits' do
-    plot = Gamefic::Plot.new
+    plot = TestPlot.new
     room = plot.make Room, name: 'room'
     plot.connect room, nil, 'north', two_way: false
     plot.connect room, nil, 'south', two_way: false
@@ -171,7 +171,7 @@ RSpec.describe 'Look action' do
   end
 
   it 'sees other objects on supporters' do
-    plot = Gamefic::Plot.new
+    plot = TestPlot.new
     room = plot.make Room, name: 'room'
     supporter = plot.make Supporter, name: 'supporter', parent: room
     plot.make Thing, name: 'thing', parent: supporter

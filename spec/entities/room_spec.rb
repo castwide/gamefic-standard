@@ -1,6 +1,7 @@
 RSpec.describe Room do
+  let(:plot) { TestPlot.new }
+
   it 'connects by direction' do
-    plot = Gamefic::Plot.new
     room1 = plot.make Room
     room2 = plot.make Room
     plot.instance_exec do
@@ -13,7 +14,6 @@ RSpec.describe Room do
   end
 
   it 'connects one way' do
-    plot = Gamefic::Plot.new
     room1 = plot.make Room
     room2 = plot.make Room
     plot.instance_exec do
@@ -25,7 +25,6 @@ RSpec.describe Room do
   end
 
   it 'finds portals by direction' do
-    plot = Gamefic::Plot.new
     room1 = plot.make Room
     room2 = plot.make Room
     plot.instance_exec do
@@ -36,7 +35,6 @@ RSpec.describe Room do
   end
 
   it 'sends messages to children' do
-    plot = Gamefic::Plot.new
     room = plot.make Room
     char1 = plot.make Character, parent: room
     char2 = plot.make Character, parent: room

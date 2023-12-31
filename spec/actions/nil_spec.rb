@@ -1,18 +1,18 @@
 RSpec.describe 'Nil action' do
+  let(:plot) { TestPlot.new }
+
   it 'reports unrecognized commands' do
-    plot = Gamefic::Plot.new
     actor = plot.introduce
     actor.perform 'unknown_command'
     expect(actor.messages).to include("I don't recognize")
   end
 
   it 'reports ambiguous tokens' do
-    Gamefic::Plot.script do
+    TestPlot.script do
       respond :foobar, Item do |actor, item|
         item.parent = actor
       end
     end
-    plot = Gamefic::Plot.new
     room = plot.make Room
     item1 = plot.make Item, name: 'item 1', parent: room
     item2 = plot.make Item, name: 'item 2', parent: room
@@ -25,12 +25,11 @@ RSpec.describe 'Nil action' do
   end
 
   it 'reports unrecognized tokens' do
-    Gamefic::Plot.script do
+    TestPlot.script do
       respond :foobar, Item do |actor, item|
         item.parent = actor
       end
     end
-    plot = Gamefic::Plot.new
     room = plot.make Room
     plot.make Item, name: 'item 1', parent: room
     plot.make Item, name: 'item 2', parent: room
@@ -44,12 +43,11 @@ RSpec.describe 'Nil action' do
   end
 
   it 'reports missing tokens' do
-    Gamefic::Plot.script do
+    TestPlot.script do
       respond :foobar, Item do |actor, item|
         item.parent = actor
       end
     end
-    plot = Gamefic::Plot.new
     room = plot.make Room
     plot.make Item, name: 'item 1', parent: room
     plot.make Fixture, name: 'fixture', parent: room
@@ -63,12 +61,11 @@ RSpec.describe 'Nil action' do
   end
 
   it 'reports unhandled tokens' do
-    Gamefic::Plot.script do
+    TestPlot.script do
       respond :foobar, Item do |actor, item|
         item.parent = actor
       end
     end
-    plot = Gamefic::Plot.new
     room = plot.make Room
     plot.make Item, name: 'item 1', parent: room
     plot.make Fixture, name: 'fixture', parent: room
@@ -82,7 +79,7 @@ RSpec.describe 'Nil action' do
   end
 
   it 'reports recognized verbs with mismatched tokens' do
-    Gamefic::Plot.script do
+    TestPlot.script do
       room = make Room, name: 'room'
       make Thing, name: 'thing', parent: room
       make Thing, name: 'other', parent: room
@@ -97,7 +94,6 @@ RSpec.describe 'Nil action' do
         actor.parent = room
       end
     end
-    plot = Gamefic::Plot.new
     actor = plot.introduce
     plot.ready
     actor.perform 'glue thing to other'

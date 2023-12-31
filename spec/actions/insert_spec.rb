@@ -1,6 +1,6 @@
 RSpec.describe 'insert action' do
   it 'inserts a child in a receptacle' do
-    Gamefic::Plot.script do
+    TestPlot.script do
       room = make Room, name: 'room'
       thing = make Thing, name: 'thing'
       receptacle = make Receptacle, name: 'receptacle', parent: room
@@ -10,7 +10,7 @@ RSpec.describe 'insert action' do
         thing.parent = actor
       end
     end
-    plot = Gamefic::Plot.new
+    plot = TestPlot.new
     actor = plot.introduce
     plot.ready
     actor.perform 'insert thing receptacle'
@@ -18,7 +18,7 @@ RSpec.describe 'insert action' do
   end
 
   it 'inserts a child in an open container' do
-    Gamefic::Plot.script do
+    TestPlot.script do
       room = make Room, name: 'room'
       thing = make Thing, name: 'thing'
       container = make Container, name: 'container', parent: room, open: true
@@ -28,7 +28,7 @@ RSpec.describe 'insert action' do
         thing.parent = actor
       end
     end
-    plot = Gamefic::Plot.new
+    plot = TestPlot.new
     actor = plot.introduce
     plot.ready
     actor.perform 'insert thing container'
@@ -36,7 +36,7 @@ RSpec.describe 'insert action' do
   end
 
   it 'does not insert a child in a closed container' do
-    Gamefic::Plot.script do
+    TestPlot.script do
       room = make Room, name: 'room'
       thing = make Thing, name: 'thing'
       container = make Container, name: 'container', parent: room, open: false
@@ -46,7 +46,7 @@ RSpec.describe 'insert action' do
         thing.parent = actor
       end
     end
-    plot = Gamefic::Plot.new
+    plot = TestPlot.new
     actor = plot.introduce
     plot.ready
     actor.perform 'insert thing container'
@@ -54,7 +54,7 @@ RSpec.describe 'insert action' do
   end
 
   it 'does not insert a child in a non-container' do
-    Gamefic::Plot.script do
+    TestPlot.script do
       room = make Room
       make Thing, name: 'thing', parent: room
       item = make Item, name: 'item'
@@ -63,7 +63,7 @@ RSpec.describe 'insert action' do
         item.parent = actor
       end
     end
-    plot = Gamefic::Plot.new
+    plot = TestPlot.new
     actor = plot.introduce
     plot.ready
     actor.perform 'put item in thing'
@@ -72,7 +72,7 @@ RSpec.describe 'insert action' do
   end
 
   it 'inserts an available item in a container' do
-    Gamefic::Plot.script do
+    TestPlot.script do
       room = make Room, name: 'room'
       make Container, name: 'container', parent: room, open: true
       make Item, name: 'item', parent: room
@@ -80,7 +80,7 @@ RSpec.describe 'insert action' do
         actor.parent = room
       end
     end
-    plot = Gamefic::Plot.new
+    plot = TestPlot.new
     actor = plot.introduce
     plot.ready
     actor.perform 'put item in container'

@@ -6,7 +6,7 @@ require "gamefic-standard"
 
 # @todo This is a temporary wart during the update to v3.
 #   A better solution is to make a TestPlot in a fixture.
-Gamefic::Plot.include Gamefic::Standard
+require_relative 'fixtures/test_plot'
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
@@ -19,11 +19,7 @@ RSpec.configure do |config|
     c.syntax = :expect
   end
 
-  config.before :each do
-    @original = Gamefic::Plot.blocks.clone
-  end
-
   config.after :each do
-    Gamefic::Plot.blocks.replace @original
+    TestPlot.blocks.clear
   end
 end

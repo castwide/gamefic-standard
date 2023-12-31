@@ -1,5 +1,5 @@
 RSpec.describe 'Help action' do
-  let(:plot) { Gamefic::Plot.new }
+  let(:plot) { TestPlot.new }
 
   let(:player) do
     player = plot.introduce

@@ -1,15 +1,15 @@
 require 'gamefic-standard/pathfinder'
 
 RSpec.describe Pathfinder do
+  let(:plot) { TestPlot.new }
+
   it 'returns an empty path for same origin and destination' do
-    plot = Gamefic::Plot.new
     room = plot.make Room, name: 'room'
     pathfinder = Pathfinder.new(room, room)
     expect(pathfinder.path).to be_empty
   end
 
   it 'finds the shortest valid path' do
-    plot = Gamefic::Plot.new
     pathfinder = plot.instance_exec do
       start = make Room, name: 'start'
       middle = make Room, name: 'middle'
@@ -29,7 +29,6 @@ RSpec.describe Pathfinder do
   end
 
   it 'reports invalid paths' do
-    plot = Gamefic::Plot.new
     pathfinder = plot.instance_exec do
       start = make Room, name: 'start'
       ending = make Room, name: 'end'

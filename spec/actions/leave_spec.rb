@@ -1,13 +1,13 @@
 RSpec.describe 'Leave action' do
   it 'leaves an enterable' do
-    Gamefic::Plot.script do
+    TestPlot.script do
       room = make Room, name: 'room'
       enterable = make Container, name: 'enterable', parent: room, enterable: true
       introduction do |actor|
         actor.parent = enterable
       end
     end
-    plot = Gamefic::Plot.new
+    plot = TestPlot.new
     actor = plot.introduce
     plot.ready
     actor.perform 'leave'
@@ -15,7 +15,7 @@ RSpec.describe 'Leave action' do
   end
 
   it 'leaves a room' do
-    Gamefic::Plot.script do
+    TestPlot.script do
       room1 = make Room, name: 'room 1'
       room2 = make Room, name: 'room 2'
       connect room1, room2
@@ -23,7 +23,7 @@ RSpec.describe 'Leave action' do
         actor.parent = room1
       end
     end
-    plot = Gamefic::Plot.new
+    plot = TestPlot.new
     actor = plot.introduce
     plot.ready
     actor.perform 'leave'
@@ -31,14 +31,14 @@ RSpec.describe 'Leave action' do
   end
 
   it 'stays in parents without exits' do
-    Gamefic::Plot.script do
+    TestPlot.script do
       room = make Room, name: 'room'
       thing = make Thing, name: 'thing', parent: room
       introduction do |actor|
         actor.parent = thing
       end
     end
-    plot = Gamefic::Plot.new
+    plot = TestPlot.new
     actor = plot.introduce
     plot.ready
     actor.perform 'leave'
@@ -46,14 +46,14 @@ RSpec.describe 'Leave action' do
   end
 
   it 'stays in rooms without exits' do
-    Gamefic::Plot.script do
+    TestPlot.script do
       room1 = make Room, name: 'room 1'
       make Room, name: 'room 2'
       introduction do |actor|
         actor.parent = room1
       end
     end
-    plot = Gamefic::Plot.new
+    plot = TestPlot.new
     actor = plot.introduce
     plot.ready
     actor.perform 'leave'
@@ -61,7 +61,7 @@ RSpec.describe 'Leave action' do
   end
 
   it 'reports multiple ways to leave' do
-    Gamefic::Plot.script do
+    TestPlot.script do
       room1 = make Room, name: 'room 1'
       room2 = make Room, name: 'room 2'
       room3 = make Room, name: 'room 3'
@@ -71,7 +71,7 @@ RSpec.describe 'Leave action' do
         actor.parent = room1
       end
     end
-    plot = Gamefic::Plot.new
+    plot = TestPlot.new
     actor = plot.introduce
     plot.ready
     actor.perform 'leave'
@@ -81,7 +81,7 @@ RSpec.describe 'Leave action' do
   end
 
   it 'opens entered containers' do
-    plot = Gamefic::Plot.new
+    plot = TestPlot.new
     room = plot.make Room
     container = plot.make Container, name: 'container', enterable: true, open: false, parent: room
     actor = plot.introduce
@@ -92,7 +92,7 @@ RSpec.describe 'Leave action' do
   end
 
   it 'handles nil parents' do
-    plot = Gamefic::Plot.new
+    plot = TestPlot.new
     actor = plot.introduce
     actor.perform 'leave'
     expect(actor.parent).to be_nil

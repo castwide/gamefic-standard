@@ -1,6 +1,6 @@
 RSpec.describe Portal do
   it 'finds its opposing portal' do
-    plot = Gamefic::Plot.new
+    plot = TestPlot.new
     room1 = plot.make Room, name: 'room 1'
     room2 = plot.make Room, name: 'room 2'
     plot.connect room1, room2

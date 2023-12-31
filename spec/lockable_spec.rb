@@ -1,6 +1,6 @@
 RSpec.describe Lockable do
   it 'unlocks objects with keys' do
-    Gamefic::Plot.script do
+    TestPlot.script do
       room = make Room, name: 'room'
       key = make Thing, name: 'key'
       make Container, name: 'safe', parent: room, locked: true, lock_key: key
@@ -9,7 +9,7 @@ RSpec.describe Lockable do
         key.parent = actor
       end
     end
-    plot = Gamefic::Plot.new
+    plot = TestPlot.new
     actor = plot.introduce
     plot.ready
     actor.perform 'unlock safe with key'
@@ -17,7 +17,7 @@ RSpec.describe Lockable do
   end
 
   it 'does not unlock with wrong key' do
-    Gamefic::Plot.script do
+    TestPlot.script do
       room = make Room, name: 'room'
       wrong_key = make Thing, name: 'wrong key'
       make Thing, name: 'right key', parent: room
@@ -27,7 +27,7 @@ RSpec.describe Lockable do
         wrong_key.parent = actor
       end
     end
-    plot = Gamefic::Plot.new
+    plot = TestPlot.new
     actor = plot.introduce
     plot.ready
     actor.perform 'unlock safe with wrong key'
@@ -35,7 +35,7 @@ RSpec.describe Lockable do
   end
 
   it 'locks objects with keys' do
-    Gamefic::Plot.script do
+    TestPlot.script do
       room = make Room, name: 'room'
       key = make Thing, name: 'key'
       make Container, name: 'safe', parent: room, locked: false, lock_key: key
@@ -44,7 +44,7 @@ RSpec.describe Lockable do
         key.parent = actor
       end
     end
-    plot = Gamefic::Plot.new
+    plot = TestPlot.new
     actor = plot.introduce
     plot.ready
     actor.perform 'lock safe with key'
@@ -52,14 +52,14 @@ RSpec.describe Lockable do
   end
 
   it 'does not open locked objects' do
-    Gamefic::Plot.script do
+    TestPlot.script do
       room = make Room, name: 'room'
       make Container, name: 'safe', parent: room, locked: true
       introduction do |actor|
         actor.parent = room
       end
     end
-    plot = Gamefic::Plot.new
+    plot = TestPlot.new
     actor = plot.introduce
     plot.ready
     actor.perform 'open safe'
@@ -67,16 +67,16 @@ RSpec.describe Lockable do
   end
 
   it 'opens closed objects without keys' do
-    Gamefic::Plot.seed do
+    TestPlot.seed do
       @room = make Room, name: 'room'
       make Container, name: 'safe', parent: @room, open: false
     end
-    Gamefic::Plot.script do
+    TestPlot.script do
       introduction do |actor|
         actor.parent = @room
       end
     end
-    plot = Gamefic::Plot.new
+    plot = TestPlot.new
     actor = plot.introduce
     plot.ready
     actor.perform 'open safe'
@@ -96,7 +96,7 @@ RSpec.describe Lockable do
   end
 
   it 'opens closed and unlocked objects' do
-    Gamefic::Plot.script do
+    TestPlot.script do
       room = make Room, name: 'room'
       key = make Thing, name: 'key'
       make Container, name: 'safe', parent: room, locked: false, open: false, lock_key: key
@@ -104,7 +104,7 @@ RSpec.describe Lockable do
         actor.parent = room
       end
     end
-    plot = Gamefic::Plot.new
+    plot = TestPlot.new
     actor = plot.introduce
     plot.ready
     actor.perform 'open safe'
@@ -112,7 +112,7 @@ RSpec.describe Lockable do
   end
 
   it 'reports unlockable entities' do
-    plot = Gamefic::Plot.new
+    plot = TestPlot.new
     room = plot.make Room
     plot.make Thing, name: 'thing', parent: room
     player = plot.introduce

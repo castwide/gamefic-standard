@@ -1,6 +1,7 @@
 RSpec.describe 'Enter action' do
+  let(:plot) { TestPlot.new }
+
   it 'does not enter a non-enterable thing' do
-    plot = Gamefic::Plot.new
     room = plot.make Room
     thing = plot.make Receptacle, parent: room, name: 'thing', enterable: false
     actor = plot.introduce
@@ -12,7 +13,6 @@ RSpec.describe 'Enter action' do
   end
 
   it 'enters an enterable thing' do
-    plot = Gamefic::Plot.new
     room = plot.make Room
     thing = plot.make Receptacle, parent: room, name: 'thing', enterable: true
     thing.enterable = true
@@ -23,7 +23,6 @@ RSpec.describe 'Enter action' do
   end
 
   it 'stays in an enterable thing' do
-    plot = Gamefic::Plot.new
     room = plot.make Room
     thing = plot.make Receptacle, parent: room, name: 'thing', enterable: true
     actor = plot.introduce
@@ -33,7 +32,6 @@ RSpec.describe 'Enter action' do
   end
 
   it 'stays in a supporter' do
-    plot = Gamefic::Plot.new
     room = plot.make Room
     thing = plot.make Supporter, parent: room, name: 'thing'
     thing.enterable = true
@@ -44,7 +42,6 @@ RSpec.describe 'Enter action' do
   end
 
   it 'does not enter a closed container' do
-    plot = Gamefic::Plot.new
     room = plot.make Room
     container = plot.make Container, parent: room, name: 'container', enterable: true, open: false
     actor = plot.introduce

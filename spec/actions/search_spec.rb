@@ -1,6 +1,7 @@
 RSpec.describe 'Search action' do
+  let(:plot) { TestPlot.new }
+
   it 'opens containers before searching' do
-    plot = Gamefic::Plot.new
     room = plot.make Room
     container = plot.make Container, name: 'container', open: false, parent: room
     item = plot.make Item, name: 'item', parent: container
@@ -13,7 +14,6 @@ RSpec.describe 'Search action' do
   end
 
   it 'does not search unopenable containers' do
-    plot = Gamefic::Plot.new
     room = plot.make Room
     container = plot.make Container, name: 'container', open: false, locked: true, parent: room
     item = plot.make Item, name: 'item', parent: container
@@ -26,7 +26,6 @@ RSpec.describe 'Search action' do
   end
 
   it 'reports empty receptacles' do
-    plot = Gamefic::Plot.new
     room = plot.make Room
     _receptacle = plot.make Receptacle, name: 'receptacle', parent: room
     player = plot.introduce
@@ -37,7 +36,6 @@ RSpec.describe 'Search action' do
   end
 
   it 'reverts to look' do
-    plot = Gamefic::Plot.new
     room = plot.make Room
     thing = plot.make Thing, name: 'thing', description: 'Just a thing.', parent: room
     player = plot.introduce
@@ -48,7 +46,6 @@ RSpec.describe 'Search action' do
   end
 
   it 'reports inaccessible receptacles' do
-    plot = Gamefic::Plot.new
     room = plot.make Room
     receptacle = plot.make(Receptacle, name: 'receptacle', parent: room)
     receptacle.define_singleton_method :accessible? do

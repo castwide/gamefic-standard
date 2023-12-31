@@ -1,6 +1,7 @@
 RSpec.describe Articles do
+  let(:plot) { TestPlot.new }
+
   it 'attaches indefinite articles' do
-    plot = Gamefic::Plot.new
     result = plot.instance_exec do
       thing = make Thing, name: 'thing'
       a thing
@@ -9,7 +10,6 @@ RSpec.describe Articles do
   end
 
   it 'attaches definite articles' do
-    plot = Gamefic::Plot.new
     result = plot.instance_exec do
       thing = make Thing, name: 'thing'
       the thing
@@ -18,7 +18,6 @@ RSpec.describe Articles do
   end
 
   it 'capitalizes indefinite articles' do
-    plot = Gamefic::Plot.new
     result = plot.instance_exec do
       thing = make Thing, name: 'thing'
       A thing
@@ -27,7 +26,6 @@ RSpec.describe Articles do
   end
 
   it 'capitalizes definite articles' do
-    plot = Gamefic::Plot.new
     result = plot.instance_exec do
       thing = make Thing, name: 'thing'
       The thing
@@ -36,7 +34,6 @@ RSpec.describe Articles do
   end
 
   it 'ignores indefinite articles for proper names' do
-    plot = Gamefic::Plot.new
     result = plot.instance_exec do
       thing = make Thing, name: 'thing', proper_named: true
       a thing
@@ -45,7 +42,6 @@ RSpec.describe Articles do
   end
 
   it 'ignores definite articles for proper names' do
-    plot = Gamefic::Plot.new
     result = plot.instance_exec do
       thing = make Thing, name: 'thing', proper_named: true
       the thing
@@ -54,7 +50,6 @@ RSpec.describe Articles do
   end
 
   it 'capitalizes proper names without indefinite articles' do
-    plot = Gamefic::Plot.new
     result = plot.instance_exec do
       thing = make Thing, name: 'thing', proper_named: true
       A thing
@@ -63,7 +58,6 @@ RSpec.describe Articles do
   end
 
   it 'capitalizes proper names without definite articles' do
-    plot = Gamefic::Plot.new
     result = plot.instance_exec do
       thing = make Thing, name: 'thing', proper_named: true
       The thing

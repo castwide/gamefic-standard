@@ -1,6 +1,7 @@
 RSpec.describe Door do
+  let(:plot) { TestPlot.new }
+
   it 'synchronizes open statuses' do
-    plot = Gamefic::Plot.new
     room1 = plot.make Room, name: 'room1'
     room2 = plot.make Room, name: 'room2'
     door = plot.connect room1, room2, 'east', type: Door
@@ -11,7 +12,6 @@ RSpec.describe Door do
   end
 
   it 'synchronizes lock statuses' do
-    plot = Gamefic::Plot.new
     room1 = plot.make Room, name: 'room1'
     room2 = plot.make Room, name: 'room2'
     key = plot.make Item, name: 'key'
@@ -27,7 +27,6 @@ RSpec.describe Door do
   end
 
   it 'synchronizes one-way lock statuses' do
-    plot = Gamefic::Plot.new
     room1 = plot.make Room, name: 'room1'
     room2 = plot.make Room, name: 'room2'
     key = plot.make Item, name: 'key'
@@ -43,7 +42,6 @@ RSpec.describe Door do
   end
 
   it 'tries to open doors before going' do
-    plot = Gamefic::Plot.new
     room1 = plot.make Room, name: 'room1'
     room2 = plot.make Room, name: 'room2'
     door = plot.connect room1, room2, 'east', type: Door

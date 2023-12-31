@@ -13,5 +13,7 @@ module Gamefic
     require 'gamefic-standard/entities'
     require 'gamefic-standard/actions'
     require 'gamefic-standard/introduction'
+
+    require 'gamefic-standard/give'
   end
 end
