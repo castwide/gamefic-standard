@@ -4,10 +4,9 @@ class Gamefic::Scope::Room < Gamefic::Scope::Base
   end
 end
 
-module Gamefic::Standard::Queries
+# @todo Monkey patch
+module Gamefic::Delegatable::Queries
   def room *args
     Gamefic::Query::Scoped.new Gamefic::Scope::Room, *([Room] + args)
   end
 end
-
-Gamefic::Standard.include Gamefic::Standard::Queries
