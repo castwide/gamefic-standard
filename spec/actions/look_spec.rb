@@ -166,8 +166,8 @@ RSpec.describe 'Look action' do
   it 'sees multiple exits' do
     plot = TestPlot.new
     room = plot.make Room, name: 'room'
-    plot.connect room, nil, 'north', two_way: false
-    plot.connect room, nil, 'south', two_way: false
+    room.connect nil, direction: 'north', two_way: false
+    room.connect nil, direction: 'south', two_way: false
     actor = plot.introduce
     actor.parent = room
     actor.perform 'look'

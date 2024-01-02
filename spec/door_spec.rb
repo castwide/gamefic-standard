@@ -4,7 +4,7 @@ RSpec.describe Door do
   it 'synchronizes open statuses' do
     room1 = plot.make Room, name: 'room1'
     room2 = plot.make Room, name: 'room2'
-    door = plot.connect room1, room2, 'east', type: Door
+    door, = room1.connect room2, direction: 'east', type: Door
     door.open = true
     expect(door.reverse).to be_open
     door.open = false
@@ -15,7 +15,7 @@ RSpec.describe Door do
     room1 = plot.make Room, name: 'room1'
     room2 = plot.make Room, name: 'room2'
     key = plot.make Item, name: 'key'
-    door = plot.connect room1, room2, 'east', type: Door
+    door, = room1.connect(room2, direction: 'east', type: Door)
     door.two_way_lock_key = key
     expect(door.reverse.lock_key).to be(key)
     door.locked = true
@@ -30,7 +30,7 @@ RSpec.describe Door do
     room1 = plot.make Room, name: 'room1'
     room2 = plot.make Room, name: 'room2'
     key = plot.make Item, name: 'key'
-    door = plot.connect room1, room2, 'east', type: Door
+    door, = room1.connect room2, direction: 'east', type: Door
     door.lock_key = key
     expect(door.reverse.lock_key).to be_nil
     door.locked = true
@@ -44,7 +44,7 @@ RSpec.describe Door do
   it 'tries to open doors before going' do
     room1 = plot.make Room, name: 'room1'
     room2 = plot.make Room, name: 'room2'
-    door = plot.connect room1, room2, 'east', type: Door
+    door, = room1.connect room2, direction: 'east', type: Door
     door.open = false
     actor = plot.introduce
     actor.parent = room1

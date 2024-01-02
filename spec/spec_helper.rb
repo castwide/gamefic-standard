@@ -4,8 +4,6 @@ SimpleCov.start
 
 require "gamefic-standard"
 
-# @todo This is a temporary wart during the update to v3.
-#   A better solution is to make a TestPlot in a fixture.
 require_relative 'fixtures/test_plot'
 
 RSpec.configure do |config|

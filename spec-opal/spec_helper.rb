@@ -2,6 +2,10 @@
 
 require 'gamefic-standard'
 
+class TestPlot < Gamefic::Plot
+  include Gamefic::Standard
+end
+
 RSpec.configure do |config|
   # Run specs in random order to surface order dependencies. If you find an
   # order dependency and want to debug it, you can fix the order by providing
@@ -22,11 +26,7 @@ RSpec.configure do |config|
     c.syntax = :expect
   end
 
-  config.before :each do
-    @original = Gamefic::Plot.blocks.clone
-  end
-
   config.after :each do
-    Gamefic::Plot.blocks.replace @original
+    TestPlot.blocks.clear
   end
 end

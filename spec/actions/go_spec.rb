@@ -3,7 +3,7 @@ RSpec.describe 'Go action' do
     TestPlot.seed do
       @room1 = make Room, name: 'room1'
       @room2 = make Room, name: 'room2'
-      connect @room1, @room2, 'east'
+      @room1.connect @room2, direction: 'east'
     end
     TestPlot.script do
       introduction do |actor|
@@ -33,7 +33,7 @@ RSpec.describe 'Go action' do
     room = plot.make Room, name: 'room'
     chair = plot.make Supporter, name: 'chair', enterable: true, parent: room
     out = plot.make Room, name: 'out'
-    plot.connect room, out, 'east'
+    room.connect out, direction: 'east'
     actor = plot.introduce
     actor.parent = chair
     actor.perform 'go east'
@@ -46,7 +46,7 @@ RSpec.describe 'Go action' do
     room = plot.make Room, name: 'room'
     chair = plot.make Supporter, name: 'chair', enterable: true, parent: room
     out = plot.make Room, name: 'out'
-    plot.connect room, out, 'east'
+    room.connect out, direction: 'east'
     actor = plot.introduce
     actor.parent = chair
     actor.perform 'go west'
@@ -59,7 +59,7 @@ RSpec.describe 'Go action' do
       room = make Room, name: 'room'
       @chair = make Supporter, name: 'chair', enterable: true, parent: room
       out = make Room, name: 'out'
-      connect room, out, 'east'
+      room.connect out, direction: 'east'
     end
 
     TestPlot.script do

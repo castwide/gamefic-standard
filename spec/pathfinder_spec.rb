@@ -13,14 +13,14 @@ RSpec.describe Pathfinder do
     pathfinder = plot.instance_exec do
       start = make Room, name: 'start'
       middle = make Room, name: 'middle'
-      connect start, middle
+      start.connect middle
       side1 = make Room, name: 'side1'
-      connect middle, side1
+      middle.connect side1
       side2 = make Room, name: 'side2'
-      connect side1, side2
+      side1.connect side2
       ending = make Room, name: 'end'
-      connect middle, ending
-      connect side2, ending
+      middle.connect ending
+      side2.connect ending
 
       Pathfinder.new(start, ending)
     end

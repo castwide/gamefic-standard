@@ -20,7 +20,7 @@ RSpec.describe 'Leave action' do
     TestPlot.seed do
       @room1 = make Room, name: 'room 1'
       @room2 = make Room, name: 'room 2'
-      connect @room1, @room2
+      @room1.connect @room2
     end
     TestPlot.script do
       introduction do |actor|
@@ -73,8 +73,8 @@ RSpec.describe 'Leave action' do
       @room1 = make Room, name: 'room 1'
       @room2 = make Room, name: 'room 2'
       @room3 = make Room, name: 'room 3'
-      connect @room1, @room2
-      connect @room1, @room3
+      @room1.connect @room2
+      @room1.connect @room3
     end
     TestPlot.script do
       introduction do |actor|
