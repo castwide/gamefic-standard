@@ -23,18 +23,13 @@ Gamefic::Standard.script do
   end
 
   respond :take, plaintext(/^(all|everything)$/) do |actor, _all|
-    taken = []
     items = Gamefic::Scope::Family.matches(actor)
                                   .that_are(proc(&:portable?))
                                   .reject { |item| actor.flatten.include?(item) }
     if items.empty?
       actor.tell "You don't see anything you can carry."
     else
-      actor.cue nil
-      items.each do |item|
-        actor.execute :take, item
-        next unless actor.next_cue.nil?
-      end
+      items.each { |item| actor.execute :take, item }
     end
   end
 

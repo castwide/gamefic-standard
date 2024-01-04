@@ -132,4 +132,15 @@ RSpec.describe 'Take action' do
     expect(actor.messages).to include("don't know", "item2")
     expect(actor.children).to be_empty
   end
+
+  it 'takes all' do
+    plot = TestPlot.new
+    room = plot.make Room
+    item1 = plot.make Item, name: 'item1', parent: room
+    item2 = plot.make Item, name: 'item2', parent: room
+    actor = plot.introduce
+    actor.parent = room
+    actor.perform 'take all'
+    expect(actor.children).to eq([item1, item2])
+  end
 end
