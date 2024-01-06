@@ -24,7 +24,7 @@ Gamefic::Standard.script do
 
   respond :take, plaintext(/^(all|everything)$/) do |actor, _all|
     items = Gamefic::Scope::Family.matches(actor)
-                                  .that_are(proc(&:portable?))
+                                  .select(&:portable?)
                                   .reject { |item| actor.flatten.include?(item) }
     if items.empty?
       actor.tell "You don't see anything you can carry."
