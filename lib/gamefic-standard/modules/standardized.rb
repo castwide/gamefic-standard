@@ -51,9 +51,7 @@ module Standardized
   # @return [Room]
   def room
     p = parent
-    until p.is_a?(Room) or p.nil?
-      p = p.parent
-    end
+    p = p.parent until p.is_a?(Room) || p.nil?
     p
   end
 end
