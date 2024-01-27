@@ -1,3 +1,6 @@
+## 3.0.0 - January 27, 2024
+- Updates for Gamefic 3.0
+
 ## 2.4.0 - February 11, 2023
 - Change Actor#perform to Actor#execute
 - Update gamefic dependency
