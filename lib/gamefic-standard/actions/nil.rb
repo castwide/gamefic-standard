@@ -1,23 +1,24 @@
-Gamefic.script do
-  meta nil, Gamefic::Query::Text.new do |actor, string|
-    words = string.split_words
-    # @todo There should probably be an Active#verbs or Active#command_words method
-    list = actor.playbooks.flat_map(&:syntaxes).flat_map(&:first_word)
-    if list.include?(words[0])
+Gamefic::Standard.script do
+  meta nil, plaintext do |actor, string|
+    words = string.keywords
+    list = actor.epic.synonyms
+    if list.include?(words[0].to_sym)
       if words.length > 1
-        found = Gamefic::Query::Available.new.resolve(actor, words[1..-1].join(' ')).objects
+        found = []
+        avail = available(ambiguous: true)
+        result = avail.query(actor, words[1..-1].join(' '))
+        until result.match.nil?
+          found.concat result.match
+          result = avail.query(actor, result.remainder)
+        end
         if found.empty?
-          actions = []
-          actor.playbooks.reverse.each { |p| actions.concat p.actions_for(words[0].to_sym) }
-          if actions.any? { |a| a.queries.one? && !a.queries.first.is_a?(Gamefic::Query::Text) }
-            actor.tell %(I recognize "#{words[0]}" as a verb but don't know what you mean by "#{words[1..-1].join(' ')}.")
-          else
-            actor.tell %(I recognize "#{words[0]}" as a verb but could not understand the rest of your sentence.)
-          end
+          actor.tell %(I recognize "#{words[0]}" as a verb but don't know what you mean by "#{words[1..-1].join(' ')}.")
+        elsif result.remainder != ''
+          actor.tell %(I recognize "#{words[0]}" as a verb but was confused by "#{result.remainder}.")
         elsif found.one?
           actor.tell %(I recognize "#{words[0]}" and "#{found.first.name}" but could not understand them together.)
         else
-          actor.tell %(I'm not sure if "#{words[1..-1].join(' ')}" means #{found.map(&:definitely).join_or}.)
+          actor.tell %(I recognize "#{words[0]} I'm not sure if "#{words[1..-1].join(' ')}" means #{found.map(&:definitely).join_or}.)
         end
       else
         actor.tell %(I recognize "#{words[0]}" as a verb but could not understand it in this context.)

@@ -8,13 +8,15 @@ module Lockable
   def locked=(bool)
     @locked = bool
     if @locked == true
-      self.open = false
+      @open = false
     end
+    @locked
   end
 
   def open=(bool)
     @open = bool
     @locked = false if @open == true
+    @open
   end
 
   def locked?

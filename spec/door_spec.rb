@@ -1,9 +1,10 @@
 RSpec.describe Door do
+  let(:plot) { TestPlot.new }
+
   it 'synchronizes open statuses' do
-    plot = Gamefic::Plot.new
     room1 = plot.make Room, name: 'room1'
     room2 = plot.make Room, name: 'room2'
-    door = plot.connect room1, room2, 'east', type: Door
+    door, = room1.connect room2, direction: 'east', type: Door
     door.open = true
     expect(door.reverse).to be_open
     door.open = false
@@ -11,11 +12,10 @@ RSpec.describe Door do
   end
 
   it 'synchronizes lock statuses' do
-    plot = Gamefic::Plot.new
     room1 = plot.make Room, name: 'room1'
     room2 = plot.make Room, name: 'room2'
     key = plot.make Item, name: 'key'
-    door = plot.connect room1, room2, 'east', type: Door
+    door, = room1.connect(room2, direction: 'east', type: Door)
     door.two_way_lock_key = key
     expect(door.reverse.lock_key).to be(key)
     door.locked = true
@@ -27,11 +27,10 @@ RSpec.describe Door do
   end
 
   it 'synchronizes one-way lock statuses' do
-    plot = Gamefic::Plot.new
     room1 = plot.make Room, name: 'room1'
     room2 = plot.make Room, name: 'room2'
     key = plot.make Item, name: 'key'
-    door = plot.connect room1, room2, 'east', type: Door
+    door, = room1.connect room2, direction: 'east', type: Door
     door.lock_key = key
     expect(door.reverse.lock_key).to be_nil
     door.locked = true
@@ -43,17 +42,15 @@ RSpec.describe Door do
   end
 
   it 'tries to open doors before going' do
-    plot = Gamefic::Plot.new
     room1 = plot.make Room, name: 'room1'
     room2 = plot.make Room, name: 'room2'
-    door = plot.connect room1, room2, 'east', type: Door
+    door, = room1.connect room2, direction: 'east', type: Door
     door.open = false
-    actor = plot.make_player_character
-    plot.introduce actor
+    actor = plot.introduce
     actor.parent = room1
     expect(door).to be_closed
     actor.perform 'go east'
-    expect(actor.parent).to be(room2)
+    expect(actor.parent).to eq(room2)
     expect(door).to be_open
   end
 end

@@ -1,54 +1,58 @@
 RSpec.describe 'place action' do
   it 'places a child on a supporter' do
-    plot = Gamefic::Plot.new
-    plot.stage do
-      room = make Room, name: 'room'
-      thing = make Thing, name: 'thing'
-      supporter = make Supporter, name: 'supporter', parent: room
-
+    TestPlot.seed do
+      @room = make Room, name: 'room'
+      @thing = make Thing, name: 'thing'
+      @supporter = make Supporter, name: 'supporter', parent: @room
+    end
+    TestPlot.script do
       introduction do |actor|
-        actor.parent = room
-        thing.parent = actor
+        actor.parent = @room
+        @thing.parent = actor
       end
     end
-    actor = plot.get_player_character
-    plot.introduce actor
+    plot = TestPlot.new
+    actor = plot.introduce
+    plot.ready
     actor.perform 'place thing supporter'
     expect(plot.entities[1].parent).to eq(plot.entities[2])
   end
 
   it 'takes and places an item on a supporter' do
-    plot = Gamefic::Plot.new
-    plot.stage do
-      room = make Room, name: 'room'
-      item = make Item, name: 'item', parent: room
-      supporter = make Supporter, name: 'supporter', parent: room
-
+    TestPlot.seed do
+      @room = make Room, name: 'room'
+      @item = make Item, name: 'item', parent: @room
+      supporter = make Supporter, name: 'supporter', parent: @room
+    end
+    TestPlot.script do
       introduction do |actor|
-        actor.parent = room
+        actor.parent = @room
       end
     end
-    actor = plot.get_player_character
-    plot.introduce actor
+    plot = TestPlot.new
+    actor = plot.introduce
+    plot.ready
     actor.perform 'place item supporter'
     expect(plot.entities[1].parent).to eq(plot.entities[2])
   end
 
   it 'rejects placement on non-supporters' do
-    plot = Gamefic::Plot.new
-    room = plot.make Room, name: 'room'
-    item = plot.make Item, name: 'item'
-    _thing = plot.make Thing, name: 'thing', parent: room
-
-    plot.introduction do |actor|
-      actor.parent = room
-      item.parent = actor
+    TestPlot.seed do
+      @room = make Room, name: 'room'
+      @item = make Item, name: 'item'
+      @thing = make Thing, name: 'thing', parent: @room
     end
-
-    actor = plot.make_player_character
-    plot.introduce actor
+    TestPlot.script do
+      introduction do |actor|
+        actor.parent = @room
+        @item.parent = actor
+      end
+    end
+    plot = TestPlot.new
+    actor = plot.introduce
+    plot.ready
     actor.perform 'put item on thing'
-    expect(item.parent).to be(actor)
+    expect(plot.pick('item').parent).to be(actor)
     expect(actor.messages).to include("can't put")
   end
 end

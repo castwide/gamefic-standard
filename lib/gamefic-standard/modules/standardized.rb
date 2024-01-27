@@ -32,16 +32,16 @@ module Standardized
   end
 
   # @param bool [Boolean]
-  def attached= bool
+  def attached=(bool)
     @attached = if parent.nil?
-      # @todo Log attachment failure
-      false
-    else
-      bool
-    end
+                  # @todo Log attachment failure
+                  false
+                else
+                  bool
+                end
   end
 
-  def parent= new_parent
+  def parent=(new_parent)
     self.attached = false unless new_parent == parent
     super
   end
@@ -50,10 +50,8 @@ module Standardized
   #
   # @return [Room]
   def room
-    p = parent
-    until p.is_a?(Room) or p.nil?
-      p = p.parent
-    end
-    p
+    ascendant = parent
+    ascendant = ascendant.parent until ascendant.is_a?(Room) || ascendant.nil?
+    ascendant
   end
 end

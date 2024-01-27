@@ -1,16 +1,16 @@
-Gamefic.script do
-  respond :place, Use.children, Use.reachable do |actor, thing, supporter|
+Gamefic::Standard.script do
+  respond :place, children, available do |actor, thing, supporter|
     actor.tell "You can't put #{the thing} on #{the supporter}."
   end
 
-  respond :place, Use.available, Use.available(Supporter) do |actor, thing, supporter|
+  respond :place, available, available(Supporter) do |actor, thing, supporter|
     actor.execute :take, thing unless thing.parent == actor
     next unless thing.parent == actor
     thing.parent = supporter
     actor.tell "You put #{the thing} on #{the supporter}."
   end
 
-  respond :place, Use.children, Use.reachable(Supporter) do |actor, thing, supporter|
+  respond :place, children, available(Supporter) do |actor, thing, supporter|
     thing.parent = supporter
     actor.tell "You put #{the thing} on #{the supporter}."
   end

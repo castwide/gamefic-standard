@@ -41,10 +41,5 @@ module Articles
   alias The the_
 end
 
-class Gamefic::Plot
-  include Articles
-end
-
-class Gamefic::Subplot
-  include Articles
-end
+# @todo Monkey patch
+Gamefic::Narrative.include Articles

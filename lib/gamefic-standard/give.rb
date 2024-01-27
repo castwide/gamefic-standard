@@ -1,20 +1,21 @@
-Gamefic.script do
-  respond :give, Use.available, Gamefic::Query::Children.new do |actor, _character, _gift|
-    actor.tell 'Nothing happens.'
-  end
+module Gamefic::Standard::Give
+  extend Gamefic::Scriptable
 
-  respond :give, Use.available(Character), Use.available do |actor, character, gift|
-    actor.tell "#{The character} doesn't want #{the gift}."
-  end
-
-  respond :give, Use.available(Character), Use.available do |actor, _character, gift|
-    if gift.parent != actor
-      actor.execute :take, gift
+  script do
+    respond :give, available, children do |actor, _character, _gift|
+      actor.tell 'Nothing happens.'
     end
-    if gift.parent == actor
-      actor.proceed
-    end
-  end
 
-  interpret 'give :gift to :character', 'give :character :gift'
+    respond :give, available(Character), available do |actor, character, gift|
+      actor.tell "#{The character} doesn't want #{the gift}."
+    end
+
+    respond :give, available(Character), available do |actor, _character, gift|
+      actor.execute :take, gift if gift.parent != actor
+
+      actor.proceed if gift.parent == actor
+    end
+
+    interpret 'give :gift to :character', 'give :character :gift'
+  end
 end

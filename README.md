@@ -31,13 +31,17 @@ Require the library in your game scripts:
 require 'gamefic'
 require 'gamefic-standard'
 
-Gamefic.script do
-  @office = make Room, name: 'office'
-  @desk = make Fixture, name: 'desk', parent: @office
+class MyPlot < Gamefic::Plot
+  seed do
+    @office = make Room, name: 'office'
+    @desk = make Fixture, name: 'desk', parent: @office
+  end
 
-  introduction do |actor|
-    actor.parent = @office
-    actor.tell "You're in an office."
+  script do
+    introduction do |actor|
+      actor.parent = @office
+      actor.tell "You're in an office."
+    end
   end
 end
 ```

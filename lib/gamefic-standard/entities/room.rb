@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Room < Thing
   attr_writer :explicit_exits
 
@@ -11,10 +13,25 @@ class Room < Thing
     children.each { |c| c.tell message }
   end
 
-  def find_portal(direction)
-    d = direction.to_s
-    portals = children.that_are(Portal).delete_if { |p| p.direction.to_s != d }
-    portals[0]
+  # @return [Array<Portal>]
+  def portals
+    children.that_are(Portal)
+  end
+
+  # @param destination [Room]
+  # @param direction [Direction, String, nil]
+  # @param type [Class<Portal>]
+  # @param two_way [Boolean]
+  # @return [Portal, Array<Portal>]
+  def connect destination, direction: nil, type: Portal, two_way: true
+    direction = Direction.find(direction)
+    here = type.new(parent: self,
+                      destination: destination,
+                      direction: Direction.find(direction))
+    return here unless two_way
+
+    there = type.new(parent: destination, destination: self, direction: direction&.reverse)
+    [here, there]
   end
 
   class << self
@@ -25,37 +42,5 @@ class Room < Thing
     def explicit_exits=(bool)
       set_default explicit_exits: bool
     end
-  end
-end
-
-# @todo Monkey patching might not be the best way to handle this. It's only
-#   necessary because of specs that make Plot#connect calls. Consider
-#   changing the specs instead.
-module Gamefic::World
-  # Create portals between rooms.
-  #
-  # @return [Portal]
-  def connect origin, destination, direction = nil, type: Portal, two_way: true
-    if direction.nil?
-      portal = make type, :parent => origin, :destination => destination
-      if two_way == true
-        portal2 = make type, :parent => destination, :destination => origin
-      end
-    else
-      if direction.kind_of?(String)
-        direction = Direction.find(direction)
-      end
-      portal = make type, :direction => direction, :parent => origin, :destination => destination
-      portal.proper_named = true if type == Portal
-      if two_way == true
-        reverse = direction.reverse
-        if reverse == nil
-          raise "#{direction.name.cap_first} does not have an opposite direction"
-        end
-        portal2 = make type, :direction => reverse, :parent => destination, :destination => origin
-        portal2.proper_named = true if type == Portal
-      end
-    end
-    portal
   end
 end
