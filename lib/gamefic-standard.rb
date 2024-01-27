@@ -3,6 +3,9 @@
 require 'gamefic'
 
 module Gamefic
+  # The Gamefic standard library provides a base collection of entities and
+  # rules for interactive fiction.
+  #
   module Standard
     extend Gamefic::Scriptable
 
@@ -17,5 +20,9 @@ module Gamefic
     require 'gamefic-standard/introduction'
 
     require 'gamefic-standard/give'
+
+    def connect(origin, destination, direction = nil, type: Portal, two_way: true)
+      origin.connect destination, direction: direction, type: type, two_way: two_way
+    end
   end
 end
