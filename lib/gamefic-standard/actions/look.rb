@@ -1,7 +1,7 @@
 module Gamefic
   module Standard
     script do
-      respond :look do |actor, _|
+      respond :look do |actor|
         actor.execute :look, actor.room
       end
 

@@ -18,7 +18,7 @@ Gamefic::Standard.script do
         elsif found.one?
           actor.tell %(I recognize "#{words[0]}" and "#{found.first.name}" but could not understand them together.)
         else
-          actor.tell %(I recognize "#{words[0]} I'm not sure if "#{words[1..-1].join(' ')}" means #{found.map(&:definitely).join_or}.)
+          actor.tell %(I recognize "#{words[0]}" I'm not sure if "#{words[1..-1].join(' ')}" means #{found.map(&:definitely).join_or}.)
         end
       else
         actor.tell %(I recognize "#{words[0]}" as a verb but could not understand it in this context.)
