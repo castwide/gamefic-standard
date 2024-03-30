@@ -4,15 +4,15 @@ Gamefic::Standard.script do
   # Save, Restore, and Undo need to be handled by the game client. They have
   # default implementations here to make them available in help.
 
-  respond :save do |actor|
+  meta :save do |actor|
     actor.tell "<kbd>Save</kbd> is not available."
   end
 
-  respond :restore do |actor|
+  meta :restore do |actor|
     actor.tell "<kbd>Restore</kbd> is not available."
   end
 
-  respond :undo do |actor|
+  meta :undo do |actor|
     actor.tell "<kbd>Undo</kbd> is not available."
   end
 end
