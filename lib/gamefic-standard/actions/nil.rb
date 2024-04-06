@@ -2,7 +2,7 @@ Gamefic::Standard.script do
   meta nil, plaintext do |actor, string|
     words = string.keywords
     list = actor.epic.synonyms
-    if list.include?(words[0].to_sym)
+    if list.include?(words[0]&.to_sym)
       if words.length > 1
         found = []
         avail = available(ambiguous: true)
