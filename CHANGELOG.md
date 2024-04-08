@@ -1,4 +1,4 @@
-## 3.1.0 - March 27, 2024
+## 3.1.0 - April 8, 2024
 - Minor response fixes
 - Update gamefic dependency
 
