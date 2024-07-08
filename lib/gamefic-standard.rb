@@ -18,7 +18,6 @@ module Gamefic
     require 'gamefic-standard/entities'
     require 'gamefic-standard/actions'
     require 'gamefic-standard/introduction'
-
     require 'gamefic-standard/give'
 
     def connect(origin, destination, direction = nil, type: Portal, two_way: true)

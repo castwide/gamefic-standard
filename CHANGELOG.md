@@ -1,3 +1,6 @@
+## 3.2.0
+- Recognize pronouns in commands
+
 ## 3.1.0 - April 8, 2024
 - Minor response fixes
 - Update gamefic dependency
