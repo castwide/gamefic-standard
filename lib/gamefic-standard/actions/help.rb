@@ -3,7 +3,7 @@
 module Gamefic
   module Standard
     script do
-      respond :verbs do |actor|
+      meta :verbs do |actor|
         list = rulebook.synonyms.reject { |syn| syn.to_s.start_with?('_') }
                       .map { |syn| "<kbd>#{syn}</kbd>"}
                       .join_and
@@ -15,7 +15,7 @@ module Gamefic
       interpret 'commands', 'verbs'
       interpret 'help', 'verbs'
 
-      respond :help, plaintext do |actor, command|
+      meta :help, plaintext do |actor, command|
         if rulebook.synonyms.include?(command.to_sym) && !command.start_with?('_')
           available = rulebook.syntaxes.select { |syntax| syntax.synonym == command.to_sym }
                               .uniq(&:signature)
