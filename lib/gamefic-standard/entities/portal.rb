@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# An entity that provides access from one room to another.
+#
 class Portal < Thing
   # @return [Gamefic::Entity]
   attr_accessor :destination
@@ -19,6 +21,7 @@ class Portal < Thing
   # @return [Room, nil]
   def reverse
     return nil if destination.nil?
+
     destination.children.that_are(Portal).find do |portal|
       portal.destination == parent
     end
@@ -30,7 +33,7 @@ class Portal < Thing
   end
 
   def name
-    @name || (direction.nil? ? destination.name : direction.name)
+    @name || direction&.name || destination.name
   end
 
   def instruction

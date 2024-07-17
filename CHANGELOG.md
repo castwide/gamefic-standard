@@ -1,4 +1,7 @@
-## 3.2.0
+## 3.2.1
+- Help actions are meta
+
+## 3.2.0 - July 10, 2024
 - Recognize pronouns in commands
 
 ## 3.1.0 - April 8, 2024
