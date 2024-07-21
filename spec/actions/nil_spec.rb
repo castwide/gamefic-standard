@@ -100,4 +100,11 @@ RSpec.describe 'Nil action' do
     actor.perform 'glue thing to other'
     expect(actor.messages).to include('I recognize "glue" as a verb')
   end
+
+  it 'ignores empty commands' do
+    actor = plot.introduce
+    plot.ready
+    actor.perform ''
+    expect(actor.messages).to be_empty
+  end
 end

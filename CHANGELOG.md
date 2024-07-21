@@ -1,5 +1,6 @@
 ## 3.2.1
 - Help actions are meta
+- Ignore empty commands
 
 ## 3.2.0 - July 10, 2024
 - Recognize pronouns in commands

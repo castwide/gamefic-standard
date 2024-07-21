@@ -1,5 +1,7 @@
 Gamefic::Standard.script do
   meta nil, plaintext do |actor, string|
+    next if string.strip.empty?
+
     words = string.keywords
     list = actor.epic.synonyms
     if list.include?(words[0]&.to_sym)
