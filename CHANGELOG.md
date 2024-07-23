@@ -1,4 +1,4 @@
-## 3.2.1
+## 3.2.1 - July 23, 2024
 - Help actions are meta
 - Ignore empty commands
 
