@@ -1,3 +1,6 @@
+## 3.2.2
+- Move help commands to their own extension
+
 ## 3.2.1 - July 23, 2024
 - Help actions are meta
 - Ignore empty commands
