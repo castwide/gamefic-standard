@@ -24,6 +24,7 @@ module Gamefic
 
       interpret "get on :thing", "enter :thing"
       interpret "get in :thing", "enter :thing"
+      interpret "get inside :thing", "enter :thing"
       interpret "sit on :thing", "enter :thing"
       interpret "sit in :thing", "enter :thing"
       interpret "lie on :thing", "enter :thing"
