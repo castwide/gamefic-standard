@@ -1,3 +1,6 @@
+## 3.2.3 - September 1, 2024
+- Delete gem
+
 ## 3.2.2 - September 1, 2024
 - Move help commands to their own extension
 - get inside -> enter
