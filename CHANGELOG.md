@@ -3,6 +3,7 @@
 - get inside -> enter
 - Use definite names in leave error
 - Report commands that do not accept arguments
+- Require gamefic ~> 3.3
 
 ## 3.2.1 - July 23, 2024
 - Help actions are meta
