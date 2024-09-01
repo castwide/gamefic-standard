@@ -22,7 +22,7 @@ module Gamefic
         elsif portals.length == 1
           actor.execute :go, portals[0]
         else
-          actor.tell "I don't know which way you want to go: #{portals.join_or}."
+          actor.tell "I don't know which way you want to go: #{portals.map(&:definitely).join_or}."
         end
       end
 
