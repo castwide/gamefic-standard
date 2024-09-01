@@ -1,5 +1,8 @@
-## 3.2.2
+## 3.2.2 - September 1, 2024
 - Move help commands to their own extension
+- get inside -> enter
+- Use definite names in leave error
+- Report commands that do not accept arguments
 
 ## 3.2.1 - July 23, 2024
 - Help actions are meta
