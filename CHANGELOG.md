@@ -1,3 +1,6 @@
+## 3.2.4
+- Include Articles in Standard
+
 ## 3.2.3 - September 1, 2024
 - Delete gem
 

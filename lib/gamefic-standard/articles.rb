@@ -40,6 +40,3 @@ module Articles
   end
   alias The the_
 end
-
-# @todo Monkey patch
-Gamefic::Narrative.include Articles
