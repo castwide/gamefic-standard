@@ -39,12 +39,13 @@ module Gamefic
         actor.proceed if container.open?
       end
 
-      interpret "exit", "leave"
-      interpret "exit :supporter", "leave :supporter"
-      interpret "get on :supporter", "enter :supporter"
-      interpret "get off :supporter", "leave :supporter"
-      interpret "get out :container", "leave :container"
-      interpret "get out of :container", "leave :container"
+      interpret 'exit', 'leave'
+      interpret 'exit :supporter', 'leave :supporter'
+      interpret 'get on :supporter', 'enter :supporter'
+      interpret 'get off :supporter', 'leave :supporter'
+      interpret 'get out :container', 'leave :container'
+      interpret 'get out of :container', 'leave :container'
+      interpret 'out', 'leave'
     end
   end
 end
