@@ -2,7 +2,8 @@
 
 Gamefic::Standard.script do
   introduction do |actor|
-    actor.name = 'myself'
-    actor.synonyms = 'self me yourself you'
+    actor.name = 'you'
+    actor.synonyms = 'self me yourself myself'
+    actor.proper_named = true
   end
 end
