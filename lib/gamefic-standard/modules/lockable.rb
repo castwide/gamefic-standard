@@ -7,16 +7,12 @@ module Lockable
 
   def locked=(bool)
     @locked = bool
-    if @locked == true
-      @open = false
-    end
-    @locked
+    @open = false if @locked
   end
 
   def open=(bool)
     @open = bool
-    @locked = false if @open == true
-    @open
+    @locked = false if @open
   end
 
   def locked?
