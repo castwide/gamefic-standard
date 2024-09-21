@@ -27,8 +27,15 @@ module Gamefic
 
       respond :look, available(Receptacle) do |actor, thing|
         actor.proceed
-        if thing.accessible?
-          itemized = thing.children.that_are_not(proc(&:attached?)).that_are(proc(&:itemized?))
+        actor.tell "You're currently in #{the thing}." if actor.parent == thing
+        next unless actor.parent == thing || thing.accessible?
+
+        itemized = thing.children.that_are_not(actor, proc(&:attached?)).that_are(proc(&:itemized?))
+        next if itemized.empty?
+
+        if actor.parent == thing
+          actor.tell "You see #{itemized.join_and} here." unless itemized.empty?
+        else
           actor.tell "You see #{itemized.join_and} in #{the thing}." unless itemized.empty?
         end
       end
@@ -107,11 +114,18 @@ module Gamefic
             end
           end
         end
-        if actor.parent.is_a?(Supporter)
-          actor.tell "You are on #{the actor.parent}."
-          actor.parent.children.that_are_not(actor).each { |s|
-            actor.tell "#{A s} is on #{the actor.parent}."
-          }
+        actor.execute :_look_parent_from_room
+      end
+
+      meta :_look_parent_from_room do |actor|
+        next unless actor.parent.is_a?(Supporter) || actor.parent.is_a?(Receptacle)
+
+        preposition = actor.parent.is_a?(Supporter) ? 'on' : 'in'
+        siblings = actor.parent.children.that_are_not(actor)
+        if siblings.empty?
+          actor.tell "You're #{preposition} #{the actor.parent}."
+        else
+          actor.tell "You're #{preposition} #{the actor.parent}, along with #{siblings.join_and}."
         end
       end
 
