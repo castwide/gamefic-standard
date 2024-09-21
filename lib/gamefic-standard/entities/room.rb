@@ -43,4 +43,21 @@ class Room < Thing
       set_default explicit_exits: bool
     end
   end
+
+  protected
+
+  %w[north south west east northeast southeast southwest northwest up down].each do |direction|
+    define_method "#{direction}=" do |destination|
+      connect destination, direction: direction
+    end
+  end
+
+  def connect=(destinations)
+    all = [destinations].flatten
+    until all.empty?
+      destination = all.shift
+      direction = (all.first.is_a?(String) ? all.shift : nil)
+      connect destination, direction: direction
+    end
+  end
 end

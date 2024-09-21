@@ -32,4 +32,18 @@ RSpec.describe Room do
     expect(char1.messages).to include('Hello')
     expect(char2.messages).to include('Hello')
   end
+
+  it 'makes portals from direction attributes' do
+    room1 = plot.make Room, name: 'room1'
+    room2 = plot.make Room, name: 'room2', north: room1
+    expect(room1.children.first.destination).to be(room2)
+    expect(room2.children.first.destination).to be(room1)
+  end
+
+  it 'makes portals from the connect attribute' do
+    room1 = plot.make Room, name: 'room1'
+    room2 = plot.make Room, name: 'room2', connect: [room1, 'north']
+    expect(room1.children.first.destination).to be(room2)
+    expect(room2.children.first.destination).to be(room1)
+  end
 end
