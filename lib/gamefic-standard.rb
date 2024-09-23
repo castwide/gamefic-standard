@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'gamefic'
+require 'gamefic-what'
 
 module Gamefic
   # The Gamefic standard library provides a base collection of entities and
