@@ -50,6 +50,7 @@ module Gamefic
       include Repeat
       include SaveRestoreUndo
       include Pronouns
+      include Gamefic::What
     end
   end
 end

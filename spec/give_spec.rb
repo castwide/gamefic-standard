@@ -49,4 +49,20 @@ RSpec.describe 'Give' do
     plot.update
     expect(player.messages).to include("person has no use for")
   end
+
+  it 'asks who' do
+    room = plot.make Room
+    person = plot.make Character, name: 'person', parent: room
+    player = plot.introduce
+    player.parent = room
+    item = plot.make Item, name: 'item', parent: player
+    plot.ready
+    player.queue.push 'give item'
+    plot.update
+    expect(player.messages).to include('Who')
+    plot.ready
+    player.queue.push 'person'
+    plot.update
+    expect(player.messages).to include("person has no use for")
+  end
 end

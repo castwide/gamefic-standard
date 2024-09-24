@@ -27,7 +27,6 @@ module Gamefic
     include Articles
     include Grammar::Pronoun
     include Actions
-    include Gamefic::What
     include Introduction
 
     def connect(origin, destination, direction = nil, type: Portal, two_way: true)

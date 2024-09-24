@@ -6,6 +6,8 @@ module Gamefic
       module Give
         extend Gamefic::Scriptable
 
+        include Gamefic::What
+
         script do
           respond :give, available, children do |actor, _character, _gift|
             actor.tell 'Nothing happens.'
