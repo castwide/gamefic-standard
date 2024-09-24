@@ -1,11 +1,11 @@
 require 'gamefic-standard/pathfinder'
 
-RSpec.describe Pathfinder do
+RSpec.describe Gamefic::Standard::Pathfinder do
   let(:plot) { TestPlot.new }
 
   it 'returns an empty path for same origin and destination' do
     room = plot.make Room, name: 'room'
-    pathfinder = Pathfinder.new(room, room)
+    pathfinder = Gamefic::Standard::Pathfinder.new(room, room)
     expect(pathfinder.path).to be_empty
   end
 
@@ -22,7 +22,7 @@ RSpec.describe Pathfinder do
       middle.connect ending
       side2.connect ending
 
-      Pathfinder.new(start, ending)
+      Gamefic::Standard::Pathfinder.new(start, ending)
     end
     expect(pathfinder).to be_valid
     expect(pathfinder.path.length).to eq(2)
@@ -33,7 +33,7 @@ RSpec.describe Pathfinder do
       start = make Room, name: 'start'
       ending = make Room, name: 'end'
 
-      Pathfinder.new(start, ending)
+      Gamefic::Standard::Pathfinder.new(start, ending)
     end
     expect(pathfinder).not_to be_valid
     expect(pathfinder.path).to be_empty
