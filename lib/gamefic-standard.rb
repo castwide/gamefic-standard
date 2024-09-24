@@ -19,12 +19,10 @@ module Gamefic
     require 'gamefic-standard/entities'
     require 'gamefic-standard/actions'
     require 'gamefic-standard/introduction'
-    require 'gamefic-standard/give'
 
-    include Nil
     include Articles
     include Grammar::Pronoun
-    include Give
+    include Actions
     include Gamefic::What
 
     def connect(origin, destination, direction = nil, type: Portal, two_way: true)

@@ -1,28 +1,36 @@
 # frozen_string_literal: true
 
-Gamefic::Standard.script do
-  introduction do |actor|
-    actor[:standard_pronoun_targets] = []
-  end
+module Gamefic
+  module Standard
+    module Actions
+      module Pronouns
+        extend Gamefic::Scriptable
 
-  after_action do |action|
-    next unless action.verb
+        introduction do |actor|
+          actor[:standard_pronoun_targets] = []
+        end
 
-    action.actor[:standard_pronoun_targets].replace action.arguments.that_are(Thing)
-  end
+        after_action do |action|
+          next unless action.verb
 
-  meta nil, plaintext do |actor, string|
-    keywords = string.keywords
-    list = actor.epic.synonyms
-    next actor.proceed unless list.include?(keywords.first&.to_sym)
+          action.actor[:standard_pronoun_targets].replace action.arguments.that_are(Thing)
+        end
 
-    xlation = keywords[1..].map do |word|
-      next word unless %w[him her it them].include?(word)
+        meta nil, plaintext do |actor, string|
+          keywords = string.keywords
+          list = actor.epic.synonyms
+          next actor.proceed unless list.include?(keywords.first&.to_sym)
 
-      actor[:standard_pronoun_targets].find { |obj| Grammar::Pronoun.objective(obj) == word }
+          xlation = keywords[1..].map do |word|
+            next word unless %w[him her it them].include?(word)
+
+            actor[:standard_pronoun_targets].find { |obj| Grammar::Pronoun.objective(obj) == word }
+          end
+          next actor.proceed if xlation.any?(&:nil?) || xlation.that_are(Thing).empty?
+
+          actor.perform "#{keywords[0].to_sym} #{xlation.join(' ')}"
+        end
+      end
     end
-    next actor.proceed if xlation.any?(&:nil?) || xlation.that_are(Thing).empty?
-
-    actor.perform "#{keywords[0].to_sym} #{xlation.join(' ')}"
   end
 end

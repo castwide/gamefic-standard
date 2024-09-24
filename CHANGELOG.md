@@ -1,5 +1,7 @@
 ## 3.2.5
 - Include Pronoun and Give in Standard
+- Add gamefic-what
+- Standard::Actions namespace
 
 ## 3.2.4 - September 10, 2024
 - Include Articles in Standard

@@ -18,6 +18,38 @@ require 'gamefic-standard/actions/take'
 require 'gamefic-standard/actions/move'
 require 'gamefic-standard/actions/talk'
 require 'gamefic-standard/actions/wait'
+require 'gamefic-standard/actions/give'
 require 'gamefic-standard/actions/repeat'
 require 'gamefic-standard/actions/save-restore-undo'
 require 'gamefic-standard/actions/pronouns'
+
+module Gamefic
+  module Standard
+    module Actions
+      include Nil
+      include Attack
+      include Drop
+      include Enter
+      include Open
+      include Close
+      include Lock
+      include Unlock
+      include Go
+      include Insert
+      include Inventory
+      include Leave
+      include Look
+      include Search
+      include Place
+      include Quit
+      include Take
+      include Move
+      include Talk
+      include Wait
+      include Give
+      include Repeat
+      include SaveRestoreUndo
+      include Pronouns
+    end
+  end
+end

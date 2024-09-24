@@ -1,7 +1,17 @@
-Gamefic::Standard.script do
-  respond :wait do |actor|
-    actor.tell "Time passes."
-  end
+# frozen_string_literal: true
 
-  interpret 'z', 'wait'
+module Gamefic
+  module Standard
+    module Actions
+      module Wait
+        extend Gamefic::Scriptable
+
+        respond :wait do |actor|
+          actor.tell 'Time passes.'
+        end
+
+        interpret 'z', 'wait'
+      end
+    end
+  end
 end
