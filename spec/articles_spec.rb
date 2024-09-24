@@ -1,4 +1,4 @@
-RSpec.describe Articles do
+RSpec.describe Gamefic::Standard::Articles do
   let(:plot) { TestPlot.new }
 
   it 'attaches indefinite articles' do
