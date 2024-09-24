@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 require 'gamefic-standard'
+# @todo Including Standard here to fix entity namespaces in specs
+include Gamefic::Standard
 
 class TestPlot < Gamefic::Plot
   include Gamefic::Standard

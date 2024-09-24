@@ -1,5 +1,9 @@
 # frozen_string_literal: true
 
-class Supporter < Thing
-  include Enterable
+module Gamefic
+  module Standard
+    class Supporter < Thing
+      include Enterable
+    end
+  end
 end

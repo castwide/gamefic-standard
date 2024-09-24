@@ -1,4 +1,4 @@
-RSpec.describe Thing do
+RSpec.describe Gamefic::Standard::Thing do
   it 'tracks its room' do
     room = Room.new
     container = Thing.new parent: room

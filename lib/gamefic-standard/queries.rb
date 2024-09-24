@@ -7,6 +7,6 @@ end
 # @todo Monkey patch
 module Gamefic::Scriptable::Queries
   def room *args
-    Gamefic::Query::Scoped.new Gamefic::Scope::Room, *([Room] + args)
+    Gamefic::Query::Scoped.new Gamefic::Scope::Room, *([Gamefic::Standard::Room] + args)
   end
 end

@@ -1,5 +1,9 @@
 # frozen_string_literal: true
 
-class Receptacle < Thing
-  include Enterable
+module Gamefic
+  module Standard
+    class Receptacle < Thing
+      include Enterable
+    end
+  end
 end
