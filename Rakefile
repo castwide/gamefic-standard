@@ -7,9 +7,10 @@ RSpec::Core::RakeTask.new(:spec)
 task :default => :spec
 
 Opal::RSpec::RakeTask.new(:opal) do |_, config|
-  Opal.append_path File.expand_path('../lib', __FILE__)
+  Opal.append_path File.join(__dir__, 'lib')
   Opal.use_gem('gamefic')
   Opal.use_gem('gamefic-what')
+  config.default_path = 'spec'
   config.pattern = 'spec/**/*_spec.rb'
-  config.requires = ['spec_helper']
+  config.requires = ['opal_helper']
 end
