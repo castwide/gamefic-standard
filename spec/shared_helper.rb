@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 require 'gamefic-standard'
-# @todo Including Standard here to fix entity namespaces in specs
-include Gamefic::Standard
 
 require_relative 'fixtures/test_plot'
 

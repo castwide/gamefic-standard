@@ -1,4 +1,4 @@
-RSpec.describe Gamefic::Standard::Room do
+RSpec.describe Room do
   let(:plot) { TestPlot.new }
 
   it 'connects by direction' do

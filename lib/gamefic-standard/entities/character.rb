@@ -1,9 +1,5 @@
 # frozen_string_literal: true
 
-module Gamefic
-  module Standard
-    Character = Gamefic::Actor
-    Character.set_default gender: :other
-    Character.include Gamefic::What::Askable
-  end
-end
+Character = Gamefic::Actor
+Character.set_default gender: :other
+Character.include Gamefic::What::Askable

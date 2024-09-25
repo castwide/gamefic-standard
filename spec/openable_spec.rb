@@ -1,7 +1,7 @@
-RSpec.describe Openable do
+RSpec.describe Gamefic::Standard::Openable do
   let(:box_class) {
     box_class = Class.new(Thing)
-    box_class.include Openable
+    box_class.include Gamefic::Standard::Openable
     box_class
   }
 

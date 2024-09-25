@@ -1,4 +1,4 @@
-RSpec.describe Lockable do
+RSpec.describe Gamefic::Standard::Lockable do
   it 'unlocks objects with keys' do
     TestPlot.seed do
       @room = make Room, name: 'room'
