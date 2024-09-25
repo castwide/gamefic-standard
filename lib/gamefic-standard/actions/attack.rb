@@ -7,7 +7,7 @@ module Gamefic
         extend Gamefic::Scriptable
 
         respond :attack do |actor|
-          actor.tell "Violence is not the answer here."
+          actor.tell 'Violence is not the answer here.'
         end
 
         respond :attack, Thing do |actor, _thing|

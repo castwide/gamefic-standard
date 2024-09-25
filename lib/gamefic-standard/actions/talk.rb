@@ -22,8 +22,12 @@ module Gamefic
           actor.tell "#{The character} has nothing to say."
         end
 
-        respond :talk, Character, plaintext do |actor, character, text|
-          actor.tell "#{The character} has nothing to say about #{text}."
+        respond :talk, available, plaintext do |actor, thing, _text|
+          actor.execute :talk, thing
+        end
+
+        respond :talk, Character, plaintext do |actor, character, _text|
+          actor.execute :talk, character
         end
 
         interpret 'talk to :character', 'talk :character'
