@@ -5,6 +5,14 @@ module Gamefic
     # A module for entities that are openable.
     #
     module Openable
+      def open
+        self.open = true
+      end
+
+      def close
+        self.open = false
+      end
+
       def open=(bool)
         @open = bool
       end
