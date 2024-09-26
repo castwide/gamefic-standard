@@ -23,14 +23,12 @@ class Room < Thing
   # @param type [Class<Portal>]
   # @param two_way [Boolean]
   # @return [Portal, Array<Portal>]
-  def connect(destination, direction: nil, type: Portal, two_way: true)
+  def connect(destination, direction: nil, type: Portal, two_way: true, **opts)
     direction = Direction.find(direction)
-    here = type.new(parent: self,
-                    destination: destination,
-                    direction: Direction.find(direction))
+    here = type.new parent: self, destination: destination, direction: Direction.find(direction), **opts
     return here unless two_way
 
-    there = type.new(parent: destination, destination: self, direction: direction&.reverse)
+    there = type.new parent: destination, destination: self, direction: direction&.reverse, **opts
     [here, there]
   end
 

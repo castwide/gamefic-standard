@@ -46,4 +46,12 @@ RSpec.describe Room do
     expect(room1.children.first.destination).to be(room2)
     expect(room2.children.first.destination).to be(room1)
   end
+
+  it 'sets shared attributes' do
+    room1 = Room.new(name: 'room 1')
+    room2 = Room.new(name: 'room 2')
+    portal1, portal2 = room1.connect room2, name: 'cubbyhole'
+    expect(portal1.name).to eq('cubbyhole')
+    expect(portal2.name).to eq('cubbyhole')
+  end
 end
