@@ -24,7 +24,7 @@ module Gamefic
           xlation = keywords[1..].map do |word|
             next word unless %w[him her it them].include?(word)
 
-            actor[:standard_pronoun_targets].find { |obj| Grammar::Pronoun.objective(obj) == word }
+            actor[:standard_pronoun_targets].find { |obj| obj.objective == word }
           end
           next actor.proceed if xlation.any?(&:nil?) || xlation.that_are(Thing).empty?
 

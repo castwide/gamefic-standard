@@ -9,6 +9,7 @@ task :default => :spec
 Opal::RSpec::RakeTask.new(:opal) do |_, config|
   Opal.append_path File.join(__dir__, 'lib')
   Opal.use_gem('gamefic')
+  Opal.use_gem('gamefic-conjugation')
   Opal.use_gem('gamefic-what')
   config.default_path = 'spec'
   config.pattern = 'spec/**/*_spec.rb'
