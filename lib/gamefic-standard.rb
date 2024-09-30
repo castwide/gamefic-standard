@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'gamefic'
-require 'gamefic-conjugation'
+require 'gamefic-grammar'
 require 'gamefic-what'
 
 module Gamefic
@@ -25,7 +25,7 @@ module Gamefic
     require 'gamefic-standard/pathfinder'
 
     include Articles
-    include Conjugation::Pronoun
+    include Grammar::Pronoun
     include Actions
     include Introduction
 
