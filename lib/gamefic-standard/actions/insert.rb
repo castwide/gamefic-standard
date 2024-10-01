@@ -26,6 +26,10 @@ module Gamefic
           end
         end
 
+        respond :insert, children, room do |actor, thing|
+          actor.execute :drop, thing
+        end
+
         interpret 'drop :item in :container', 'insert :item :container'
         interpret 'put :item in :container', 'insert :item :container'
         interpret 'place :item in :container', 'insert :item :container'
