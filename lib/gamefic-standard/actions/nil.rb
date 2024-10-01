@@ -33,7 +33,7 @@ module Gamefic
                   actor.tell %[I recognize "#{words[0]}" but not with the rest of your sentence. (Maybe it's a one-word command?)]
                 end
               elsif result.remainder != ''
-                actor.tell %(I recognize "#{words[0]}" as a verb but was confused by "#{result.remainder}.")
+                actor.tell %(I recognize "#{string.sub(/#{result.remainder}$/, '').strip}" as a command but was confused by "#{result.remainder}.")
               elsif found.one?
                 verbs = actor.epic
                             .syntaxes
