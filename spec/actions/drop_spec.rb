@@ -44,4 +44,16 @@ RSpec.describe 'Drop action' do
     actor.perform 'drop item'
     expect(item.parent).to eq(room)
   end
+
+  it 'drops all' do
+    plot = TestPlot.new
+    room = plot.make Room
+    player = plot.introduce
+    player.parent = room
+    thing1 = plot.make Item, name: 'thing1', parent: player
+    thing2 = plot.make Item, name: 'thing2', parent: player
+    player.perform 'drop all'
+    expect(thing1.parent).to be(room)
+    expect(thing2.parent).to be(room)
+  end
 end

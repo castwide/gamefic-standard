@@ -23,6 +23,14 @@ module Gamefic
           actor.tell "You drop #{the thing}."
         end
 
+        respond :drop, plaintext(/^(all|everything)$/) do |actor, _all|
+          if actor.children.empty?
+            actor.tell "You're not carrying anything."
+          else
+            actor.children.each { |item| actor.execute :drop, item }
+          end
+        end
+
         interpret 'put down :thing', 'drop :thing'
         interpret 'put :thing down', 'drop :thing'
       end
