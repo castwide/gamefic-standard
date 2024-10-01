@@ -44,6 +44,9 @@ module Gamefic
         interpret 'pick up :thing', 'take :thing'
         interpret 'pick :thing up', 'take :thing'
         interpret 'carry :thing', 'take :thing'
+        interpret 'gather :thing', 'take :thing'
+        interpret 'hold :thing', 'take :thing'
+        interpret 'collect :thing', 'take :thing'
       end
     end
   end
