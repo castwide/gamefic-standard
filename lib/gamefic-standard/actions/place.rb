@@ -23,6 +23,10 @@ module Gamefic
           actor.tell "You put #{the thing} on #{the supporter}."
         end
 
+        respond :place, children, room do |actor, thing|
+          actor.execute :drop, thing
+        end
+
         interpret 'put :thing on :supporter', 'place :thing :supporter'
         interpret 'put :thing down on :supporter', 'place :thing :supporter'
         interpret 'set :thing on :supporter', 'place :thing :supporter'
