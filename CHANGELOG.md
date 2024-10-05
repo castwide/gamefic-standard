@@ -1,4 +1,4 @@
-## 3.3.0
+## 3.3.0 - October 5, 2024
 - Include Pronoun and Give in Standard
 - Add gamefic-what
 - Standard::Actions namespace
