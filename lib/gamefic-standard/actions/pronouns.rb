@@ -10,10 +10,10 @@ module Gamefic
           actor[:standard_pronoun_targets] = []
         end
 
-        after_action do |action|
-          next unless action.verb
+        after_command do |actor, command|
+          next unless command.verb
 
-          action.actor[:standard_pronoun_targets].replace action.arguments.that_are(Thing)
+          actor[:standard_pronoun_targets].replace command.arguments.that_are(Thing)
         end
 
         meta nil, plaintext do |actor, string|
