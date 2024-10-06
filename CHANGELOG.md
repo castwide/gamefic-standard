@@ -1,3 +1,6 @@
+## 3.4.0
+- Update queries for gamefic-3.7.0
+
 ## 3.3.0 - October 5, 2024
 - Include Pronoun and Give in Standard
 - Add gamefic-what

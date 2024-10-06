@@ -30,7 +30,8 @@ module Gamefic
         end
 
         respond :take, plaintext(/^(all|everything)$/) do |actor, _all|
-          items = Gamefic::Scope::Family.matches(actor)
+          items = Gamefic::Query::Family.new
+                                        .span(actor)
                                         .select(&:portable?)
                                         .reject { |item| actor.flatten.include?(item) }
           if items.empty?
