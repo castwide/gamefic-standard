@@ -6,6 +6,8 @@ module Gamefic
       module Look
         extend Gamefic::Scriptable
 
+        include Clips
+
         respond :look do |actor|
           actor.execute :look, actor.room
         end
@@ -58,11 +60,15 @@ module Gamefic
           actor.tell "You see #{thing.children.join_and}."
         end
 
-        respond :look, room do |actor, _room|
-          actor.execute :_describe_room
+        respond :look, room do |actor, room|
+          actor.tell "<strong>#{room.name.cap_first}</strong>"
+          actor.tell room.description if room.described?
+          ItemizeRoom.run(actor)
+          ItemizeParent.run(actor) if actor.parent != room
         end
 
         meta :_describe_room do |actor|
+          Gamefic.logger.warn 'The `_describe_room` response is deprecated.'
           next unless actor.room
 
           actor.tell "<strong>#{actor.room.name.cap_first}</strong>"
@@ -71,6 +77,7 @@ module Gamefic
         end
 
         meta :_itemize_room do |actor|
+          Gamefic.logger.warn 'The `_itemize_room` response is deprecated. Use `Clips.itemize_room` instead.'
           room = actor.room
           next unless room
 
@@ -122,6 +129,7 @@ module Gamefic
         end
 
         meta :_look_parent_from_room do |actor|
+          Gamefic.logger.warn 'The `_look_parent_from_room` response is deprecated.'
           next unless actor.parent.is_a?(Supporter) || actor.parent.is_a?(Receptacle)
 
           preposition = actor.parent.is_a?(Supporter) ? 'on' : 'in'
