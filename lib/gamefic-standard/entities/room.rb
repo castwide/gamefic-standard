@@ -32,16 +32,6 @@ class Room < Thing
     [here, there]
   end
 
-  class << self
-    def explicit_exits?
-      default_attributes[:explicit_exits]
-    end
-
-    def explicit_exits=(bool)
-      set_default explicit_exits: bool
-    end
-  end
-
   protected
 
   %w[north south west east northeast southeast southwest northwest up down].each do |direction|
