@@ -1,32 +1,32 @@
 RSpec.describe 'Take action' do
   it 'takes items' do
-    @klass.seed do
-      @room = make Room
-      @thing = make Item, name: 'item', parent: @room
-    end
-    @klass.script do
+    @klass.instance_exec do
+      construct :room, Room, name: 'room'
+      construct :thing, Item, name: 'thing', parent: room
+
       introduction do |actor|
-        actor.parent = @room
+        actor.parent = room
       end
     end
+
     plot = @klass.new
     actor = plot.introduce
     plot.ready
-    actor.perform 'take item'
-    expect(actor.children.first.name).to eq('item')
+    actor.perform 'take thing'
+    expect(actor.children).to include(plot.thing)
   end
 
   it 'takes items from receptacles implicitly' do
-    @klass.seed do
-      @room = make Room
-      @receptacle = make Receptacle, name: 'receptacle', parent: @room
-      make Item, name: 'item', parent: @receptacle
-    end
-    @klass.script do
+    @klass.instance_exec do
+      bind_make :room, Room
+      bind_make :receptacle, Receptacle, name: 'receptacle', parent: room
+      bind_make :item, Item, name: 'item', parent: receptacle
+
       introduction do |actor|
-        actor.parent = @room
+        actor.parent = room
       end
     end
+
     plot = @klass.new
     actor = plot.introduce
     plot.ready
@@ -35,16 +35,16 @@ RSpec.describe 'Take action' do
   end
 
   it 'takes items from receptacles explicitly' do
-    @klass.seed do
-      @room = make Room
-      @receptacle = make Receptacle, name: 'receptacle', parent: @room
-      make Item, name: 'item', parent: @receptacle
-    end
-    @klass.script do
+    @klass.instance_exec do
+      construct :room, Room
+      construct :receptacle, Receptacle, name: 'receptacle', parent: room
+      construct :item, Item, name: 'item', parent: receptacle
+
       introduction do |actor|
-        actor.parent = @room
+        actor.parent = room
       end
     end
+
     plot = @klass.new
     actor = plot.introduce
     plot.ready
@@ -53,14 +53,14 @@ RSpec.describe 'Take action' do
   end
 
   it 'reports items already in possession' do
-    @klass.seed do
-      @thing = make Item, name: 'thing'
-    end
-    @klass.script do
+    @klass.instance_exec do
+      construct :thing, Item, name: 'thing'
+
       introduction do |actor|
-        @thing.parent = actor
+        thing.parent = actor
       end
     end
+
     plot = @klass.new
     actor = plot.introduce
     plot.ready
@@ -69,15 +69,13 @@ RSpec.describe 'Take action' do
   end
 
   it 'does not take non-portable entities' do
-    @klass.seed do
-      @room = make Room
-      @thing = make Thing, name: 'thing', portable: false, parent: @room
+    @klass.instance_exec do
+      construct :room, Room
+      construct :thing, Thing, name: 'thing', portable: false, parent: room
+
+      introduction { |actor| actor.parent = room }
     end
-    @klass.script do
-      introduction do |actor|
-        actor.parent = @room
-      end
-    end
+
     plot = @klass.new
     actor = plot.introduce
     plot.ready
@@ -87,16 +85,13 @@ RSpec.describe 'Take action' do
   end
 
   it 'does not take attached entities' do
-    @klass.seed do
-      @room = make Room
-      @thing = make Thing, name: 'thing', parent: @room
-      @attachment = make Item, name: 'attachment', parent: @thing, attached: true
+    @klass.instance_exec do
+      construct :room, Room
+      construct :thing, Thing, name: 'thing', parent: room
+      construct :attachment, Item, name: 'attachment', parent: thing, attached: true
+      introduction { |actor| actor.parent = room }
     end
-    @klass.script do
-      introduction do |actor|
-        actor.parent = @room
-      end
-    end
+
     plot = @klass.new
     actor = plot.introduce
     plot.ready
@@ -106,13 +101,12 @@ RSpec.describe 'Take action' do
   end
 
   it 'does not take rubble' do
-    @klass.seed do
-      @room = make Room
-      make Rubble, name: 'rubble', parent: @room
-    end
-    @klass.script do
+    @klass.instance_exec do
+      construct :room, Room, name: 'room'
+      construct :rubble, Rubble, name: 'rubble', parent: room
+
       introduction do |actor|
-        actor.parent = @room
+        actor.parent = room
       end
     end
     plot = @klass.new

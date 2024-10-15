@@ -1,14 +1,14 @@
 RSpec.describe Gamefic::Standard::Lockable do
   it 'unlocks objects with keys' do
     @klass.instance_exec do
-      bind_make :room, Room, name: 'room'
-      bind_make :key, Thing, name: 'key'
+      construct :room, Room, name: 'room'
+      construct :key, Thing, name: 'key'
 
-      make Container,
-           name: 'safe',
-           parent: pick('room'),
-           locked: true,
-           lock_key: pick('key')
+      construct :container, Container,
+                name: 'safe',
+                parent: room,
+                locked: true,
+                lock_key: key
 
       introduction do |actor|
         actor.parent = room
@@ -26,8 +26,8 @@ RSpec.describe Gamefic::Standard::Lockable do
     @klass.instance_exec do
       bind_make :room, Room, name: 'room'
       bind_make :wrong_key, Thing, name: 'wrong key'
-      make Thing, name: 'right key', parent: room
-      make Container, name: 'safe', parent: room, locked: true
+      seed { make Thing, name: 'right key', parent: room }
+      seed { make Container, name: 'safe', parent: room, locked: true }
 
       introduction do |actor|
         actor.parent = room
@@ -46,7 +46,7 @@ RSpec.describe Gamefic::Standard::Lockable do
     @klass.instance_exec do
       bind_make :room, Room, name: 'room'
       bind_make :key, Thing, name: 'key'
-      make Container, name: 'safe', parent: room, locked: false, lock_key: key
+      seed { make Container, name: 'safe', parent: room, locked: false, lock_key: key }
 
       introduction do |actor|
         actor.parent = room
@@ -64,7 +64,7 @@ RSpec.describe Gamefic::Standard::Lockable do
   it 'does not open locked objects' do
     @klass.instance_exec do
       bind_make :room, Room, name: 'room'
-      make Container, name: 'safe', parent: room, locked: true
+      seed { make Container, name: 'safe', parent: room, locked: true }
 
       introduction do |actor|
         actor.parent = room
@@ -81,7 +81,7 @@ RSpec.describe Gamefic::Standard::Lockable do
   it 'opens closed objects without keys' do
     @klass.instance_exec do
       bind_make :room, Room, name: 'room'
-      make Container, name: 'safe', parent: room, open: false
+      seed { make Container, name: 'safe', parent: room, open: false }
 
       introduction do |actor|
         actor.parent = room
@@ -110,8 +110,8 @@ RSpec.describe Gamefic::Standard::Lockable do
   it 'opens closed and unlocked objects' do
     @klass.instance_exec do
       bind_make :room, Room, name: 'room'
-      key = make Thing, name: 'key'
-      make Container, name: 'safe', parent: room, locked: false, open: false, lock_key: key
+      construct :key, Thing, name: 'key'
+      seed { make Container, name: 'safe', parent: room, locked: false, open: false, lock_key: key }
 
       introduction do |actor|
         actor.parent = room

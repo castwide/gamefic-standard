@@ -1,14 +1,13 @@
 RSpec.describe 'insert action' do
   it 'inserts a child in a receptacle' do
-    @klass.seed do
-      @room = make Room, name: 'room'
-      @thing = make Thing, name: 'thing'
-      @receptacle = make Receptacle, name: 'receptacle', parent: @room
-    end
-    @klass.script do
+    @klass.instance_exec do
+      construct :room, Room, name: 'room'
+      construct :thing, Thing, name: 'thing'
+      construct :receptacle, Receptacle, name: 'receptacle', parent: room
+
       introduction do |actor|
-        actor.parent = @room
-        @thing.parent = actor
+        actor.parent = room
+        thing.parent = actor
       end
     end
     plot = @klass.new
@@ -19,17 +18,17 @@ RSpec.describe 'insert action' do
   end
 
   it 'inserts a child in an open container' do
-    @klass.seed do
-      @room = make Room, name: 'room'
-      @thing = make Thing, name: 'thing'
-      @container = make Container, name: 'container', parent: @room, open: true
-    end
-    @klass.script do
+    @klass.instance_exec do
+      construct :room, Room, name: 'room'
+      construct :thing, Thing, name: 'thing'
+      construct :container, Container, name: 'container', parent: room, open: true
+
       introduction do |actor|
-        actor.parent = @room
-        @thing.parent = actor
+        actor.parent = room
+        thing.parent = actor
       end
     end
+
     plot = @klass.new
     actor = plot.introduce
     plot.ready
@@ -38,17 +37,17 @@ RSpec.describe 'insert action' do
   end
 
   it 'does not insert a child in a closed container' do
-    @klass.seed do
-      @room = make Room, name: 'room'
-      @thing = make Thing, name: 'thing'
-      @container = make Container, name: 'container', parent: @room, open: false
-    end
-    @klass.script do
+    @klass.instance_exec do
+      construct :room, Room, name: 'room'
+      construct :thing, Thing, name: 'thing'
+      construct :container, Container, name: 'container', parent: @room, open: false
+
       introduction do |actor|
-        actor.parent = @room
-        @thing.parent = actor
+        actor.parent = room
+        thing.parent = actor
       end
     end
+
     plot = @klass.new
     actor = plot.introduce
     plot.ready
@@ -57,15 +56,14 @@ RSpec.describe 'insert action' do
   end
 
   it 'does not insert a child in a non-container' do
-    @klass.seed do
-      @room = make Room
-      make Thing, name: 'thing', parent: @room
-      @item = make Item, name: 'item'
-    end
-    @klass.script do
+    @klass.instance_exec do
+      construct :room, Room
+      construct :thing, Thing, name: 'thing', parent: room
+      construct :item, Item, name: 'item'
+
       introduction do |actor|
-        actor.parent = @room
-        @item.parent = actor
+        actor.parent = room
+        item.parent = actor
       end
     end
     plot = @klass.new
@@ -77,16 +75,16 @@ RSpec.describe 'insert action' do
   end
 
   it 'inserts an available item in a container' do
-    @klass.seed do
-      @room = make Room, name: 'room'
-      make Container, name: 'container', parent: @room, open: true
-      make Item, name: 'item', parent: @room
-    end
-    @klass.script do
+    @klass.instance_exec do
+      construct :room, Room, name: 'room'
+      construct :container, Container, name: 'container', parent: room, open: true
+      construct :item, Item, name: 'item', parent: room
+
       introduction do |actor|
-        actor.parent = @room
+        actor.parent = room
       end
     end
+
     plot = @klass.new
     actor = plot.introduce
     plot.ready

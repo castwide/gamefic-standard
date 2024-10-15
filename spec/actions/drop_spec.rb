@@ -1,11 +1,10 @@
 RSpec.describe 'Drop action' do
   it 'drops held objects' do
-    @klass.seed do
-      @thing = make Thing, name: 'thing'
-    end
-    @klass.script do
+    @klass.instance_exec do
+      construct :thing, Thing, name: 'thing'
+
       introduction do |actor|
-        @thing.parent = actor
+        thing.parent = actor
       end
     end
     plot = @klass.new
@@ -16,13 +15,12 @@ RSpec.describe 'Drop action' do
   end
 
   it 'responds to objects not in inventory' do
-    @klass.seed do
-      @room = make Room
-      make Thing, name: 'thing', parent: @room
-    end
-    @klass.script do
+    @klass.instance_exec do
+      construct :room, Room
+      construct :thing, Thing, name: 'thing', parent: room
+
       introduction do |actor|
-        actor.parent = @room
+        actor.parent = room
       end
     end
     plot = @klass.new

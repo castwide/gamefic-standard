@@ -1,16 +1,16 @@
 RSpec.describe 'place action' do
   it 'places a child on a supporter' do
-    @klass.seed do
-      @room = make Room, name: 'room'
-      @thing = make Thing, name: 'thing'
-      @supporter = make Supporter, name: 'supporter', parent: @room
-    end
-    @klass.script do
+    @klass.instance_exec do
+      construct :room, Room, name: 'room'
+      construct :thing, Thing, name: 'thing'
+      construct :supporter, Supporter, name: 'supporter', parent: room
+
       introduction do |actor|
-        actor.parent = @room
-        @thing.parent = actor
+        actor.parent = room
+        thing.parent = actor
       end
     end
+
     plot = @klass.new
     actor = plot.introduce
     plot.ready
@@ -19,16 +19,16 @@ RSpec.describe 'place action' do
   end
 
   it 'takes and places an item on a supporter' do
-    @klass.seed do
-      @room = make Room, name: 'room'
-      @item = make Item, name: 'item', parent: @room
-      supporter = make Supporter, name: 'supporter', parent: @room
-    end
-    @klass.script do
+    @klass.instance_exec do
+      construct :room, Room, name: 'room'
+      construct :item, Item, name: 'item', parent: room
+      construct :supporter, Supporter, name: 'supporter', parent: room
+
       introduction do |actor|
-        actor.parent = @room
+        actor.parent = room
       end
     end
+
     plot = @klass.new
     actor = plot.introduce
     plot.ready
@@ -37,17 +37,17 @@ RSpec.describe 'place action' do
   end
 
   it 'rejects placement on non-supporters' do
-    @klass.seed do
-      @room = make Room, name: 'room'
-      @item = make Item, name: 'item'
-      @thing = make Thing, name: 'thing', parent: @room
-    end
-    @klass.script do
+    @klass.instance_exec do
+      construct :room, Room, name: 'room'
+      construct :item, Item, name: 'item'
+      construct :thing, Thing, name: 'thing', parent: room
+
       introduction do |actor|
-        actor.parent = @room
-        @item.parent = actor
+        actor.parent = room
+        item.parent = actor
       end
     end
+
     plot = @klass.new
     actor = plot.introduce
     plot.ready

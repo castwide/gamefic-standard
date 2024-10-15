@@ -1,13 +1,11 @@
 RSpec.describe 'Go action' do
   it 'goes through a portal' do
-    @klass.seed do
-      @room1 = make Room, name: 'room1'
-      @room2 = make Room, name: 'room2'
-      @room1.connect @room2, direction: 'east'
-    end
-    @klass.script do
+    @klass.instance_exec do
+      construct :room1, Room, name: 'room1'
+      construct :room2, Room, name: 'room2', west: room1
+
       introduction do |actor|
-        actor.parent = @room1
+        actor.parent = room1
       end
     end
     plot = @klass.new
@@ -55,28 +53,24 @@ RSpec.describe 'Go action' do
   end
 
   it 'fails if supporter cannot be left' do
-    @klass.seed do
-      room = make Room, name: 'room'
-      @chair = make Supporter, name: 'chair', enterable: true, parent: room
-      out = make Room, name: 'out'
-      room.connect out, direction: 'east'
-    end
+    @klass.instance_exec do
+      construct :room, Room, name: 'room'
+      construct :chair, Supporter, name: 'chair', enterable: true, parent: room
+      construct :out, Room, name: 'out', west: room
 
-    @klass.script do
-      respond :leave, parent(@chair) do |actor, _chair|
+      respond :leave, parent(chair) do |actor, _chair|
         actor.tell "You can't leave the chair."
       end
 
       introduction do |actor|
-        actor.parent = @chair
+        actor.parent = chair
       end
     end
     plot = @klass.new
     actor = plot.introduce
     plot.ready
-    chair = plot.instance_exec { @chair }
     actor.perform 'go east'
-    expect(actor.parent).to eq(chair)
+    expect(actor.parent).to eq(plot.chair)
     expect(actor.messages).to include("You can't leave the chair.")
   end
 end

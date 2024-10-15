@@ -26,8 +26,7 @@ module Gamefic
             actor[:standard_pronoun_targets].find { |obj| obj.objective == word }
           end
           next actor.proceed if xlation.any?(&:nil?) || xlation.that_are(Thing).empty?
-
-          actor.perform "#{keywords[0].to_sym} #{xlation.join(' ')}"
+          actor.perform "#{keywords[0]} #{xlation.join(' ')}"
         end
       end
     end

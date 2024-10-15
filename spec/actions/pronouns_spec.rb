@@ -2,13 +2,10 @@
 
 RSpec.describe 'pronouns' do
   let(:plot) {
-    @klass.seed do
-      @room = make Room, name: 'room', description: 'room description'
-    end
-
-    @klass.script do
+    @klass.instance_exec do
+      construct :room, Room, name: 'room', description: 'room description'
       introduction do |actor|
-        actor.parent = @room
+        actor.parent = room
       end
     end
 
@@ -16,7 +13,6 @@ RSpec.describe 'pronouns' do
   }
 
   let(:room) { plot.pick('room') }
-
   let(:player) { plot.introduce }
 
   it 'understands it' do

@@ -1,14 +1,14 @@
 RSpec.describe 'Inventory action' do
   it 'lists children' do
-    @klass.seed do
-      @held = make Thing, name: 'held thing'
-      @other = make Thing, name: 'other thing'
-    end
-    @klass.script do
+    @klass.instance_exec do
+      construct :held, Thing, name: 'held thing'
+      construct :other, Thing, name: 'other thing'
+
       introduction do |actor|
-        @held.parent = actor
+        held.parent = actor
       end
     end
+
     plot = @klass.new
     actor = plot.introduce
     plot.ready

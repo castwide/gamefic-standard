@@ -1,16 +1,16 @@
 RSpec.describe 'Open action' do
   it 'opens with keys' do
-    @klass.seed do
-      @room = make Room, name: 'room'
-      @key = make Thing, name: 'key'
-      make Container, name: 'safe', parent: @room, locked: true, lock_key: @key
-    end
-    @klass.script do
+    @klass.instance_exec do
+      construct :room, Room, name: 'room'
+      construct :key, Thing, name: 'key'
+      construct :container, Container, name: 'safe', parent: room, locked: true, lock_key: key
+
       introduction do |actor|
-        actor.parent = @room
-        @key.parent = actor
+        actor.parent = room
+        key.parent = actor
       end
     end
+
     plot = @klass.new
     actor = plot.introduce
     plot.ready

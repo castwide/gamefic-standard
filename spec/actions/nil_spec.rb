@@ -8,7 +8,7 @@ RSpec.describe 'Nil action' do
   end
 
   it 'reports ambiguous tokens' do
-    @klass.script do
+    @klass.instance_exec do
       respond :foobar, Item do |actor, item|
         item.parent = actor
       end
@@ -25,7 +25,7 @@ RSpec.describe 'Nil action' do
   end
 
   it 'reports unrecognized tokens' do
-    @klass.script do
+    @klass.instance_exec do
       respond :foobar, Item do |actor, item|
         item.parent = actor
       end
@@ -43,7 +43,7 @@ RSpec.describe 'Nil action' do
   end
 
   it 'reports missing tokens' do
-    @klass.script do
+    @klass.instance_exec do
       respond :foobar, Item do |actor, item|
         item.parent = actor
       end
@@ -61,7 +61,7 @@ RSpec.describe 'Nil action' do
   end
 
   it 'reports unhandled tokens' do
-    @klass.script do
+    @klass.instance_exec do
       respond :foobar, Item do |actor, item|
         item.parent = actor
       end
@@ -81,8 +81,10 @@ RSpec.describe 'Nil action' do
   it 'reports recognized verbs with mismatched tokens' do
     @klass.instance_exec do
       bind_make :room, Room, name: 'room'
-      make Thing, name: 'thing', parent: room
-      make Thing, name: 'other', parent: room
+      seed do
+        make Thing, name: 'thing', parent: room
+        make Thing, name: 'other', parent: room
+      end
 
       respond :affix, available(Thing), available(Item) do |actor, _, _|
         actor.tell "Should not happen"

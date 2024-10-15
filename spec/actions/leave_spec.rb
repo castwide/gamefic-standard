@@ -1,14 +1,14 @@
 RSpec.describe 'Leave action' do
   it 'leaves an enterable' do
-    @klass.seed do
-      @room = make Room, name: 'room'
-      @enterable = make Container, name: 'enterable', parent: @room, enterable: true
-    end
-    @klass.script do
+    @klass.instance_exec do
+      construct :room, Room, name: 'room'
+      construct :enterable, Container, name: 'enterable', parent: room, enterable: true
+
       introduction do |actor|
-        actor.parent = @enterable
+        actor.parent = enterable
       end
     end
+
     plot = @klass.new
     actor = plot.introduce
     plot.ready
@@ -17,16 +17,15 @@ RSpec.describe 'Leave action' do
   end
 
   it 'leaves a room' do
-    @klass.seed do
-      @room1 = make Room, name: 'room 1'
-      @room2 = make Room, name: 'room 2'
-      @room1.connect @room2
-    end
-    @klass.script do
+    @klass.instance_exec do
+      construct :room1, Room, name: 'room 1'
+      construct :room2, Room, name: 'room 2', north: room1
+
       introduction do |actor|
-        actor.parent = @room1
+        actor.parent = room1
       end
     end
+
     plot = @klass.new
     actor = plot.introduce
     plot.ready
@@ -35,15 +34,15 @@ RSpec.describe 'Leave action' do
   end
 
   it 'stays in parents without exits' do
-    @klass.seed do
-      @room = make Room, name: 'room'
-      @thing = make Thing, name: 'thing', parent: @room
-    end
-    @klass.script do
+    @klass.instance_exec do
+      construct :room, Room, name: 'room'
+      construct :thing, Thing, name: 'thing', parent: room
+
       introduction do |actor|
-        actor.parent = @thing
+        actor.parent = thing
       end
     end
+
     plot = @klass.new
     actor = plot.introduce
     plot.ready
@@ -52,15 +51,15 @@ RSpec.describe 'Leave action' do
   end
 
   it 'stays in rooms without exits' do
-    @klass.seed do
-      @room1 = make Room, name: 'room 1'
-      make Room, name: 'room 2'
-    end
-    @klass.script do
+    @klass.instance_exec do
+      construct :room1, Room, name: 'room 1'
+      construct :room2, Room, name: 'room 2'
+
       introduction do |actor|
-        actor.parent = @room1
+        actor.parent = room1
       end
     end
+
     plot = @klass.new
     actor = plot.introduce
     plot.ready
@@ -69,25 +68,23 @@ RSpec.describe 'Leave action' do
   end
 
   it 'reports multiple ways to leave' do
-    @klass.seed do
-      @room1 = make Room, name: 'room 1'
-      @room2 = make Room, name: 'room 2'
-      @room3 = make Room, name: 'room 3'
-      @room1.connect @room2
-      @room1.connect @room3
-    end
-    @klass.script do
+    @klass.instance_exec do
+      construct :room1, Room, name: 'room 1'
+      construct :room2, Room, name: 'room 2', south: room1
+      construct :room3, Room, name: 'room 3', north: room1
+
       introduction do |actor|
-        actor.parent = @room1
+        actor.parent = room1
       end
     end
+
     plot = @klass.new
     actor = plot.introduce
     plot.ready
     actor.perform 'leave'
     expect(actor.parent.name).to eq('room 1')
-    expect(actor.messages).to include('room 2')
-    expect(actor.messages).to include('room 3')
+    expect(actor.messages).to include('north')
+    expect(actor.messages).to include('south')
   end
 
   it 'opens entered containers' do
