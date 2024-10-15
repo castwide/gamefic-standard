@@ -5,6 +5,8 @@ module Gamefic
     module Clips
       class ItemizeParent < Gamefic::Clip
         include Gamefic::Standard
+        # @todo Opal needs to include Articles despite including Standard
+        include Gamefic::Standard::Articles
 
         def run
           return unless (parent = actor.parent)
