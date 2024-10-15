@@ -12,46 +12,17 @@ module Gamefic
           words = string.keywords
           if actor.can?(words[0])
             if words.length > 1
-              result = myself.query(actor, words[1..-1].join(' '))
-              found = [result.match].compact
-              avail = available(ambiguous: true)
-              result = avail.query(actor, result.remainder)
-              until result.match.nil?
-                found.concat result.match
-                result = avail.query(actor, result.remainder)
-              end
-              if found.empty?
-                verbs = actor.syntaxes
-                            .select { |syn| syn.synonym == words[0].to_sym }
-                            .map(&:verb)
-                resps = actor.responses_for(*verbs)
-                if resps.any? { |resp| !resp.queries.empty? }
-                  actor.tell %(I recognize "#{words[0]}" as a verb but don't know what you mean by "#{words[1..-1].join(' ')}.")
-                else
-                  actor.tell %[I recognize "#{words[0]}" but not with the rest of your sentence. (Maybe it's a one-word command?)]
-                end
+              possible = [actor] + available.span(actor)
+              result = Scanner.scan(possible, words[1..-1].join(' '))
+              if result.matched.empty?
+                actor.tell %(I recognize "#{words[0]}" as a verb but don't know what you mean by "#{words[1..-1].join(' ')}.")
               elsif result.remainder != ''
-                actor.tell %(I recognize "#{string.sub(/#{result.remainder}$/, '').strip}" as a command but was confused by "#{result.remainder}.")
-              elsif found.one?
-                verbs = actor.syntaxes
-                            .select { |syn| syn.synonym == words[0].to_sym }
-                            .map(&:verb)
-                resps = actor.responses_for(*verbs)
-                if resps.any? { |resp| !resp.queries.empty? }
-                  actor.tell %(I recognize "#{words[0]}" and "#{found.first.name}" but could not understand them together.)
-                else
-                  actor.tell %[I recognize "#{words[0]}" and "#{found.first.name}" but could not understand them together. (Maybe "#{words[0]}" is a one-word command?)]
-                end
+                actor.tell %(I recognize "#{string.sub(/#{result.remainder}$/,
+                                                       '').strip}" as a command but was confused by "#{result.remainder}.")
+              elsif result.matched.one?
+                actor.tell %(I recognize "#{words[0]}" and "#{result.matched.first.name}" but could not understand them together.)
               else
-                verbs = actor.syntaxes
-                            .select { |syn| syn.synonym == words[0].to_sym }
-                            .map(&:verb)
-                resps = actor.responses_for(*verbs)
-                if resps.any? { |resp| !resp.queries.empty? }
-                  actor.tell %(I recognize "#{words[0]}" but I'm not sure if "#{words[1..-1].join(' ')}" means #{found.map(&:definitely).join_or}.)
-                else
-                  actor.tell %[I recognize "#{words[0]}" but not with the rest of your sentence. (Maybe it's a one-word command?)]
-                end
+                actor.tell %(I recognize "#{words[0]}" but I'm not sure if "#{words[1..-1].join(' ')}" means #{result.matched.map(&:definitely).join_or}.)
               end
             else
               actor.tell %(I recognize "#{words[0]}" as a verb but could not understand it in this context.)
