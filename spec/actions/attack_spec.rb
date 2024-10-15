@@ -1,5 +1,5 @@
 RSpec.describe 'Attack action' do
-  let(:plot) { TestPlot.new }
+  let(:plot) { @klass.new }
 
   let(:player) {
     player = plot.introduce

@@ -1,15 +1,15 @@
 RSpec.describe 'Leave action' do
   it 'leaves an enterable' do
-    TestPlot.seed do
+    @klass.seed do
       @room = make Room, name: 'room'
       @enterable = make Container, name: 'enterable', parent: @room, enterable: true
     end
-    TestPlot.script do
+    @klass.script do
       introduction do |actor|
         actor.parent = @enterable
       end
     end
-    plot = TestPlot.new
+    plot = @klass.new
     actor = plot.introduce
     plot.ready
     actor.perform 'leave'
@@ -17,17 +17,17 @@ RSpec.describe 'Leave action' do
   end
 
   it 'leaves a room' do
-    TestPlot.seed do
+    @klass.seed do
       @room1 = make Room, name: 'room 1'
       @room2 = make Room, name: 'room 2'
       @room1.connect @room2
     end
-    TestPlot.script do
+    @klass.script do
       introduction do |actor|
         actor.parent = @room1
       end
     end
-    plot = TestPlot.new
+    plot = @klass.new
     actor = plot.introduce
     plot.ready
     actor.perform 'leave'
@@ -35,16 +35,16 @@ RSpec.describe 'Leave action' do
   end
 
   it 'stays in parents without exits' do
-    TestPlot.seed do
+    @klass.seed do
       @room = make Room, name: 'room'
       @thing = make Thing, name: 'thing', parent: @room
     end
-    TestPlot.script do
+    @klass.script do
       introduction do |actor|
         actor.parent = @thing
       end
     end
-    plot = TestPlot.new
+    plot = @klass.new
     actor = plot.introduce
     plot.ready
     actor.perform 'leave'
@@ -52,16 +52,16 @@ RSpec.describe 'Leave action' do
   end
 
   it 'stays in rooms without exits' do
-    TestPlot.seed do
+    @klass.seed do
       @room1 = make Room, name: 'room 1'
       make Room, name: 'room 2'
     end
-    TestPlot.script do
+    @klass.script do
       introduction do |actor|
         actor.parent = @room1
       end
     end
-    plot = TestPlot.new
+    plot = @klass.new
     actor = plot.introduce
     plot.ready
     actor.perform 'leave'
@@ -69,19 +69,19 @@ RSpec.describe 'Leave action' do
   end
 
   it 'reports multiple ways to leave' do
-    TestPlot.seed do
+    @klass.seed do
       @room1 = make Room, name: 'room 1'
       @room2 = make Room, name: 'room 2'
       @room3 = make Room, name: 'room 3'
       @room1.connect @room2
       @room1.connect @room3
     end
-    TestPlot.script do
+    @klass.script do
       introduction do |actor|
         actor.parent = @room1
       end
     end
-    plot = TestPlot.new
+    plot = @klass.new
     actor = plot.introduce
     plot.ready
     actor.perform 'leave'
@@ -91,7 +91,7 @@ RSpec.describe 'Leave action' do
   end
 
   it 'opens entered containers' do
-    plot = TestPlot.new
+    plot = @klass.new
     room = plot.make Room
     container = plot.make Container, name: 'container', enterable: true, open: false, parent: room
     actor = plot.introduce
@@ -102,7 +102,7 @@ RSpec.describe 'Leave action' do
   end
 
   it 'handles nil parents' do
-    plot = TestPlot.new
+    plot = @klass.new
     actor = plot.introduce
     actor.perform 'leave'
     expect(actor.parent).to be_nil

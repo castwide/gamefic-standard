@@ -1,5 +1,5 @@
 RSpec.describe 'Talk action' do
-  let(:plot) { TestPlot.new }
+  let(:plot) { @klass.new }
 
   it 'talks to self' do
     player = plot.introduce

@@ -2,17 +2,17 @@
 
 RSpec.describe 'pronouns' do
   let(:plot) {
-    TestPlot.seed do
+    @klass.seed do
       @room = make Room, name: 'room', description: 'room description'
     end
 
-    TestPlot.script do
+    @klass.script do
       introduction do |actor|
         actor.parent = @room
       end
     end
 
-    TestPlot.new
+    @klass.new
   }
 
   let(:room) { plot.pick('room') }

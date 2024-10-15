@@ -1,7 +1,7 @@
 require 'gamefic-standard/pathfinder'
 
 RSpec.describe Gamefic::Standard::Pathfinder do
-  let(:plot) { TestPlot.new }
+  let(:plot) { @klass.new }
 
   it 'returns an empty path for same origin and destination' do
     room = plot.make Room, name: 'room'

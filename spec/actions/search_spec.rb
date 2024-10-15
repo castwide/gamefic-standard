@@ -1,5 +1,5 @@
 RSpec.describe 'Search action' do
-  let(:plot) { TestPlot.new }
+  let(:plot) { @klass.new }
 
   it 'opens containers before searching' do
     room = plot.make Room

@@ -1,5 +1,5 @@
 RSpec.describe 'Nil action' do
-  let(:plot) { TestPlot.new }
+  let(:plot) { @klass.new }
 
   it 'reports unrecognized commands' do
     actor = plot.introduce
@@ -8,7 +8,7 @@ RSpec.describe 'Nil action' do
   end
 
   it 'reports ambiguous tokens' do
-    TestPlot.script do
+    @klass.script do
       respond :foobar, Item do |actor, item|
         item.parent = actor
       end
@@ -25,7 +25,7 @@ RSpec.describe 'Nil action' do
   end
 
   it 'reports unrecognized tokens' do
-    TestPlot.script do
+    @klass.script do
       respond :foobar, Item do |actor, item|
         item.parent = actor
       end
@@ -43,7 +43,7 @@ RSpec.describe 'Nil action' do
   end
 
   it 'reports missing tokens' do
-    TestPlot.script do
+    @klass.script do
       respond :foobar, Item do |actor, item|
         item.parent = actor
       end
@@ -61,7 +61,7 @@ RSpec.describe 'Nil action' do
   end
 
   it 'reports unhandled tokens' do
-    TestPlot.script do
+    @klass.script do
       respond :foobar, Item do |actor, item|
         item.parent = actor
       end
@@ -79,12 +79,12 @@ RSpec.describe 'Nil action' do
   end
 
   it 'reports recognized verbs with mismatched tokens' do
-    TestPlot.seed do
+    @klass.seed do
       @room = make Room, name: 'room'
       make Thing, name: 'thing', parent: @room
       make Thing, name: 'other', parent: @room
     end
-    TestPlot.script do
+    @klass.script do
       respond :affix, available(Thing), available(Item) do |actor, _, _|
         actor.tell "Should not happen"
       end

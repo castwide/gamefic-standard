@@ -1,5 +1,5 @@
 RSpec.describe 'Enter action' do
-  let(:plot) { TestPlot.new }
+  let(:plot) { @klass.new }
 
   it 'does not enter a non-enterable thing' do
     room = plot.make Room

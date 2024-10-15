@@ -1,15 +1,15 @@
 RSpec.describe 'Take action' do
   it 'takes items' do
-    TestPlot.seed do
+    @klass.seed do
       @room = make Room
       @thing = make Item, name: 'item', parent: @room
     end
-    TestPlot.script do
+    @klass.script do
       introduction do |actor|
         actor.parent = @room
       end
     end
-    plot = TestPlot.new
+    plot = @klass.new
     actor = plot.introduce
     plot.ready
     actor.perform 'take item'
@@ -17,17 +17,17 @@ RSpec.describe 'Take action' do
   end
 
   it 'takes items from receptacles implicitly' do
-    TestPlot.seed do
+    @klass.seed do
       @room = make Room
       @receptacle = make Receptacle, name: 'receptacle', parent: @room
       make Item, name: 'item', parent: @receptacle
     end
-    TestPlot.script do
+    @klass.script do
       introduction do |actor|
         actor.parent = @room
       end
     end
-    plot = TestPlot.new
+    plot = @klass.new
     actor = plot.introduce
     plot.ready
     actor.perform 'take item'
@@ -35,17 +35,17 @@ RSpec.describe 'Take action' do
   end
 
   it 'takes items from receptacles explicitly' do
-    TestPlot.seed do
+    @klass.seed do
       @room = make Room
       @receptacle = make Receptacle, name: 'receptacle', parent: @room
       make Item, name: 'item', parent: @receptacle
     end
-    TestPlot.script do
+    @klass.script do
       introduction do |actor|
         actor.parent = @room
       end
     end
-    plot = TestPlot.new
+    plot = @klass.new
     actor = plot.introduce
     plot.ready
     actor.perform 'take item from receptacle'
@@ -53,15 +53,15 @@ RSpec.describe 'Take action' do
   end
 
   it 'reports items already in possession' do
-    TestPlot.seed do
+    @klass.seed do
       @thing = make Item, name: 'thing'
     end
-    TestPlot.script do
+    @klass.script do
       introduction do |actor|
         @thing.parent = actor
       end
     end
-    plot = TestPlot.new
+    plot = @klass.new
     actor = plot.introduce
     plot.ready
     actor.perform 'take thing'
@@ -69,16 +69,16 @@ RSpec.describe 'Take action' do
   end
 
   it 'does not take non-portable entities' do
-    TestPlot.seed do
+    @klass.seed do
       @room = make Room
       @thing = make Thing, name: 'thing', portable: false, parent: @room
     end
-    TestPlot.script do
+    @klass.script do
       introduction do |actor|
         actor.parent = @room
       end
     end
-    plot = TestPlot.new
+    plot = @klass.new
     actor = plot.introduce
     plot.ready
     actor.perform 'take thing'
@@ -87,17 +87,17 @@ RSpec.describe 'Take action' do
   end
 
   it 'does not take attached entities' do
-    TestPlot.seed do
+    @klass.seed do
       @room = make Room
       @thing = make Thing, name: 'thing', parent: @room
       @attachment = make Item, name: 'attachment', parent: @thing, attached: true
     end
-    TestPlot.script do
+    @klass.script do
       introduction do |actor|
         actor.parent = @room
       end
     end
-    plot = TestPlot.new
+    plot = @klass.new
     actor = plot.introduce
     plot.ready
     actor.perform 'take attachment'
@@ -106,16 +106,16 @@ RSpec.describe 'Take action' do
   end
 
   it 'does not take rubble' do
-    TestPlot.seed do
+    @klass.seed do
       @room = make Room
       make Rubble, name: 'rubble', parent: @room
     end
-    TestPlot.script do
+    @klass.script do
       introduction do |actor|
         actor.parent = @room
       end
     end
-    plot = TestPlot.new
+    plot = @klass.new
     actor = plot.introduce
     plot.ready
     actor.perform 'take rubble'
@@ -123,7 +123,7 @@ RSpec.describe 'Take action' do
   end
 
   it 'handles unmatched text' do
-    plot = TestPlot.new
+    plot = @klass.new
     room = plot.make Room
     plot.make Item, name: 'item1', parent: room
     actor = plot.introduce
@@ -134,7 +134,7 @@ RSpec.describe 'Take action' do
   end
 
   it 'takes all' do
-    plot = TestPlot.new
+    plot = @klass.new
     room = plot.make Room
     item1 = plot.make Item, name: 'item1', parent: room
     item2 = plot.make Item, name: 'item2', parent: room

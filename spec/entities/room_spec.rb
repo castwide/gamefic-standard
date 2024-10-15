@@ -1,5 +1,5 @@
 RSpec.describe Room do
-  let(:plot) { TestPlot.new }
+  let(:plot) { @klass.new }
 
   it 'connects by direction' do
     room1 = plot.make Room

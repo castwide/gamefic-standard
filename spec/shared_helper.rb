@@ -2,8 +2,6 @@
 
 require 'gamefic-standard'
 
-require_relative 'fixtures/test_plot'
-
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
   config.example_status_persistence_file_path = '.rspec_status'
@@ -15,7 +13,11 @@ RSpec.configure do |config|
     c.syntax = :expect
   end
 
-  config.after :each do
-    TestPlot.blocks.clear
+  config.before :each do
+    @klass = Class.new(Gamefic::Plot) do
+      include Gamefic::Standard
+    end
   end
 end
+
+Gamefic.logger.level = Logger::DEBUG

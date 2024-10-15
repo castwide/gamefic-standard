@@ -1,15 +1,15 @@
 RSpec.describe 'Inventory action' do
   it 'lists children' do
-    TestPlot.seed do
+    @klass.seed do
       @held = make Thing, name: 'held thing'
       @other = make Thing, name: 'other thing'
     end
-    TestPlot.script do
+    @klass.script do
       introduction do |actor|
         @held.parent = actor
       end
     end
-    plot = TestPlot.new
+    plot = @klass.new
     actor = plot.introduce
     plot.ready
     actor.perform 'inventory'
@@ -18,7 +18,7 @@ RSpec.describe 'Inventory action' do
   end
 
   it 'reports empty inventory' do
-    plot = TestPlot.new
+    plot = @klass.new
     player = plot.introduce
     player.perform 'inventory'
     expect(player.messages).to include("aren't carrying")

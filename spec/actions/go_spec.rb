@@ -1,16 +1,16 @@
 RSpec.describe 'Go action' do
   it 'goes through a portal' do
-    TestPlot.seed do
+    @klass.seed do
       @room1 = make Room, name: 'room1'
       @room2 = make Room, name: 'room2'
       @room1.connect @room2, direction: 'east'
     end
-    TestPlot.script do
+    @klass.script do
       introduction do |actor|
         actor.parent = @room1
       end
     end
-    plot = TestPlot.new
+    plot = @klass.new
     actor = plot.introduce
     plot.ready
     actor.perform 'go east'
@@ -18,7 +18,7 @@ RSpec.describe 'Go action' do
   end
 
   it 'ignores portals without destinations' do
-    plot = TestPlot.new
+    plot = @klass.new
     room = plot.make Room, name: 'room'
     plot.make Portal, name: 'portal', parent: room
     actor = plot.introduce
@@ -29,7 +29,7 @@ RSpec.describe 'Go action' do
   end
 
   it 'leaves supporters before using portals' do
-    plot = TestPlot.new
+    plot = @klass.new
     room = plot.make Room, name: 'room'
     chair = plot.make Supporter, name: 'chair', enterable: true, parent: room
     out = plot.make Room, name: 'out'
@@ -42,7 +42,7 @@ RSpec.describe 'Go action' do
   end
 
   it 'leaves supporters and reports unknown portals' do
-    plot = TestPlot.new
+    plot = @klass.new
     room = plot.make Room, name: 'room'
     chair = plot.make Supporter, name: 'chair', enterable: true, parent: room
     out = plot.make Room, name: 'out'
@@ -55,14 +55,14 @@ RSpec.describe 'Go action' do
   end
 
   it 'fails if supporter cannot be left' do
-    TestPlot.seed do
+    @klass.seed do
       room = make Room, name: 'room'
       @chair = make Supporter, name: 'chair', enterable: true, parent: room
       out = make Room, name: 'out'
       room.connect out, direction: 'east'
     end
 
-    TestPlot.script do
+    @klass.script do
       respond :leave, parent(@chair) do |actor, _chair|
         actor.tell "You can't leave the chair."
       end
@@ -71,7 +71,7 @@ RSpec.describe 'Go action' do
         actor.parent = @chair
       end
     end
-    plot = TestPlot.new
+    plot = @klass.new
     actor = plot.introduce
     plot.ready
     chair = plot.instance_exec { @chair }

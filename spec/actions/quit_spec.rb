@@ -1,5 +1,5 @@
 RSpec.describe 'Quit action' do
-  let(:plot) { TestPlot.new }
+  let(:plot) { @klass.new }
 
   it 'quits after confirmation' do
     actor = plot.introduce

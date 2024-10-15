@@ -5,6 +5,8 @@ module Gamefic
     # Methods for adding definite and indefinite articles to entity names.
     #
     module Articles
+      extend Gamefic::Scriptable
+
       # Get a name for the entity with an indefinite article (unless the entity
       # has a proper name).
       #
@@ -45,6 +47,8 @@ module Gamefic
         entity.definitely.cap_first
       end
       alias The the_
+
+      bind public_instance_methods
     end
   end
 end

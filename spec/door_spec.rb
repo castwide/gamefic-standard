@@ -1,5 +1,5 @@
 RSpec.describe Door do
-  let(:plot) { TestPlot.new }
+  let(:plot) { @klass.new }
 
   it 'synchronizes open statuses' do
     room1 = plot.make Room, name: 'room1'

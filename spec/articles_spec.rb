@@ -1,5 +1,5 @@
 RSpec.describe Gamefic::Standard::Articles do
-  let(:plot) { TestPlot.new }
+  let(:plot) { @klass.new }
 
   it 'attaches indefinite articles' do
     result = plot.instance_exec do

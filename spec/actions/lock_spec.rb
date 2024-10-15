@@ -1,6 +1,6 @@
 RSpec.describe 'Lock action' do
   it 'reports incorrect keys' do
-    plot = TestPlot.new
+    plot = @klass.new
     room = plot.make Room
     key = plot.make Item, name: 'key'
     stick = plot.make Item, name: 'stick'

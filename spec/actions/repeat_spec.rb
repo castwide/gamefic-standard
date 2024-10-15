@@ -1,5 +1,5 @@
 RSpec.describe 'Repeat action' do
-  let(:plot) { TestPlot.new }
+  let(:plot) { @klass.new }
 
   it 'repeats the previous action' do
     room = plot.make Room, name: 'room', description: 'room description'
