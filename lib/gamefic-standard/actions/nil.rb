@@ -10,7 +10,7 @@ module Gamefic
           next if string.strip.empty?
 
           words = string.keywords
-          list = actor.epic.synonyms
+          list = actor.synonyms
           if list.include?(words[0]&.to_sym)
             if words.length > 1
               result = myself.query(actor, words[1..-1].join(' '))
@@ -22,11 +22,10 @@ module Gamefic
                 result = avail.query(actor, result.remainder)
               end
               if found.empty?
-                verbs = actor.epic
-                            .syntaxes
+                verbs = actor.syntaxes
                             .select { |syn| syn.synonym == words[0].to_sym }
                             .map(&:verb)
-                resps = actor.epic.responses_for(*verbs)
+                resps = actor.responses_for(*verbs)
                 if resps.any? { |resp| !resp.queries.empty? }
                   actor.tell %(I recognize "#{words[0]}" as a verb but don't know what you mean by "#{words[1..-1].join(' ')}.")
                 else
@@ -35,22 +34,20 @@ module Gamefic
               elsif result.remainder != ''
                 actor.tell %(I recognize "#{string.sub(/#{result.remainder}$/, '').strip}" as a command but was confused by "#{result.remainder}.")
               elsif found.one?
-                verbs = actor.epic
-                            .syntaxes
+                verbs = actor.syntaxes
                             .select { |syn| syn.synonym == words[0].to_sym }
                             .map(&:verb)
-                resps = actor.epic.responses_for(*verbs)
+                resps = actor.responses_for(*verbs)
                 if resps.any? { |resp| !resp.queries.empty? }
                   actor.tell %(I recognize "#{words[0]}" and "#{found.first.name}" but could not understand them together.)
                 else
                   actor.tell %[I recognize "#{words[0]}" and "#{found.first.name}" but could not understand them together. (Maybe "#{words[0]}" is a one-word command?)]
                 end
               else
-                verbs = actor.epic
-                            .syntaxes
+                verbs = actor.syntaxes
                             .select { |syn| syn.synonym == words[0].to_sym }
                             .map(&:verb)
-                resps = actor.epic.responses_for(*verbs)
+                resps = actor.responses_for(*verbs)
                 if resps.any? { |resp| !resp.queries.empty? }
                   actor.tell %(I recognize "#{words[0]}" but I'm not sure if "#{words[1..-1].join(' ')}" means #{found.map(&:definitely).join_or}.)
                 else

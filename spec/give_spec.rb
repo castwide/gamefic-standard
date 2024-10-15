@@ -1,8 +1,4 @@
 RSpec.describe 'Give' do
-  let(:plot) { @klass.new }
-
-  let(:player) { plot.introduce }
-
   before :each do
     @klass.instance_exec do
       bind_make :room, Room, name: 'room'
@@ -13,6 +9,9 @@ RSpec.describe 'Give' do
       end
     end
   end
+
+  let(:plot) { @klass.new }
+  let(:player) { plot.introduce }
 
   it 'responds to giving to a character' do
     plot.make Item, name: 'item', parent: player
@@ -47,11 +46,9 @@ RSpec.describe 'Give' do
   end
 
   it 'asks who' do
-    room = plot.make Room
-    person = plot.make Character, name: 'person', parent: plot.room
     player = plot.introduce
-    player.parent = room
-    item = plot.make Item, name: 'item', parent: player
+    player.parent = plot.room
+    plot.make Item, name: 'item', parent: player
     plot.ready
     player.queue.push 'give item'
     plot.update

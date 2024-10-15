@@ -18,7 +18,7 @@ module Gamefic
 
         meta nil, plaintext do |actor, string|
           keywords = string.keywords
-          list = actor.epic.synonyms
+          list = actor.synonyms
           next actor.proceed unless list.include?(keywords.first&.to_sym)
 
           xlation = keywords[1..].map do |word|
