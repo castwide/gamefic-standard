@@ -10,8 +10,7 @@ module Gamefic
           next if string.strip.empty?
 
           words = string.keywords
-          list = actor.synonyms
-          if list.include?(words[0]&.to_sym)
+          if actor.can?(words[0])
             if words.length > 1
               result = myself.query(actor, words[1..-1].join(' '))
               found = [result.match].compact
