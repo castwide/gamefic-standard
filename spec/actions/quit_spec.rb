@@ -5,7 +5,6 @@ RSpec.describe 'Quit action' do
     actor = plot.introduce
     plot.ready
     actor.queue.push 'quit', 'yes'
-    plot.ready
     plot.update
     plot.ready
     plot.update
