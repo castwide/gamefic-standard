@@ -6,11 +6,11 @@ module Gamefic
       module Quit
         extend Gamefic::Scriptable
 
-        ConfirmQuit = yes_or_no do |scene|
-          scene.on_start do |actor|
+        ConfirmQuit = yes_or_no do
+          on_start do |actor|
             actor.tell 'Are you sure you want to quit?'
           end
-          scene.on_finish do |actor, props|
+          on_finish do |actor, props|
             actor.cue default_conclusion if props.yes?
           end
         end
