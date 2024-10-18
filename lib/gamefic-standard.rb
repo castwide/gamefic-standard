@@ -20,7 +20,6 @@ module Gamefic
     require 'gamefic-standard/lockable'
     require 'gamefic-standard/direction'
     require 'gamefic-standard/entities'
-    require 'gamefic-standard/clips'
     require 'gamefic-standard/actions'
     require 'gamefic-standard/introduction'
     require 'gamefic-standard/pathfinder'

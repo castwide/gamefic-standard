@@ -38,8 +38,8 @@ Gem::Specification.new do |spec|
   spec.required_ruby_version = '>= 2.7.0'
 
   spec.add_dependency 'gamefic', '~> 4.0'
-  spec.add_dependency 'gamefic-grammar', '~> 1.0'
-  spec.add_dependency 'gamefic-what', '~> 1.0'
+  spec.add_dependency 'gamefic-grammar', '~> 1.1'
+  spec.add_dependency 'gamefic-what', '~> 1.1'
 
   spec.add_development_dependency 'opal', '~> 1.7'
   spec.add_development_dependency 'opal-rspec', '~> 1.0'

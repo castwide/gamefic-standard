@@ -6,7 +6,56 @@ module Gamefic
       module Look
         extend Gamefic::Scriptable
 
-        include Clips
+        bind def itemize_room(actor)
+          return unless (room = actor.room)
+
+          siblings = room.children.select(&:itemized?).that_are_not(actor)
+
+          siblings.that_are(Character)
+                  .reject(&:locale_description)
+                  .tap do |list|
+                    list.empty? or actor.tell "#{list.join_and.cap_first} #{list.one? ? 'is' : 'are'} here."
+                  end
+
+          siblings.that_are_not(Character, Portal)
+                  .reject(&:locale_description)
+                  .tap do |list|
+                    list.empty? or actor.tell "You see #{list.join_and}."
+                  end
+
+          siblings.select(&:locale_description)
+                  .each { |thing| actor.tell thing.locale_description }
+
+          return unless room.explicit_exits?
+
+          earlier = siblings.select(&:locale_description).that_are(Portal).any?
+          siblings.that_are(Portal)
+                  .reject(&:locale_description)
+                  .tap do |portals|
+                    if portals.one?
+                      actor.tell "There is#{earlier ? ' also ' : ' '}an exit #{portals.first.instruction}."
+                    else
+                      order = %w[north northeast east southeast south southwest west northwest up down]
+                      dirs = portals.map(&:instruction)
+                                    .map(&:to_s)
+                                    .sort { |a, b| order.index(a) || 0 <=> order.index(b) || 1 }
+                      actor.tell "There are#{earlier ? ' also ' : ' '}exits #{dirs.join_and(', ')}."
+                    end
+                  end
+          itemize_receptacle(actor)
+        end
+
+        bind def itemize_receptacle(actor)
+          return unless (parent = actor.parent)
+
+          preposition = parent.is_a?(Supporter) ? 'on' : 'in'
+          siblings = parent.children.that_are_not(actor)
+          if siblings.empty?
+            actor.tell "You're #{preposition} #{the parent}."
+          else
+            actor.tell "You're #{preposition} #{the parent}, along with #{siblings.join_and}."
+          end
+        end
 
         respond :look do |actor|
           actor.execute :look, actor.room
@@ -63,8 +112,7 @@ module Gamefic
         respond :look, room do |actor, room|
           actor.tell "<strong>#{room.name.cap_first}</strong>"
           actor.tell room.description if room.described?
-          ItemizeRoom.run(actor)
-          ItemizeParent.run(actor) if actor.parent != room
+          itemize_room(actor)
         end
 
         interpret 'look around', 'look'
