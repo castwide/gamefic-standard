@@ -11,7 +11,6 @@ RSpec.describe 'Look action' do
 
     plot = @klass.new
     actor = plot.introduce
-    plot.ready
     actor.perform 'look thing'
     expect(actor.messages).to include(plot.pick('thing').description)
   end
@@ -28,7 +27,6 @@ RSpec.describe 'Look action' do
 
     plot = @klass.new
     actor = plot.introduce
-    plot.ready
     actor.perform 'look'
     expect(actor.messages).to include(plot.pick('room').description)
     expect(actor.messages).to include('thing')
@@ -180,7 +178,6 @@ RSpec.describe 'Look action' do
     supporter = plot.make Supporter, name: 'supporter', parent: room
     plot.make Thing, name: 'thing', parent: supporter
     actor = plot.introduce
-    plot.ready
     actor.parent = supporter
     actor.perform 'look'
     expect(actor.messages).to include('thing')

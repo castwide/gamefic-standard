@@ -35,13 +35,14 @@ RSpec.describe 'Give' do
 
   it 'asks what' do
     plot.make Item, name: 'item', parent: player
-    plot.ready
+    narrator = Gamefic::Narrator.new(plot)
+    narrator.start
     player.queue.push 'give person'
-    plot.update
+    narrator.finish
+    narrator.start
     expect(player.messages).to include('What')
-    plot.ready
     player.queue.push 'the item'
-    plot.update
+    narrator.finish
     expect(player.messages).to include('person has no use for')
   end
 
@@ -49,13 +50,14 @@ RSpec.describe 'Give' do
     player = plot.introduce
     player.parent = plot.room
     plot.make Item, name: 'item', parent: player
-    plot.ready
+    narrator = Gamefic::Narrator.new(plot)
+    narrator.start
     player.queue.push 'give item'
-    plot.update
+    narrator.finish
     expect(player.messages).to include('Who')
-    plot.ready
+    narrator.start
     player.queue.push 'person'
-    plot.update
+    narrator.finish
     expect(player.messages).to include('person has no use for')
   end
 end

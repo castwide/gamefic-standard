@@ -11,7 +11,6 @@ RSpec.describe 'Inventory action' do
 
     plot = @klass.new
     actor = plot.introduce
-    plot.ready
     actor.perform 'inventory'
     expect(actor.messages).to include('held thing')
     expect(actor.messages).not_to include('other thing')

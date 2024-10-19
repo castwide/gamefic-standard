@@ -4,16 +4,18 @@ RSpec.describe 'Repeat action' do
   it 'repeats the previous action' do
     room = plot.make Room, name: 'room', description: 'room description'
     actor = plot.introduce
-    plot.ready
+    narrator = Gamefic::Narrator.new(plot)
+    narrator.start
     actor.parent = room
     actor.queue.push 'look'
-    plot.update
-    plot.ready
+    narrator.finish
+    narrator.start
     actor.queue.push 'repeat'
-    plot.update
+    narrator.finish
     expect(actor.messages).to include("Repeating")
-    plot.ready
-    plot.update
+    # @todo We shouldn't need to go another whole round here
+    narrator.start
+    narrator.finish
     expect(actor.messages).to include("room description")
   end
 end

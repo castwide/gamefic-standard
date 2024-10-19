@@ -13,7 +13,6 @@ RSpec.describe 'Open action' do
 
     plot = @klass.new
     actor = plot.introduce
-    plot.ready
     actor.perform 'open safe with key'
     expect(plot.pick('safe')).not_to be_locked
     expect(plot.pick('safe')).to be_open

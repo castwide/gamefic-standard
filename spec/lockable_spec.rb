@@ -17,7 +17,6 @@ RSpec.describe Gamefic::Standard::Lockable do
     end
     plot = @klass.new
     actor = plot.introduce
-    plot.ready
     actor.perform 'unlock safe with key'
     expect(plot.pick('safe')).not_to be_locked
   end
@@ -37,7 +36,6 @@ RSpec.describe Gamefic::Standard::Lockable do
 
     plot = @klass.new
     actor = plot.introduce
-    plot.ready
     actor.perform 'unlock safe with wrong key'
     expect(plot.pick('safe')).to be_locked
   end
@@ -56,7 +54,6 @@ RSpec.describe Gamefic::Standard::Lockable do
 
     plot = @klass.new
     actor = plot.introduce
-    plot.ready
     actor.perform 'lock safe with key'
     expect(plot.pick('safe')).to be_locked
   end
@@ -73,7 +70,6 @@ RSpec.describe Gamefic::Standard::Lockable do
 
     plot = @klass.new
     actor = plot.introduce
-    plot.ready
     actor.perform 'open safe'
     expect(plot.pick('safe')).not_to be_open
   end
@@ -90,7 +86,6 @@ RSpec.describe Gamefic::Standard::Lockable do
 
     plot = @klass.new
     actor = plot.introduce
-    plot.ready
     actor.perform 'open safe'
     expect(plot.pick('safe')).to be_open
   end
@@ -120,7 +115,6 @@ RSpec.describe Gamefic::Standard::Lockable do
 
     plot = @klass.new
     actor = plot.introduce
-    plot.ready
     actor.perform 'open safe'
     expect(plot.pick('safe')).to be_open
   end

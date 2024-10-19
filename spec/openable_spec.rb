@@ -76,7 +76,6 @@ RSpec.describe Gamefic::Standard::Openable do
     box = plot.make box_class, name: 'box', parent: room
     box.open = false
     actor = plot.introduce
-    plot.ready
     actor.parent = room
     actor.perform 'close box'
     expect(box).to be_closed

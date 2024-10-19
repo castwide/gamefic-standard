@@ -11,7 +11,6 @@ RSpec.describe 'Take action' do
 
     plot = @klass.new
     actor = plot.introduce
-    plot.ready
     actor.perform 'take thing'
     expect(actor.children).to include(plot.thing)
   end
@@ -29,7 +28,6 @@ RSpec.describe 'Take action' do
 
     plot = @klass.new
     actor = plot.introduce
-    plot.ready
     actor.perform 'take item'
     expect(actor.children.first.name).to eq('item')
   end
@@ -47,7 +45,6 @@ RSpec.describe 'Take action' do
 
     plot = @klass.new
     actor = plot.introduce
-    plot.ready
     actor.perform 'take item from receptacle'
     expect(actor.children.first.name).to eq('item')
   end
@@ -63,7 +60,6 @@ RSpec.describe 'Take action' do
 
     plot = @klass.new
     actor = plot.introduce
-    plot.ready
     actor.perform 'take thing'
     expect(actor.messages).to include('already carrying')
   end
@@ -78,7 +74,6 @@ RSpec.describe 'Take action' do
 
     plot = @klass.new
     actor = plot.introduce
-    plot.ready
     actor.perform 'take thing'
     expect(actor.messages).to include("can't take")
     expect(plot.pick('thing').parent).not_to be(actor)
@@ -94,7 +89,6 @@ RSpec.describe 'Take action' do
 
     plot = @klass.new
     actor = plot.introduce
-    plot.ready
     actor.perform 'take attachment'
     expect(actor.messages).to include('attached')
     expect(plot.pick('attachment').parent).not_to be(actor)
@@ -111,7 +105,6 @@ RSpec.describe 'Take action' do
     end
     plot = @klass.new
     actor = plot.introduce
-    plot.ready
     actor.perform 'take rubble'
     expect(plot.pick('rubble').parent).not_to be(actor)
   end

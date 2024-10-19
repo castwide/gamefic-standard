@@ -3,24 +3,25 @@ RSpec.describe 'Quit action' do
 
   it 'quits after confirmation' do
     actor = plot.introduce
-    plot.ready
+    narrator = Gamefic::Narrator.new(plot)
+    narrator.start
     actor.queue.push 'quit', 'yes'
-    plot.update
-    plot.ready
-    plot.update
-    plot.ready
+    narrator.finish
+    narrator.start
+    narrator.finish
+    narrator.start
     expect(actor).to be_concluding
   end
 
   it 'does not quit after cancellation' do
     actor = plot.introduce
-    plot.ready
+    narrator = Gamefic::Narrator.new(plot)
+    narrator.start
     actor.queue.push 'quit', 'no'
-    plot.ready
-    plot.update
-    plot.ready
-    plot.update
-    plot.ready
+    narrator.finish
+    narrator.start
+    narrator.finish
+    narrator.start
     expect(actor).not_to be_concluding
   end
 end

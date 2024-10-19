@@ -34,7 +34,6 @@ RSpec.describe 'Nil action' do
     plot.make Item, name: 'item 1', parent: room
     plot.make Item, name: 'item 2', parent: room
     actor = plot.introduce
-    plot.ready
     actor.parent = room
     actor.perform 'foobar nothing'
     expect(actor.children).to be_empty
@@ -52,7 +51,6 @@ RSpec.describe 'Nil action' do
     plot.make Item, name: 'item 1', parent: room
     plot.make Fixture, name: 'fixture', parent: room
     actor = plot.introduce
-    plot.ready
     actor.parent = room
     actor.perform 'foobar'
     expect(actor.children).to be_empty
@@ -70,7 +68,6 @@ RSpec.describe 'Nil action' do
     plot.make Item, name: 'item 1', parent: room
     plot.make Fixture, name: 'fixture', parent: room
     actor = plot.introduce
-    plot.ready
     actor.parent = room
     actor.perform 'foobar fixture'
     expect(actor.children).to be_empty
@@ -98,14 +95,12 @@ RSpec.describe 'Nil action' do
       end
     end
     actor = plot.introduce
-    plot.ready
     actor.perform 'glue thing to other'
     expect(actor.messages).to include('I recognize "glue thing" as a command')
   end
 
   it 'ignores empty commands' do
     actor = plot.introduce
-    plot.ready
     actor.perform ''
     expect(actor.messages).to be_empty
   end

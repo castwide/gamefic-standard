@@ -13,7 +13,6 @@ RSpec.describe 'place action' do
 
     plot = @klass.new
     actor = plot.introduce
-    plot.ready
     actor.perform 'place thing supporter'
     expect(plot.entities[1].parent).to eq(plot.entities[2])
   end
@@ -31,7 +30,6 @@ RSpec.describe 'place action' do
 
     plot = @klass.new
     actor = plot.introduce
-    plot.ready
     actor.perform 'place item supporter'
     expect(plot.entities[1].parent).to eq(plot.entities[2])
   end
@@ -50,7 +48,6 @@ RSpec.describe 'place action' do
 
     plot = @klass.new
     actor = plot.introduce
-    plot.ready
     actor.perform 'put item on thing'
     expect(plot.pick('item').parent).to be(actor)
     expect(actor.messages).to include("can't put")

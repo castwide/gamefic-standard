@@ -9,7 +9,6 @@ RSpec.describe 'Drop action' do
     end
     plot = @klass.new
     actor = plot.introduce
-    plot.ready
     actor.perform 'drop thing'
     expect(actor.children).to be_empty
   end
@@ -25,7 +24,6 @@ RSpec.describe 'Drop action' do
     end
     plot = @klass.new
     actor = plot.introduce
-    plot.ready
     actor.perform 'drop thing'
     expect(actor.messages).to include('not carrying the thing')
   end
@@ -36,7 +34,6 @@ RSpec.describe 'Drop action' do
     wallet = plot.make Receptacle, name: 'wallet', portable: true
     item = plot.make Item, name: 'item', parent: wallet
     actor = plot.introduce
-    plot.ready
     actor.parent = room
     wallet.parent = actor
     actor.perform 'drop item'

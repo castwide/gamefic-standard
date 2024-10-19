@@ -11,7 +11,6 @@ RSpec.describe 'Leave action' do
 
     plot = @klass.new
     actor = plot.introduce
-    plot.ready
     actor.perform 'leave'
     expect(actor.parent.name).to eq('room')
   end
@@ -28,7 +27,6 @@ RSpec.describe 'Leave action' do
 
     plot = @klass.new
     actor = plot.introduce
-    plot.ready
     actor.perform 'leave'
     expect(actor.parent.name).to eq('room 2')
   end
@@ -45,7 +43,6 @@ RSpec.describe 'Leave action' do
 
     plot = @klass.new
     actor = plot.introduce
-    plot.ready
     actor.perform 'leave'
     expect(actor.parent.name).to eq('thing')
   end
@@ -62,7 +59,6 @@ RSpec.describe 'Leave action' do
 
     plot = @klass.new
     actor = plot.introduce
-    plot.ready
     actor.perform 'leave'
     expect(actor.parent.name).to eq('room 1')
   end
@@ -80,7 +76,6 @@ RSpec.describe 'Leave action' do
 
     plot = @klass.new
     actor = plot.introduce
-    plot.ready
     actor.perform 'leave'
     expect(actor.parent.name).to eq('room 1')
     expect(actor.messages).to include('north')

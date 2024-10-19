@@ -10,7 +10,6 @@ RSpec.describe 'Go action' do
     end
     plot = @klass.new
     actor = plot.introduce
-    plot.ready
     actor.perform 'go east'
     expect(actor.parent.name).to eq('room2')
   end
@@ -68,7 +67,6 @@ RSpec.describe 'Go action' do
     end
     plot = @klass.new
     actor = plot.introduce
-    plot.ready
     actor.perform 'go east'
     expect(actor.parent).to eq(plot.chair)
     expect(actor.messages).to include("You can't leave the chair.")

@@ -12,7 +12,6 @@ RSpec.describe 'insert action' do
     end
     plot = @klass.new
     actor = plot.introduce
-    plot.ready
     actor.perform 'insert thing receptacle'
     expect(plot.entities[1].parent).to eq(plot.entities[2])
   end
@@ -31,7 +30,6 @@ RSpec.describe 'insert action' do
 
     plot = @klass.new
     actor = plot.introduce
-    plot.ready
     actor.perform 'insert thing container'
     expect(plot.entities[1].parent).to eq(plot.entities[2])
   end
@@ -50,7 +48,6 @@ RSpec.describe 'insert action' do
 
     plot = @klass.new
     actor = plot.introduce
-    plot.ready
     actor.perform 'insert thing container'
     expect(plot.entities[1].parent).not_to eq(plot.entities[2])
   end
@@ -68,7 +65,6 @@ RSpec.describe 'insert action' do
     end
     plot = @klass.new
     actor = plot.introduce
-    plot.ready
     actor.perform 'put item in thing'
     expect(actor.messages).to include("can't put")
     expect(plot.pick('item').parent).to be(actor)
@@ -87,7 +83,6 @@ RSpec.describe 'insert action' do
 
     plot = @klass.new
     actor = plot.introduce
-    plot.ready
     actor.perform 'put item in container'
     expect(plot.pick('item').parent).to be(plot.pick('container'))
   end
