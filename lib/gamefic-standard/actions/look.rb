@@ -26,12 +26,20 @@ module Gamefic
           siblings.select(&:locale_description)
                   .each { |thing| actor.tell thing.locale_description }
 
-          return unless room.explicit_exits?
+          itemize_explicit_portals(actor)
+          itemize_parent(actor) unless actor.parent == actor.room
+        end
 
+        def itemize_explicit_portals(actor)
+          return unless actor.room&.explicit_exits?
+
+          siblings = actor.room.children.select(&:itemized?).that_are_not(actor)
           earlier = siblings.select(&:locale_description).that_are(Portal).any?
           siblings.that_are(Portal)
                   .reject(&:locale_description)
                   .tap do |portals|
+                    next if portals.empty?
+
                     if portals.one?
                       actor.tell "There is#{earlier ? ' also ' : ' '}an exit #{portals.first.instruction}."
                     else
@@ -42,10 +50,9 @@ module Gamefic
                       actor.tell "There are#{earlier ? ' also ' : ' '}exits #{dirs.join_and(', ')}."
                     end
                   end
-          itemize_receptacle(actor)
         end
 
-        def itemize_receptacle(actor)
+        def itemize_parent(actor)
           return unless (parent = actor.parent)
 
           preposition = parent.is_a?(Supporter) ? 'on' : 'in'
