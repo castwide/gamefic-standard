@@ -47,8 +47,6 @@ module Gamefic
         entity.definitely.cap_first
       end
       alias The the_
-
-      bind public_instance_methods
     end
   end
 end

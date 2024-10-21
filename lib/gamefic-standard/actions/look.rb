@@ -6,7 +6,7 @@ module Gamefic
       module Look
         extend Gamefic::Scriptable
 
-        bind def itemize_room(actor)
+        def itemize_room(actor)
           return unless (room = actor.room)
 
           siblings = room.children.select(&:itemized?).that_are_not(actor)
@@ -45,7 +45,7 @@ module Gamefic
           itemize_receptacle(actor)
         end
 
-        bind def itemize_receptacle(actor)
+        def itemize_receptacle(actor)
           return unless (parent = actor.parent)
 
           preposition = parent.is_a?(Supporter) ? 'on' : 'in'
