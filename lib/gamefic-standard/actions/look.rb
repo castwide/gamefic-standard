@@ -65,7 +65,11 @@ module Gamefic
         end
 
         respond :look do |actor|
-          actor.execute :look, actor.room
+          if actor.room
+            actor.execute :look, actor.room
+          else
+            actor.tell "You're in a featureless void."
+          end
         end
 
         respond :look, myself do |actor, _|
