@@ -6,10 +6,16 @@ module Gamefic
       module Repeat
         extend Gamefic::Scriptable
 
+        after_command do |actor, command|
+          next if command.verb == :repeat || command.input.nil?
+
+          actor[:standard_repeatable_command] = command.input
+        end
+
         meta :repeat do |actor|
-          if actor.last_input && !actor.last_input.empty?
-            actor.tell "Repeating <kbd>\"#{actor.last_input}\"</kbd>..."
-            actor.queue.push actor.last_input
+          if actor[:standard_repeatable_command]
+            actor.tell "Repeating <kbd>\"#{actor[:standard_repeatable_command]}\"</kbd>..."
+            actor.perform actor[:standard_repeatable_command]
           else
             actor.tell "You don't have a previous command to repeat right now."
           end

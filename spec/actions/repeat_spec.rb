@@ -13,9 +13,6 @@ RSpec.describe 'Repeat action' do
     actor.queue.push 'repeat'
     narrator.finish
     expect(actor.messages).to include("Repeating")
-    # @todo We shouldn't need to go another whole round here
-    narrator.start
-    narrator.finish
     expect(actor.messages).to include("room description")
   end
 end
