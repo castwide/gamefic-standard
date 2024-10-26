@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'gamefic-standard/entities/scenery'
+require 'gamefic/standard/entities/scenery'
 
 # Rubble is Scenery with slightly modified action responses.
 # Intended for things that might be portable but are useless.

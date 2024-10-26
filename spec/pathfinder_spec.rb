@@ -1,4 +1,4 @@
-require 'gamefic-standard/pathfinder'
+require 'gamefic/standard/pathfinder'
 
 RSpec.describe Gamefic::Standard::Pathfinder do
   let(:plot) { @klass.new }
