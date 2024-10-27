@@ -3,7 +3,7 @@
 RSpec.describe 'pronouns' do
   let(:plot) {
     @klass.instance_exec do
-      construct :room, Room, name: 'room', description: 'room description'
+      construct :room, Gamefic::Standard::Room, name: 'room', description: 'room description'
       introduction do |actor|
         actor.parent = room
       end
@@ -16,7 +16,7 @@ RSpec.describe 'pronouns' do
   let(:player) { plot.introduce }
 
   it 'understands it' do
-    item = plot.make(Item, name: 'item', parent: room, description: 'item description')
+    item = plot.make(Gamefic::Standard::Item, name: 'item', parent: room, description: 'item description')
     player.perform 'look item'
     expect(player.messages).to include('item description')
     player.perform 'take it'
@@ -26,7 +26,7 @@ RSpec.describe 'pronouns' do
   end
 
   it 'understands him' do
-    plot.make(Character, name: 'man', parent: room, description: 'man description', gender: :male)
+    plot.make(Gamefic::Standard::Character, name: 'man', parent: room, description: 'man description', gender: :male)
     player.perform 'look man'
     expect(player.messages).to include('man description')
     player.perform 'talk to him'
@@ -37,7 +37,7 @@ RSpec.describe 'pronouns' do
   end
 
   it 'understands her' do
-    plot.make(Character, name: 'woman', parent: room, description: 'woman description', gender: :female)
+    plot.make(Gamefic::Standard::Character, name: 'woman', parent: room, description: 'woman description', gender: :female)
     player.perform 'look woman'
     expect(player.messages).to include('woman description')
     player.perform 'talk to her'
@@ -48,7 +48,7 @@ RSpec.describe 'pronouns' do
   end
 
   it 'understands them' do
-    plot.make(Character, name: 'person', parent: room, description: 'person description', gender: :other)
+    plot.make(Gamefic::Standard::Character, name: 'person', parent: room, description: 'person description', gender: :other)
     player.perform 'look person'
     expect(player.messages).to include('person description')
     player.perform 'talk to them'

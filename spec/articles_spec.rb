@@ -3,7 +3,7 @@ RSpec.describe Gamefic::Standard::Articles do
 
   it 'attaches indefinite articles' do
     result = plot.instance_exec do
-      thing = make Thing, name: 'thing'
+      thing = make Gamefic::Standard::Thing, name: 'thing'
       a thing
     end
     expect(result).to eq('a thing')
@@ -11,7 +11,7 @@ RSpec.describe Gamefic::Standard::Articles do
 
   it 'attaches definite articles' do
     result = plot.instance_exec do
-      thing = make Thing, name: 'thing'
+      thing = make Gamefic::Standard::Thing, name: 'thing'
       the thing
     end
     expect(result).to eq('the thing')
@@ -19,7 +19,7 @@ RSpec.describe Gamefic::Standard::Articles do
 
   it 'capitalizes indefinite articles' do
     result = plot.instance_exec do
-      thing = make Thing, name: 'thing'
+      thing = make Gamefic::Standard::Thing, name: 'thing'
       A thing
     end
     expect(result).to eq('A thing')
@@ -27,7 +27,7 @@ RSpec.describe Gamefic::Standard::Articles do
 
   it 'capitalizes definite articles' do
     result = plot.instance_exec do
-      thing = make Thing, name: 'thing'
+      thing = make Gamefic::Standard::Thing, name: 'thing'
       The thing
     end
     expect(result).to eq('The thing')
@@ -35,7 +35,7 @@ RSpec.describe Gamefic::Standard::Articles do
 
   it 'ignores indefinite articles for proper names' do
     result = plot.instance_exec do
-      thing = make Thing, name: 'thing', proper_named: true
+      thing = make Gamefic::Standard::Thing, name: 'thing', proper_named: true
       a thing
     end
     expect(result).to eq('thing')
@@ -43,7 +43,7 @@ RSpec.describe Gamefic::Standard::Articles do
 
   it 'ignores definite articles for proper names' do
     result = plot.instance_exec do
-      thing = make Thing, name: 'thing', proper_named: true
+      thing = make Gamefic::Standard::Thing, name: 'thing', proper_named: true
       the thing
     end
     expect(result).to eq('thing')
@@ -51,7 +51,7 @@ RSpec.describe Gamefic::Standard::Articles do
 
   it 'capitalizes proper names without indefinite articles' do
     result = plot.instance_exec do
-      thing = make Thing, name: 'thing', proper_named: true
+      thing = make Gamefic::Standard::Thing, name: 'thing', proper_named: true
       A thing
     end
     expect(result).to eq('Thing')
@@ -59,7 +59,7 @@ RSpec.describe Gamefic::Standard::Articles do
 
   it 'capitalizes proper names without definite articles' do
     result = plot.instance_exec do
-      thing = make Thing, name: 'thing', proper_named: true
+      thing = make Gamefic::Standard::Thing, name: 'thing', proper_named: true
       The thing
     end
     expect(result).to eq('Thing')

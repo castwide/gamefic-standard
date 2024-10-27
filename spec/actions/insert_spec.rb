@@ -1,9 +1,9 @@
 RSpec.describe 'insert action' do
   it 'inserts a child in a receptacle' do
     @klass.instance_exec do
-      construct :room, Room, name: 'room'
-      construct :thing, Thing, name: 'thing'
-      construct :receptacle, Receptacle, name: 'receptacle', parent: room
+      construct :room, Gamefic::Standard::Room, name: 'room'
+      construct :thing, Gamefic::Standard::Thing, name: 'thing'
+      construct :receptacle, Gamefic::Standard::Receptacle, name: 'receptacle', parent: room
 
       introduction do |actor|
         actor.parent = room
@@ -18,9 +18,9 @@ RSpec.describe 'insert action' do
 
   it 'inserts a child in an open container' do
     @klass.instance_exec do
-      construct :room, Room, name: 'room'
-      construct :thing, Thing, name: 'thing'
-      construct :container, Container, name: 'container', parent: room, open: true
+      construct :room, Gamefic::Standard::Room, name: 'room'
+      construct :thing, Gamefic::Standard::Thing, name: 'thing'
+      construct :container, Gamefic::Standard::Container, name: 'container', parent: room, open: true
 
       introduction do |actor|
         actor.parent = room
@@ -36,9 +36,9 @@ RSpec.describe 'insert action' do
 
   it 'does not insert a child in a closed container' do
     @klass.instance_exec do
-      construct :room, Room, name: 'room'
-      construct :thing, Thing, name: 'thing'
-      construct :container, Container, name: 'container', parent: @room, open: false
+      construct :room, Gamefic::Standard::Room, name: 'room'
+      construct :thing, Gamefic::Standard::Thing, name: 'thing'
+      construct :container, Gamefic::Standard::Container, name: 'container', parent: @room, open: false
 
       introduction do |actor|
         actor.parent = room
@@ -54,9 +54,9 @@ RSpec.describe 'insert action' do
 
   it 'does not insert a child in a non-container' do
     @klass.instance_exec do
-      construct :room, Room
-      construct :thing, Thing, name: 'thing', parent: room
-      construct :item, Item, name: 'item'
+      construct :room, Gamefic::Standard::Room
+      construct :thing, Gamefic::Standard::Thing, name: 'thing', parent: room
+      construct :item, Gamefic::Standard::Item, name: 'item'
 
       introduction do |actor|
         actor.parent = room
@@ -72,9 +72,9 @@ RSpec.describe 'insert action' do
 
   it 'inserts an available item in a container' do
     @klass.instance_exec do
-      construct :room, Room, name: 'room'
-      construct :container, Container, name: 'container', parent: room, open: true
-      construct :item, Item, name: 'item', parent: room
+      construct :room, Gamefic::Standard::Room, name: 'room'
+      construct :container, Gamefic::Standard::Container, name: 'container', parent: room, open: true
+      construct :item, Gamefic::Standard::Item, name: 'item', parent: room
 
       introduction do |actor|
         actor.parent = room

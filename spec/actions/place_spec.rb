@@ -1,9 +1,9 @@
 RSpec.describe 'place action' do
   it 'places a child on a supporter' do
     @klass.instance_exec do
-      construct :room, Room, name: 'room'
-      construct :thing, Thing, name: 'thing'
-      construct :supporter, Supporter, name: 'supporter', parent: room
+      construct :room, Gamefic::Standard::Room, name: 'room'
+      construct :thing, Gamefic::Standard::Thing, name: 'thing'
+      construct :supporter, Gamefic::Standard::Supporter, name: 'supporter', parent: room
 
       introduction do |actor|
         actor.parent = room
@@ -19,9 +19,9 @@ RSpec.describe 'place action' do
 
   it 'takes and places an item on a supporter' do
     @klass.instance_exec do
-      construct :room, Room, name: 'room'
-      construct :item, Item, name: 'item', parent: room
-      construct :supporter, Supporter, name: 'supporter', parent: room
+      construct :room, Gamefic::Standard::Room, name: 'room'
+      construct :item, Gamefic::Standard::Item, name: 'item', parent: room
+      construct :supporter, Gamefic::Standard::Supporter, name: 'supporter', parent: room
 
       introduction do |actor|
         actor.parent = room
@@ -36,9 +36,9 @@ RSpec.describe 'place action' do
 
   it 'rejects placement on non-supporters' do
     @klass.instance_exec do
-      construct :room, Room, name: 'room'
-      construct :item, Item, name: 'item'
-      construct :thing, Thing, name: 'thing', parent: room
+      construct :room, Gamefic::Standard::Room, name: 'room'
+      construct :item, Gamefic::Standard::Item, name: 'item'
+      construct :thing, Gamefic::Standard::Thing, name: 'thing', parent: room
 
       introduction do |actor|
         actor.parent = room

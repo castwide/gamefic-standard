@@ -2,7 +2,7 @@ RSpec.describe 'Repeat action' do
   let(:plot) { @klass.new }
 
   it 'repeats the previous action' do
-    room = plot.make Room, name: 'room', description: 'room description'
+    room = plot.make Gamefic::Standard::Room, name: 'room', description: 'room description'
     actor = plot.introduce
     narrator = Gamefic::Narrator.new(plot)
     narrator.start

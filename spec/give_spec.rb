@@ -1,8 +1,8 @@
 RSpec.describe 'Give' do
   before :each do
     @klass.instance_exec do
-      bind_make :room, Room, name: 'room'
-      bind_make :person, Character, name: 'person', parent: room
+      bind_make :room, Gamefic::Standard::Room, name: 'room'
+      bind_make :person, Gamefic::Standard::Character, name: 'person', parent: room
 
       introduction do |player|
         player.parent = room
@@ -14,27 +14,27 @@ RSpec.describe 'Give' do
   let(:player) { plot.introduce }
 
   it 'responds to giving to a character' do
-    plot.make Item, name: 'item', parent: player
+    plot.make Gamefic::Standard::Item, name: 'item', parent: player
     player.perform 'give item to person'
     expect(player.messages).to include('person has no use for')
   end
 
   it 'responds to giving nearby item to a character' do
-    plot.make Item, name: 'item', parent: plot.room
+    plot.make Gamefic::Standard::Item, name: 'item', parent: plot.room
     player.perform 'give item to person'
     expect(player.messages).to include('take the item')
     expect(player.messages).to include('person has no use for')
   end
 
   it 'responds to giving to a non-character' do
-    plot.make Thing, name: 'thing', parent: plot.room
-    plot.make Item, name: 'item', parent: player
+    plot.make Gamefic::Standard::Thing, name: 'thing', parent: plot.room
+    plot.make Gamefic::Standard::Item, name: 'item', parent: player
     player.perform 'give item to thing'
     expect(player.messages).to include('Nothing happens')
   end
 
   it 'asks what' do
-    plot.make Item, name: 'item', parent: player
+    plot.make Gamefic::Standard::Item, name: 'item', parent: player
     narrator = Gamefic::Narrator.new(plot)
     narrator.start
     player.queue.push 'give person'
@@ -49,7 +49,7 @@ RSpec.describe 'Give' do
   it 'asks who' do
     player = plot.introduce
     player.parent = plot.room
-    plot.make Item, name: 'item', parent: player
+    plot.make Gamefic::Standard::Item, name: 'item', parent: player
     narrator = Gamefic::Narrator.new(plot)
     narrator.start
     player.queue.push 'give item'

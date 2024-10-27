@@ -2,8 +2,8 @@ RSpec.describe 'Enter action' do
   let(:plot) { @klass.new }
 
   it 'does not enter a non-enterable thing' do
-    room = plot.make Room
-    thing = plot.make Receptacle, parent: room, name: 'thing', enterable: false
+    room = plot.make Gamefic::Standard::Room
+    thing = plot.make Gamefic::Standard::Receptacle, parent: room, name: 'thing', enterable: false
     actor = plot.introduce
     actor.parent = room
     actor.perform 'enter thing'
@@ -13,8 +13,8 @@ RSpec.describe 'Enter action' do
   end
 
   it 'enters an enterable thing' do
-    room = plot.make Room
-    thing = plot.make Receptacle, parent: room, name: 'thing', enterable: true
+    room = plot.make Gamefic::Standard::Room
+    thing = plot.make Gamefic::Standard::Receptacle, parent: room, name: 'thing', enterable: true
     thing.enterable = true
     actor = plot.introduce
     actor.parent = room
@@ -23,8 +23,8 @@ RSpec.describe 'Enter action' do
   end
 
   it 'stays in an enterable thing' do
-    room = plot.make Room
-    thing = plot.make Receptacle, parent: room, name: 'thing', enterable: true
+    room = plot.make Gamefic::Standard::Room
+    thing = plot.make Gamefic::Standard::Receptacle, parent: room, name: 'thing', enterable: true
     actor = plot.introduce
     actor.parent = thing
     actor.perform 'enter thing'
@@ -32,8 +32,8 @@ RSpec.describe 'Enter action' do
   end
 
   it 'stays in a supporter' do
-    room = plot.make Room
-    thing = plot.make Supporter, parent: room, name: 'thing'
+    room = plot.make Gamefic::Standard::Room
+    thing = plot.make Gamefic::Standard::Supporter, parent: room, name: 'thing'
     thing.enterable = true
     actor = plot.introduce
     actor.parent = thing
@@ -42,8 +42,8 @@ RSpec.describe 'Enter action' do
   end
 
   it 'does not enter a closed container' do
-    room = plot.make Room
-    container = plot.make Container, parent: room, name: 'container', enterable: true, open: false
+    room = plot.make Gamefic::Standard::Room
+    container = plot.make Gamefic::Standard::Container, parent: room, name: 'container', enterable: true, open: false
     actor = plot.introduce
     actor.parent = room
     actor.perform 'enter container'

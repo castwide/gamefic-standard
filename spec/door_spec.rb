@@ -1,10 +1,10 @@
-RSpec.describe Door do
+RSpec.describe Gamefic::Standard::Door do
   let(:plot) { @klass.new }
 
   it 'synchronizes open statuses' do
-    room1 = plot.make Room, name: 'room1'
-    room2 = plot.make Room, name: 'room2'
-    door, = room1.connect room2, direction: 'east', type: Door
+    room1 = plot.make Gamefic::Standard::Room, name: 'room1'
+    room2 = plot.make Gamefic::Standard::Room, name: 'room2'
+    door, = room1.connect room2, direction: 'east', type: Gamefic::Standard::Door
     door.open = true
     expect(door.reverse).to be_open
     door.open = false
@@ -12,10 +12,10 @@ RSpec.describe Door do
   end
 
   it 'synchronizes lock statuses' do
-    room1 = plot.make Room, name: 'room1'
-    room2 = plot.make Room, name: 'room2'
-    key = plot.make Item, name: 'key'
-    door, = room1.connect(room2, direction: 'east', type: Door)
+    room1 = plot.make Gamefic::Standard::Room, name: 'room1'
+    room2 = plot.make Gamefic::Standard::Room, name: 'room2'
+    key = plot.make Gamefic::Standard::Item, name: 'key'
+    door, = room1.connect(room2, direction: 'east', type: Gamefic::Standard::Door)
     door.two_way_lock_key = key
     expect(door.reverse.lock_key).to be(key)
     door.locked = true
@@ -27,10 +27,10 @@ RSpec.describe Door do
   end
 
   it 'synchronizes one-way lock statuses' do
-    room1 = plot.make Room, name: 'room1'
-    room2 = plot.make Room, name: 'room2'
-    key = plot.make Item, name: 'key'
-    door, = room1.connect room2, direction: 'east', type: Door
+    room1 = plot.make Gamefic::Standard::Room, name: 'room1'
+    room2 = plot.make Gamefic::Standard::Room, name: 'room2'
+    key = plot.make Gamefic::Standard::Item, name: 'key'
+    door, = room1.connect room2, direction: 'east', type: Gamefic::Standard::Door
     door.lock_key = key
     expect(door.reverse.lock_key).to be_nil
     door.locked = true
@@ -42,9 +42,9 @@ RSpec.describe Door do
   end
 
   it 'tries to open doors before going' do
-    room1 = plot.make Room, name: 'room1'
-    room2 = plot.make Room, name: 'room2'
-    door, = room1.connect room2, direction: 'east', type: Door
+    room1 = plot.make Gamefic::Standard::Room, name: 'room1'
+    room2 = plot.make Gamefic::Standard::Room, name: 'room2'
+    door, = room1.connect room2, direction: 'east', type: Gamefic::Standard::Door
     door.open = false
     actor = plot.introduce
     actor.parent = room1

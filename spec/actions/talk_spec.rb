@@ -11,8 +11,8 @@ RSpec.describe 'Talk action' do
   end
 
   it 'talks to thing' do
-    room = plot.make Room
-    thing = plot.make Thing, name: 'thing', parent: room
+    room = plot.make Gamefic::Standard::Room
+    plot.make Gamefic::Standard::Thing, name: 'thing', parent: room
     player = plot.introduce
     player.parent = room
     player.perform 'talk to thing'
@@ -20,8 +20,8 @@ RSpec.describe 'Talk action' do
   end
 
   it 'talks to character' do
-    room = plot.make Room
-    thing = plot.make Character, name: 'character', parent: room
+    room = plot.make Gamefic::Standard::Room
+    plot.make Gamefic::Standard::Character, name: 'character', parent: room
     player = plot.introduce
     player.parent = room
     player.perform 'talk to character'

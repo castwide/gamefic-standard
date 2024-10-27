@@ -1,8 +1,8 @@
 RSpec.describe 'Inventory action' do
   it 'lists children' do
     @klass.instance_exec do
-      construct :held, Thing, name: 'held thing'
-      construct :other, Thing, name: 'other thing'
+      construct :held, Gamefic::Standard::Thing, name: 'held thing'
+      construct :other, Gamefic::Standard::Thing, name: 'other thing'
 
       introduction do |actor|
         held.parent = actor

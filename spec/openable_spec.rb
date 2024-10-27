@@ -1,13 +1,13 @@
 RSpec.describe Gamefic::Standard::Openable do
   let(:box_class) {
-    box_class = Class.new(Thing)
+    box_class = Class.new(Gamefic::Standard::Thing)
     box_class.include Gamefic::Standard::Openable
     box_class
   }
 
   it 'opens closed objects' do
     plot = @klass.new
-    room = plot.make Room, name: 'room'
+    room = plot.make Gamefic::Standard::Room, name: 'room'
     plot.make box_class, name: 'box', parent: room, open: false
     actor = plot.introduce
     actor.parent = room
@@ -17,7 +17,7 @@ RSpec.describe Gamefic::Standard::Openable do
 
   it 'closes open objects' do
     plot = @klass.new
-    room = plot.make Room, name: 'room'
+    room = plot.make Gamefic::Standard::Room, name: 'room'
     plot.make box_class, name: 'box', parent: room, open: true
     actor = plot.introduce
     actor.parent = room
@@ -27,7 +27,7 @@ RSpec.describe Gamefic::Standard::Openable do
 
   it 'reports open status on look' do
     plot = @klass.new
-    room = plot.make Room, name: 'room'
+    room = plot.make Gamefic::Standard::Room, name: 'room'
     plot.make box_class, name: 'box', parent: room, open: true
     actor = plot.introduce
     actor.parent = room
@@ -40,8 +40,8 @@ RSpec.describe Gamefic::Standard::Openable do
 
   it 'reports not openable' do
     plot = @klass.new
-    room = plot.make Room, name: 'room'
-    plot.make Item, name: 'item', parent: room
+    room = plot.make Gamefic::Standard::Room, name: 'room'
+    plot.make Gamefic::Standard::Item, name: 'item', parent: room
     actor = plot.introduce
     actor.parent = room
     actor.perform 'open item'
@@ -50,8 +50,8 @@ RSpec.describe Gamefic::Standard::Openable do
 
   it 'reports not closeable' do
     plot = @klass.new
-    room = plot.make Room, name: 'room'
-    plot.make Item, name: 'item', parent: room
+    room = plot.make Gamefic::Standard::Room, name: 'room'
+    plot.make Gamefic::Standard::Item, name: 'item', parent: room
     actor = plot.introduce
     actor.parent = room
     actor.perform 'close item'
@@ -60,7 +60,7 @@ RSpec.describe Gamefic::Standard::Openable do
 
   it 'reports already open' do
     plot = @klass.new
-    room = plot.make Room, name: 'room'
+    room = plot.make Gamefic::Standard::Room, name: 'room'
     box = plot.make box_class, name: 'box', parent: room
     box.open = true
     actor = plot.introduce
@@ -72,7 +72,7 @@ RSpec.describe Gamefic::Standard::Openable do
 
   it 'reports already closed' do
     plot = @klass.new
-    room = plot.make Room, name: 'room'
+    room = plot.make Gamefic::Standard::Room, name: 'room'
     box = plot.make box_class, name: 'box', parent: room
     box.open = false
     actor = plot.introduce

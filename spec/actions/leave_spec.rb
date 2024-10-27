@@ -1,8 +1,8 @@
 RSpec.describe 'Leave action' do
   it 'leaves an enterable' do
     @klass.instance_exec do
-      construct :room, Room, name: 'room'
-      construct :enterable, Container, name: 'enterable', parent: room, enterable: true
+      construct :room, Gamefic::Standard::Room, name: 'room'
+      construct :enterable, Gamefic::Standard::Container, name: 'enterable', parent: room, enterable: true
 
       introduction do |actor|
         actor.parent = enterable
@@ -17,8 +17,8 @@ RSpec.describe 'Leave action' do
 
   it 'leaves a room' do
     @klass.instance_exec do
-      construct :room1, Room, name: 'room 1'
-      construct :room2, Room, name: 'room 2', north: room1
+      construct :room1, Gamefic::Standard::Room, name: 'room 1'
+      construct :room2, Gamefic::Standard::Room, name: 'room 2', north: room1
 
       introduction do |actor|
         actor.parent = room1
@@ -33,8 +33,8 @@ RSpec.describe 'Leave action' do
 
   it 'stays in parents without exits' do
     @klass.instance_exec do
-      construct :room, Room, name: 'room'
-      construct :thing, Thing, name: 'thing', parent: room
+      construct :room, Gamefic::Standard::Room, name: 'room'
+      construct :thing, Gamefic::Standard::Thing, name: 'thing', parent: room
 
       introduction do |actor|
         actor.parent = thing
@@ -49,8 +49,8 @@ RSpec.describe 'Leave action' do
 
   it 'stays in rooms without exits' do
     @klass.instance_exec do
-      construct :room1, Room, name: 'room 1'
-      construct :room2, Room, name: 'room 2'
+      construct :room1, Gamefic::Standard::Room, name: 'room 1'
+      construct :room2, Gamefic::Standard::Room, name: 'room 2'
 
       introduction do |actor|
         actor.parent = room1
@@ -65,9 +65,9 @@ RSpec.describe 'Leave action' do
 
   it 'reports multiple ways to leave' do
     @klass.instance_exec do
-      construct :room1, Room, name: 'room 1'
-      construct :room2, Room, name: 'room 2', south: room1
-      construct :room3, Room, name: 'room 3', north: room1
+      construct :room1, Gamefic::Standard::Room, name: 'room 1'
+      construct :room2, Gamefic::Standard::Room, name: 'room 2', south: room1
+      construct :room3, Gamefic::Standard::Room, name: 'room 3', north: room1
 
       introduction do |actor|
         actor.parent = room1
@@ -84,8 +84,8 @@ RSpec.describe 'Leave action' do
 
   it 'opens entered containers' do
     plot = @klass.new
-    room = plot.make Room
-    container = plot.make Container, name: 'container', enterable: true, open: false, parent: room
+    room = plot.make Gamefic::Standard::Room
+    container = plot.make Gamefic::Standard::Container, name: 'container', enterable: true, open: false, parent: room
     actor = plot.introduce
     actor.parent = container
     actor.perform 'leave container'

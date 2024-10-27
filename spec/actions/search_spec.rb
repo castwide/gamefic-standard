@@ -2,9 +2,9 @@ RSpec.describe 'Search action' do
   let(:plot) { @klass.new }
 
   it 'opens containers before searching' do
-    room = plot.make Room
-    container = plot.make Container, name: 'container', open: false, parent: room
-    item = plot.make Item, name: 'item', parent: container
+    room = plot.make Gamefic::Standard::Room
+    container = plot.make Gamefic::Standard::Container, name: 'container', open: false, parent: room
+    item = plot.make Gamefic::Standard::Item, name: 'item', parent: container
     player = plot.introduce
     player.parent = room
     player.perform 'look inside container'
@@ -13,9 +13,9 @@ RSpec.describe 'Search action' do
   end
 
   it 'does not search unopenable containers' do
-    room = plot.make Room
-    container = plot.make Container, name: 'container', open: false, locked: true, parent: room
-    item = plot.make Item, name: 'item', parent: container
+    room = plot.make Gamefic::Standard::Room
+    container = plot.make Gamefic::Standard::Container, name: 'container', open: false, locked: true, parent: room
+    item = plot.make Gamefic::Standard::Item, name: 'item', parent: container
     player = plot.introduce
     player.parent = room
     player.perform 'look inside container'
@@ -24,8 +24,8 @@ RSpec.describe 'Search action' do
   end
 
   it 'reports empty receptacles' do
-    room = plot.make Room
-    _receptacle = plot.make Receptacle, name: 'receptacle', parent: room
+    room = plot.make Gamefic::Standard::Room
+    _receptacle = plot.make Gamefic::Standard::Receptacle, name: 'receptacle', parent: room
     player = plot.introduce
     player.parent = room
     player.perform 'look inside receptacle'
@@ -33,8 +33,8 @@ RSpec.describe 'Search action' do
   end
 
   it 'reverts to look' do
-    room = plot.make Room
-    thing = plot.make Thing, name: 'thing', description: 'Just a thing.', parent: room
+    room = plot.make Gamefic::Standard::Room
+    thing = plot.make Gamefic::Standard::Thing, name: 'thing', description: 'Just a thing.', parent: room
     player = plot.introduce
     player.parent = room
     player.perform 'search thing'
@@ -42,8 +42,8 @@ RSpec.describe 'Search action' do
   end
 
   it 'reports inaccessible receptacles' do
-    room = plot.make Room
-    receptacle = plot.make(Receptacle, name: 'receptacle', parent: room)
+    room = plot.make Gamefic::Standard::Room
+    receptacle = plot.make(Gamefic::Standard::Receptacle, name: 'receptacle', parent: room)
     receptacle.define_singleton_method :accessible? do
       false
     end

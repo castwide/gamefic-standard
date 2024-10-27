@@ -9,13 +9,13 @@ RSpec.describe 'Nil action' do
 
   it 'reports ambiguous tokens' do
     @klass.instance_exec do
-      respond :foobar, Item do |actor, item|
+      respond :foobar, Gamefic::Standard::Item do |actor, item|
         item.parent = actor
       end
     end
-    room = plot.make Room
-    item1 = plot.make Item, name: 'item 1', parent: room
-    item2 = plot.make Item, name: 'item 2', parent: room
+    room = plot.make Gamefic::Standard::Room
+    item1 = plot.make Gamefic::Standard::Item, name: 'item 1', parent: room
+    item2 = plot.make Gamefic::Standard::Item, name: 'item 2', parent: room
     actor = plot.introduce
     actor.parent = room
     actor.perform 'foobar item'
@@ -26,13 +26,13 @@ RSpec.describe 'Nil action' do
 
   it 'reports unrecognized tokens' do
     @klass.instance_exec do
-      respond :foobar, Item do |actor, item|
+      respond :foobar, Gamefic::Standard::Item do |actor, item|
         item.parent = actor
       end
     end
-    room = plot.make Room
-    plot.make Item, name: 'item 1', parent: room
-    plot.make Item, name: 'item 2', parent: room
+    room = plot.make Gamefic::Standard::Room
+    plot.make Gamefic::Standard::Item, name: 'item 1', parent: room
+    plot.make Gamefic::Standard::Item, name: 'item 2', parent: room
     actor = plot.introduce
     actor.parent = room
     actor.perform 'foobar nothing'
@@ -43,13 +43,13 @@ RSpec.describe 'Nil action' do
 
   it 'reports missing tokens' do
     @klass.instance_exec do
-      respond :foobar, Item do |actor, item|
+      respond :foobar, Gamefic::Standard::Item do |actor, item|
         item.parent = actor
       end
     end
-    room = plot.make Room
-    plot.make Item, name: 'item 1', parent: room
-    plot.make Fixture, name: 'fixture', parent: room
+    room = plot.make Gamefic::Standard::Room
+    plot.make Gamefic::Standard::Item, name: 'item 1', parent: room
+    plot.make Gamefic::Standard::Fixture, name: 'fixture', parent: room
     actor = plot.introduce
     actor.parent = room
     actor.perform 'foobar'
@@ -60,13 +60,13 @@ RSpec.describe 'Nil action' do
 
   it 'reports unhandled tokens' do
     @klass.instance_exec do
-      respond :foobar, Item do |actor, item|
+      respond :foobar, Gamefic::Standard::Item do |actor, item|
         item.parent = actor
       end
     end
-    room = plot.make Room
-    plot.make Item, name: 'item 1', parent: room
-    plot.make Fixture, name: 'fixture', parent: room
+    room = plot.make Gamefic::Standard::Room
+    plot.make Gamefic::Standard::Item, name: 'item 1', parent: room
+    plot.make Gamefic::Standard::Fixture, name: 'fixture', parent: room
     actor = plot.introduce
     actor.parent = room
     actor.perform 'foobar fixture'
@@ -77,13 +77,13 @@ RSpec.describe 'Nil action' do
 
   it 'reports recognized verbs with mismatched tokens' do
     @klass.instance_exec do
-      bind_make :room, Room, name: 'room'
+      bind_make :room, Gamefic::Standard::Room, name: 'room'
       seed do
-        make Thing, name: 'thing', parent: room
-        make Thing, name: 'other', parent: room
+        make Gamefic::Standard::Thing, name: 'thing', parent: room
+        make Gamefic::Standard::Thing, name: 'other', parent: room
       end
 
-      respond :affix, available(Thing), available(Item) do |actor, _, _|
+      respond :affix, available(Gamefic::Standard::Thing), available(Gamefic::Standard::Item) do |actor, _, _|
         actor.tell "Should not happen"
       end
 

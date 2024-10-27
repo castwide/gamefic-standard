@@ -6,15 +6,19 @@ module Gamefic
           [subject.room].compact
         end
       end
-
-      def room *args
-        RoomQuery.new(Room, *args, name: 'room')
-      end
     end
   end
 end
 
 # @todo Monkey patch
-module Gamefic::Scriptable::Queries
-  include Gamefic::Standard::Queries
+module Gamefic
+  module Scriptable
+    module Queries
+      include Gamefic::Standard::Queries
+
+      def room *args
+        RoomQuery.new(Gamefic::Standard::Room, *args, name: 'room')
+      end
+    end
+  end
 end

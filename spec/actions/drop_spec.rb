@@ -1,7 +1,7 @@
 RSpec.describe 'Drop action' do
   it 'drops held objects' do
     @klass.instance_exec do
-      construct :thing, Thing, name: 'thing'
+      construct :thing, Gamefic::Standard::Thing, name: 'thing'
 
       introduction do |actor|
         thing.parent = actor
@@ -15,8 +15,8 @@ RSpec.describe 'Drop action' do
 
   it 'responds to objects not in inventory' do
     @klass.instance_exec do
-      construct :room, Room
-      construct :thing, Thing, name: 'thing', parent: room
+      construct :room, Gamefic::Standard::Room
+      construct :thing, Gamefic::Standard::Thing, name: 'thing', parent: room
 
       introduction do |actor|
         actor.parent = room
@@ -30,9 +30,9 @@ RSpec.describe 'Drop action' do
 
   it 'drops things in carried receptacles' do
     plot = @klass.new
-    room = plot.make Room
-    wallet = plot.make Receptacle, name: 'wallet', portable: true
-    item = plot.make Item, name: 'item', parent: wallet
+    room = plot.make Gamefic::Standard::Room
+    wallet = plot.make Gamefic::Standard::Receptacle, name: 'wallet', portable: true
+    item = plot.make Gamefic::Standard::Item, name: 'item', parent: wallet
     actor = plot.introduce
     actor.parent = room
     wallet.parent = actor
@@ -42,11 +42,11 @@ RSpec.describe 'Drop action' do
 
   it 'drops all' do
     plot = @klass.new
-    room = plot.make Room
+    room = plot.make Gamefic::Standard::Room
     player = plot.introduce
     player.parent = room
-    thing1 = plot.make Item, name: 'thing1', parent: player
-    thing2 = plot.make Item, name: 'thing2', parent: player
+    thing1 = plot.make Gamefic::Standard::Item, name: 'thing1', parent: player
+    thing2 = plot.make Gamefic::Standard::Item, name: 'thing2', parent: player
     player.perform 'drop all'
     expect(thing1.parent).to be(room)
     expect(thing2.parent).to be(room)

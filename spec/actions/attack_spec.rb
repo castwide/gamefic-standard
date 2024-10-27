@@ -7,8 +7,8 @@ RSpec.describe 'Attack action' do
   }
 
   it 'responds to specific attacks' do
-    room = plot.make(Room, name: 'room')
-    thing = plot.make(Thing, name: 'thing', parent: room)
+    room = plot.make(Gamefic::Standard::Room, name: 'room')
+    plot.make(Gamefic::Standard::Thing, name: 'thing', parent: room)
     player.parent = room
     player.perform 'attack thing'
     expect(player.messages).to include('Violence is not the answer')

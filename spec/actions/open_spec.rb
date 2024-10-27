@@ -1,9 +1,9 @@
 RSpec.describe 'Open action' do
   it 'opens with keys' do
     @klass.instance_exec do
-      construct :room, Room, name: 'room'
-      construct :key, Thing, name: 'key'
-      construct :container, Container, name: 'safe', parent: room, locked: true, lock_key: key
+      construct :room, Gamefic::Standard::Room, name: 'room'
+      construct :key, Gamefic::Standard::Thing, name: 'key'
+      construct :container, Gamefic::Standard::Container, name: 'safe', parent: room, locked: true, lock_key: key
 
       introduction do |actor|
         actor.parent = room
