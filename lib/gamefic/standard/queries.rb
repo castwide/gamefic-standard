@@ -1,12 +1,20 @@
-class Gamefic::Query::Room < Gamefic::Query::Base
-  def span subject
-    [subject.room].compact
+module Gamefic
+  module Standard
+    module Queries
+      class RoomQuery < Gamefic::Query::Base
+        def span(subject)
+          [subject.room].compact
+        end
+      end
+
+      def room *args
+        RoomQuery.new(Room, *args, name: 'room')
+      end
+    end
   end
 end
 
 # @todo Monkey patch
 module Gamefic::Scriptable::Queries
-  def room *args
-    Gamefic::Query::Room.new(Room, *args, name: 'room')
-  end
+  include Gamefic::Standard::Queries
 end

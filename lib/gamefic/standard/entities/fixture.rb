@@ -1,4 +1,8 @@
 # frozen_string_literal: true
 
-class Fixture < Thing
+module Gamefic
+  module Standard
+    class Fixture < Thing
+    end    
+  end
 end

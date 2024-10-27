@@ -20,4 +20,6 @@ RSpec.configure do |config|
   end
 end
 
+include Gamefic::Standard
+
 Gamefic.logger.level = Logger::WARN
