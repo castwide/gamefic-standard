@@ -7,11 +7,11 @@ module Gamefic
         extend Gamefic::Scriptable
 
         respond :talk do |actor|
-          actor.tell 'You talk to yourself.'
+          actor.execute :talk, actor
         end
 
         respond :talk, myself do |actor, _yourself|
-          actor.execute :talk
+          actor.tell 'You talk to yourself.'
         end
 
         respond :talk, available do |actor, _thing|
