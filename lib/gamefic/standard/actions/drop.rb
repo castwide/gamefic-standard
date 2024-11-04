@@ -10,7 +10,7 @@ module Gamefic
           actor.tell "You're not carrying #{the thing}."
         end
 
-        respond :drop, children do |actor, thing|
+        respond :drop, descendants do |actor, thing|
           actor.execute :take, thing
           next unless thing.parent == actor
 
@@ -18,7 +18,7 @@ module Gamefic
           actor.tell "You drop #{the thing}."
         end
 
-        respond :drop, children do |actor, thing|
+        respond :drop, descendants do |actor, thing|
           thing.parent = actor.parent
           actor.tell "You drop #{the thing}."
         end
