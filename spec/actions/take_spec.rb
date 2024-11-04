@@ -17,9 +17,9 @@ RSpec.describe 'Take action' do
 
   it 'takes items from receptacles implicitly' do
     @klass.instance_exec do
-      bind_make :room, Gamefic::Standard::Room
-      bind_make :receptacle, Gamefic::Standard::Receptacle, name: 'receptacle', parent: room
-      bind_make :item, Gamefic::Standard::Item, name: 'item', parent: receptacle
+      construct :room, Gamefic::Standard::Room
+      construct :receptacle, Gamefic::Standard::Receptacle, name: 'receptacle', parent: room
+      construct :item, Gamefic::Standard::Item, name: 'item', parent: receptacle
 
       introduction do |actor|
         actor.parent = room

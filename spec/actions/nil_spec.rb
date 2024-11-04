@@ -77,7 +77,7 @@ RSpec.describe 'Nil action' do
 
   it 'reports recognized verbs with mismatched tokens' do
     @klass.instance_exec do
-      bind_make :room, Gamefic::Standard::Room, name: 'room'
+      construct :room, Gamefic::Standard::Room, name: 'room'
       seed do
         make Gamefic::Standard::Thing, name: 'thing', parent: room
         make Gamefic::Standard::Thing, name: 'other', parent: room

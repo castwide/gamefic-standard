@@ -23,8 +23,8 @@ RSpec.describe Gamefic::Standard::Lockable do
 
   it 'does not unlock with wrong key' do
     @klass.instance_exec do
-      bind_make :room, Gamefic::Standard::Room, name: 'room'
-      bind_make :wrong_key, Gamefic::Standard::Thing, name: 'wrong key'
+      construct :room, Gamefic::Standard::Room, name: 'room'
+      construct :wrong_key, Gamefic::Standard::Thing, name: 'wrong key'
       seed { make Gamefic::Standard::Thing, name: 'right key', parent: room }
       seed { make Gamefic::Standard::Container, name: 'safe', parent: room, locked: true }
 
@@ -42,8 +42,8 @@ RSpec.describe Gamefic::Standard::Lockable do
 
   it 'locks objects with keys' do
     @klass.instance_exec do
-      bind_make :room, Gamefic::Standard::Room, name: 'room'
-      bind_make :key, Gamefic::Standard::Thing, name: 'key'
+      construct :room, Gamefic::Standard::Room, name: 'room'
+      construct :key, Gamefic::Standard::Thing, name: 'key'
       seed { make Gamefic::Standard::Container, name: 'safe', parent: room, locked: false, lock_key: key }
 
       introduction do |actor|
@@ -60,7 +60,7 @@ RSpec.describe Gamefic::Standard::Lockable do
 
   it 'does not open locked objects' do
     @klass.instance_exec do
-      bind_make :room, Gamefic::Standard::Room, name: 'room'
+      construct :room, Gamefic::Standard::Room, name: 'room'
       seed { make Gamefic::Standard::Container, name: 'safe', parent: room, locked: true }
 
       introduction do |actor|
@@ -76,7 +76,7 @@ RSpec.describe Gamefic::Standard::Lockable do
 
   it 'opens closed objects without keys' do
     @klass.instance_exec do
-      bind_make :room, Gamefic::Standard::Room, name: 'room'
+      construct :room, Gamefic::Standard::Room, name: 'room'
       seed { make Gamefic::Standard::Container, name: 'safe', parent: room, open: false }
 
       introduction do |actor|
@@ -104,7 +104,7 @@ RSpec.describe Gamefic::Standard::Lockable do
 
   it 'opens closed and unlocked objects' do
     @klass.instance_exec do
-      bind_make :room, Gamefic::Standard::Room, name: 'room'
+      construct :room, Gamefic::Standard::Room, name: 'room'
       construct :key, Gamefic::Standard::Thing, name: 'key'
       seed { make Gamefic::Standard::Container, name: 'safe', parent: room, locked: false, open: false, lock_key: key }
 

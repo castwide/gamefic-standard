@@ -1,8 +1,8 @@
 RSpec.describe 'Give' do
   before :each do
     @klass.instance_exec do
-      bind_make :room, Gamefic::Standard::Room, name: 'room'
-      bind_make :person, Gamefic::Standard::Character, name: 'person', parent: room
+      construct :room, Gamefic::Standard::Room, name: 'room'
+      construct :person, Gamefic::Standard::Character, name: 'person', parent: room
 
       introduction do |player|
         player.parent = room
