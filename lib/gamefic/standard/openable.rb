@@ -25,8 +25,8 @@ module Gamefic
         !open?
       end
 
-      def accessible?
-        open?
+      def accessible
+        open? ? children : []
       end
     end
   end

@@ -95,9 +95,9 @@ module Gamefic
         respond :look, available(Receptacle) do |actor, thing|
           actor.proceed
           actor.tell "You're currently in #{the thing}." if actor.parent == thing
-          next unless actor.parent == thing || thing.accessible?
+          next unless actor.parent == thing
 
-          itemized = thing.children.that_are_not(actor, proc(&:attached?)).that_are(proc(&:itemized?))
+          itemized = thing.accessible.that_are_not(actor, proc(&:attached?)).that_are(proc(&:itemized?))
           next if itemized.empty?
 
           if actor.parent == thing
