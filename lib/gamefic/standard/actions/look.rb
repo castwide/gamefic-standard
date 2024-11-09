@@ -4,6 +4,11 @@ module Gamefic
   module Standard
     module Actions
       module Look
+        RELATION_PHRASES = {
+          in: 'inside',
+          on: 'on top of'
+        }.freeze
+
         extend Gamefic::Scriptable
 
         def itemize_room(actor)
@@ -55,12 +60,11 @@ module Gamefic
         def itemize_parent(actor)
           return unless (parent = actor.parent)
 
-          preposition = parent.is_a?(Supporter) ? 'on' : 'in'
           siblings = parent.children.that_are_not(actor)
           if siblings.empty?
-            actor.tell "You're #{preposition} #{the parent}."
+            actor.tell "You're #{RELATION_PHRASES[actor.relation]} #{the parent}."
           else
-            actor.tell "You're #{preposition} #{the parent}, along with #{siblings.join_and}."
+            actor.tell "You're #{RELATION_PHRASES[actor.relation]} #{the parent}, along with #{siblings.join_and}."
           end
         end
 

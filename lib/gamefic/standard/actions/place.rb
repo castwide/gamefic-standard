@@ -14,12 +14,12 @@ module Gamefic
           actor.execute :take, thing unless thing.parent == actor
           next unless thing.parent == actor
 
-          thing.parent = supporter
+          thing.put supporter, :on
           actor.tell "You put #{the thing} on #{the supporter}."
         end
 
         respond :place, children, available(Supporter) do |actor, thing, supporter|
-          thing.parent = supporter
+          thing.put supporter, :on
           actor.tell "You put #{the thing} on #{the supporter}."
         end
 

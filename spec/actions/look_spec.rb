@@ -130,12 +130,12 @@ RSpec.describe 'Look action' do
     room = plot.make Gamefic::Standard::Room, name: 'room'
     supporter = plot.make Gamefic::Standard::Supporter, name: 'supporter', enterable: true, parent: room
     actor = plot.introduce
-    actor.parent = supporter
+    actor.put supporter, :on
     actor.perform 'look supporter'
     expect(actor.messages).to include('currently on the supporter')
     actor.flush
     actor.perform 'look'
-    expect(actor.messages).to include('on the supporter')
+    expect(actor.messages).to include('on top of the supporter')
   end
 
   it 'sees characters' do
