@@ -9,6 +9,14 @@ module Gamefic
 
       attr_accessor :lock_key
 
+      def lock
+        self.locked = true
+      end
+
+      def unlock
+        self.locked = false
+      end
+
       def locked=(bool)
         @locked = bool
         @open = false if @locked
