@@ -7,6 +7,10 @@ module Gamefic
     class Container < Receptacle
       include Gamefic::Standard::Openable
       include Gamefic::Standard::Lockable
+
+      def accessible
+        open? ? super : []
+      end
     end
   end
 end
