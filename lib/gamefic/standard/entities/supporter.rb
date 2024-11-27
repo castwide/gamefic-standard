@@ -3,7 +3,7 @@
 module Gamefic
   module Standard
     class Supporter < Thing
-      include Gamefic::Standard::Enterable
-    end    
+      include Enterable
+    end
   end
 end
