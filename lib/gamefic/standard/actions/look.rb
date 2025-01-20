@@ -52,7 +52,7 @@ module Gamefic
                       dirs = portals.map(&:instruction)
                                     .map(&:to_s)
                                     .sort { |a, b| order.index(a) || 0 <=> order.index(b) || 1 }
-                      actor.tell "There are#{earlier ? ' also ' : ' '}exits #{dirs.join_and(', ')}."
+                      actor.tell "There are#{earlier ? ' also ' : ' '}exits #{dirs.join_and}."
                     end
                   end
         end
