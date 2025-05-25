@@ -50,6 +50,12 @@ module Gamefic
           connect destination, direction: direction
         end
       end
+
+      def one_way=(destinations)
+        [destinations].flatten.each do |destination|
+          connect destination, two_way: false
+        end
+      end
     end
   end
 end

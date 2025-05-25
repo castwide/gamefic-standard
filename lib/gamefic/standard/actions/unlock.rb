@@ -16,8 +16,12 @@ module Gamefic
 
         respond :unlock, available(Lockable, proc(&:has_lock_key?)), children do |actor, thing, key|
           if thing.lock_key == key
-            thing.locked = false
-            actor.tell "You unlock #{the thing} with #{the key}."
+            if thing.locked?
+              thing.locked = false
+              actor.tell "You unlock #{the thing} with #{the key}."
+            else
+              actor.tell "It's already unlocked."
+            end
           else
             actor.tell "You can't unlock #{the thing} with #{the key}."
           end

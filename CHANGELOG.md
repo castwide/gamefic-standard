@@ -1,3 +1,6 @@
+## 4.0.1 - May 26, 2025
+- Fix lock/unlock actions
+
 ## 4.0.0 - January 25, 2025
 - Updates for Gamefic 4.0
 
