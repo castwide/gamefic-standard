@@ -39,8 +39,8 @@ RSpec.describe 'Give' do
     narrator.start
     player.queue.push 'give person'
     narrator.finish
-    narrator.start
     expect(player.messages).to include('What')
+    narrator.start
     player.queue.push 'the item'
     narrator.finish
     expect(player.messages).to include('person has no use for')
