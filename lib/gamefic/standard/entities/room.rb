@@ -2,6 +2,9 @@
 
 module Gamefic
   module Standard
+    # An entity that represents a location in the game world that other
+    # entities can occupy.
+    #
     class Room < Thing
       attr_writer :explicit_exits
 
@@ -27,7 +30,7 @@ module Gamefic
       # @return [Portal, Array<Portal>]
       def connect(destination, direction: nil, type: Portal, two_way: true, **opts)
         direction = Direction.find(direction)
-        here = type.new parent: self, destination: destination, direction: Direction.find(direction), **opts
+        here = type.new parent: self, destination: destination, direction: direction, **opts
         return here unless two_way
 
         there = type.new parent: destination, destination: self, direction: direction&.reverse, **opts
@@ -36,21 +39,27 @@ module Gamefic
 
       protected
 
-      %w[north south west east northeast southeast southwest northwest up down].each do |direction|
+      Direction.names.each do |direction|
         define_method "#{direction}=" do |destination|
           connect destination, direction: direction
         end
       end
 
-      def connect=(destinations)
-        all = [destinations].flatten
+      def connect=(definitions)
+        all = [definitions].flatten
         until all.empty?
-          destination = all.shift
-          direction = (all.first.is_a?(String) ? all.shift : nil)
-          connect destination, direction: direction
+          definition = all.shift
+          if definition.is_a?(Hash)
+            connect definition[:destination], **definition.except(:destination)
+          else
+            # @todo Prefer definition hashes
+            direction = (all.first.is_a?(String) ? all.shift : nil)
+            connect definition, direction: direction
+          end
         end
       end
 
+      # @todo Candidate for deprecation
       def one_way=(destinations)
         [destinations].flatten.each do |destination|
           connect destination, two_way: false
