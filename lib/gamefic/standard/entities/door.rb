@@ -30,6 +30,10 @@ module Gamefic
         reverse&.lock_key = key
       end
 
+      def type_name
+        @type_name ||= 'door'
+      end
+
       private
 
       def update_reverse_open

@@ -8,6 +8,8 @@ module Gamefic
       # @return [Gamefic::Entity]
       attr_accessor :destination
 
+      attr_writer :type_name
+
       # Get the ordinal direction of this Portal
       # Portals have distinct direction and name properties so games can display a
       # bare compass direction for exits, e.g., "south" vs. "the southern door."
@@ -35,7 +37,8 @@ module Gamefic
       end
 
       def name
-        @name || direction&.name || destination.name
+        @name ||
+          (direction ? "#{type_name} #{direction.name}" : destination.name)
       end
 
       def instruction
@@ -44,6 +47,13 @@ module Gamefic
 
       def synonyms
         "#{super} #{@destination} #{@direction} #{!direction.nil? ? direction.synonyms : ''}"
+      end
+
+      # A description of the portal type for generating automatic names, e.g.,
+      # "the northern exit"
+      #
+      def type_name
+        @type_name ||= 'exit'
       end
     end
   end
