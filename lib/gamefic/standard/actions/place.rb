@@ -11,8 +11,7 @@ module Gamefic
         end
 
         respond :place, available, available(Supporter) do |actor, thing, supporter|
-          actor.execute :take, thing unless thing.parent == actor
-          next unless thing.parent == actor
+          next unless actor.have_or_take(thing)
 
           thing.put supporter, :on
           actor.tell "You put #{the thing} on #{the supporter}."

@@ -11,8 +11,7 @@ module Gamefic
         end
 
         respond :insert, available, available(Receptacle) do |actor, thing, receptacle|
-          actor.execute :take, thing unless thing.parent == actor
-          next unless thing.parent == actor
+          next unless actor.have_or_take(thing)
 
           thing.parent = receptacle
           actor.tell "You put #{the thing} in #{the receptacle}."

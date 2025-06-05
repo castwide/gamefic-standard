@@ -1,3 +1,8 @@
+## 4.1.0
+- In and out directions
+- Room#connect= accepts hashes
+- Implicit taking
+
 ## 4.0.1 - May 26, 2025
 - Fix lock/unlock actions
 

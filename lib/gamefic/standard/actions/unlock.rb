@@ -28,8 +28,7 @@ module Gamefic
         end
 
         respond :unlock, available(Lockable, proc(&:has_lock_key?)), available do |actor, _thing, key|
-          actor.execute :take, key if key.parent != actor
-          actor.proceed if key.parent == actor
+          actor.proceed if actor.have_or_take(key)
         end
 
         interpret 'unlock :container with :key', 'unlock :container :key'

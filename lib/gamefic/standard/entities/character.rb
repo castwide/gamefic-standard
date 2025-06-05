@@ -6,6 +6,8 @@ module Gamefic
     Character.set_default gender: :other
 
     class Character
+      include ImplicitTaking
+
       def accessible
         children.select { |child| child.is_a?(Scenery) }
       end
