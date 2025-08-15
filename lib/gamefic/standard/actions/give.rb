@@ -17,9 +17,6 @@ module Gamefic
 
         respond :give, available(Character), available do |actor, _character, gift|
           actor.proceed if actor.have_or_take(gift)
-          # actor.execute :take, gift if gift.parent != actor
-
-          # actor.proceed if gift.parent == actor
         end
 
         respond :give, Thing do |actor, thing|

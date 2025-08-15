@@ -26,12 +26,10 @@ module Gamefic
           actor.execute :drop, thing
         end
 
-        interpret 'put :thing on :supporter', 'place :thing :supporter'
-        interpret 'put :thing down on :supporter', 'place :thing :supporter'
-        interpret 'set :thing on :supporter', 'place :thing :supporter'
-        interpret 'set :thing down on :supporter', 'place :thing :supporter'
-        interpret 'drop :thing on :supporter', 'place :thing :supporter'
-        interpret 'place :thing on :supporter', 'place :thing :supporter'
+        interpret 'put :thing (on|down on) :supporter', 'place :thing :supporter'
+        interpret 'set :thing (on|down on) :supporter', 'place :thing :supporter'
+        interpret 'drop :thing (on|down on) :supporter', 'place :thing :supporter'
+        interpret 'place :thing (on|down on) :supporter', 'place :thing :supporter'
       end
     end
   end

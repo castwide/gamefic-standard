@@ -31,11 +31,11 @@ module Gamefic
           end
         end
 
-        respond :lock, available(Lockable, proc(&:has_lock_key?)), available do |actor, thing, key|
+        respond :lock, available(Lockable, proc(&:has_lock_key?)), available do |actor, _thing, key|
           actor.proceed if actor.have_or_take(key)
         end
 
-        interpret "lock :container with :key", "lock :container :key"
+        interpret 'lock :container with :key', 'lock :container :key'
       end
     end
   end

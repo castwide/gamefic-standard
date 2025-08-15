@@ -28,8 +28,7 @@ module Gamefic
           end
         end
 
-        interpret 'look inside :thing', 'search :thing'
-        interpret 'look in :thing', 'search :thing'
+        interpret 'look in|inside :thing', 'search :thing'
       end
     end
   end

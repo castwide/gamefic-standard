@@ -23,11 +23,8 @@ module Gamefic
           actor.tell "#{The container} is closed."
         end
 
-        interpret 'get in :thing', 'enter :thing'
-        interpret 'get inside :thing', 'enter :thing'
-        interpret 'sit in :thing', 'enter :thing'
-        interpret 'lie in :thing', 'enter :thing'
-        interpret 'stand in :thing', 'enter :thing'
+        interpret 'get in|inside :thing', 'enter :thing'
+        interpret 'sit|lie|stand in|inside :thing', 'enter :thing'
       end
     end
   end

@@ -47,9 +47,7 @@ module Gamefic
         interpret 'exit', 'leave'
         interpret 'exit :supporter', 'leave :supporter'
         interpret 'get on :supporter', 'enter :supporter'
-        interpret 'get off :supporter', 'leave :supporter'
-        interpret 'get out :container', 'leave :container'
-        interpret 'get out of :container', 'leave :container'
+        interpret 'get (off|out|out of) :supporter', 'leave :supporter'
         interpret 'out', 'leave'
       end
     end

@@ -37,7 +37,7 @@ Gem::Specification.new do |spec|
 
   spec.required_ruby_version = '>= 2.7.0'
 
-  spec.add_dependency 'gamefic', '~> 4.0'
+  spec.add_dependency 'gamefic', '~> 4.2'
   spec.add_dependency 'gamefic-grammar', '~> 1.1'
   spec.add_dependency 'gamefic-what', '~> 2.0'
 

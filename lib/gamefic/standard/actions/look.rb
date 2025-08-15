@@ -130,15 +130,10 @@ module Gamefic
           itemize_room(actor)
         end
 
-        interpret 'look around', 'look'
-        interpret 'look here', 'look'
+        interpret 'look around|here', 'look'
         interpret 'l', 'look'
 
-        interpret 'look at :thing', 'look :thing'
-        interpret 'look on :thing', 'look :thing'
-        interpret 'look under :thing', 'look :thing'
-        interpret 'look beneath :thing', 'look :thing'
-        interpret 'look around :thing', 'look :thing'
+        interpret 'look at|on|under|beneath|around :thing', 'look :thing'
         interpret 'l :thing', 'look :thing'
         interpret 'examine :thing', 'look :thing'
         interpret 'x :thing', 'look :thing'

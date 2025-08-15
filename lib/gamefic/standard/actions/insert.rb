@@ -29,23 +29,16 @@ module Gamefic
           actor.execute :drop, thing
         end
 
-        interpret 'drop :item in :container', 'insert :item :container'
-        interpret 'put :item in :container', 'insert :item :container'
-        interpret 'place :item in :container', 'insert :item :container'
-        interpret 'set :item in :container', 'insert :item :container'
-        interpret 'insert :item in :container', 'insert :item :container'
+        interpret 'drop :item :container', 'insert :item :container'
+        interpret 'put :item :container', 'insert :item :container'
+        interpret 'place :item :container', 'insert :item :container'
+        interpret 'set :item :container', 'insert :item :container'
 
-        interpret 'drop :item inside :container', 'insert :item :container'
-        interpret 'put :item inside :container', 'insert :item :container'
-        interpret 'place :item inside :container', 'insert :item :container'
-        interpret 'set :item inside :container', 'insert :item :container'
-        interpret 'insert :item inside :container', 'insert :item :container'
-
-        interpret 'drop :item into :container', 'insert :item :container'
-        interpret 'put :item into :container', 'insert :item :container'
-        interpret 'place :item into :container', 'insert :item :container'
-        interpret 'set :item into :container', 'insert :item :container'
-        interpret 'insert :item into :container', 'insert :item :container'
+        interpret 'insert :item in|inside|into :container', 'insert :item :container'
+        interpret 'drop :item in|inside|into :container', 'insert :item :container'
+        interpret 'put :item in|inside|into :container', 'insert :item :container'
+        interpret 'place :item in|inside|into :container', 'insert :item :container'
+        interpret 'set :item in|inside|into :container', 'insert :item :container'
       end
     end
   end
