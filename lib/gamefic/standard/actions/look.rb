@@ -32,7 +32,7 @@ module Gamefic
                   .each { |thing| actor.tell thing.locale_description }
 
           itemize_explicit_portals(actor)
-          itemize_parent(actor) unless actor.parent == actor.room
+          itemize_parent(actor)
         end
 
         def itemize_explicit_portals(actor)
@@ -58,7 +58,7 @@ module Gamefic
         end
 
         def itemize_parent(actor)
-          return unless (parent = actor.parent)
+          return unless (parent = actor.parent && parent != actor.room)
 
           siblings = parent.children.that_are_not(actor)
           if siblings.empty?
