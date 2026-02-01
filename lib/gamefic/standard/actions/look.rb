@@ -58,7 +58,8 @@ module Gamefic
         end
 
         def itemize_parent(actor)
-          return unless (parent = actor.parent && parent != actor.room)
+          parent = actor.parent if parent != actor.room
+          return unless parent
 
           siblings = parent.children.that_are_not(actor)
           if siblings.empty?
