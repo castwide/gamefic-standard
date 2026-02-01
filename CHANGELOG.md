@@ -1,7 +1,9 @@
-## 4.1.0
+## 4.1.0 - February 1, 2026
 - In and out directions
 - Room#connect= accepts hashes
 - Implicit taking
+- Piped words in syntaxes
+- Look#itemize_parent skips parent rooms
 
 ## 4.0.1 - May 26, 2025
 - Fix lock/unlock actions
