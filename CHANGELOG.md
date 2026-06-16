@@ -1,3 +1,6 @@
+## 4.1.1 - June 16, 2026
+- Surface Thing and Character aliases in YARD
+
 ## 4.1.0 - February 1, 2026
 - In and out directions
 - Room#connect= accepts hashes

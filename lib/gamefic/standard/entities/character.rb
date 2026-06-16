@@ -3,10 +3,13 @@
 module Gamefic
   module Standard
     Character = Gamefic::Actor
-    Character.set_default gender: :other
+    # @!parse
+    #   class Character < Gamefic::Actor; end
 
     class Character
       include ImplicitTaking
+
+      set_default gender: :other
 
       def accessible
         children.select { |child| child.is_a?(Scenery) }
