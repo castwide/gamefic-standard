@@ -1,3 +1,6 @@
+## 4.1.2 - June 17, 2026
+- Monkey patch Entity and Actor
+
 ## 4.1.1 - June 16, 2026
 - Surface Thing and Character aliases in YARD
 

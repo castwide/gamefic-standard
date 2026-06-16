@@ -2,11 +2,11 @@
 
 module Gamefic
   module Standard
+    # @return [Class<Gamefic::Actor>]
     Character = Gamefic::Actor
-    # @!parse
-    #   class Character < Gamefic::Actor; end
 
-    class Character
+    class Gamefic::Actor
+      include Standardized
       include ImplicitTaking
 
       set_default gender: :other

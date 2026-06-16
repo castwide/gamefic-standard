@@ -2,11 +2,13 @@
 
 module Gamefic
   module Standard
+    # @return [Class<Gamefic::Entity>]
     Thing = Gamefic::Entity
-    # @!parse
-    #   class Thing < Gamefic::Entity; end
 
-    Thing.set_default itemized: true, portable: false
-    Thing.include Gamefic::Standard::Standardized
+    class Gamefic::Entity
+      include Standardized
+
+      set_default itemized: true, portable: false
+    end
   end
 end
